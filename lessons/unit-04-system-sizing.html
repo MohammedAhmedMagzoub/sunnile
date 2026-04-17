@@ -144,6 +144,23 @@ body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);co
 .doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
 .doc-footer p{font-size:10px;color:var(--hint);}
 .nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+
+/* ── LESSON NAVIGATION ── */
+.lesson-nav-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:32px 40px;background:#1C1A14;border-top:1px solid #3A3528;margin-top:40px;flex-wrap:wrap;}
+.lesson-nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;text-decoration:none;transition:all .2s;border:1px solid #3A3528;color:#A89F8C;background:#252218;}
+.lesson-nav-btn:hover{border-color:#EF9F27;color:#EF9F27;}
+.lesson-nav-btn.home{color:#378ADD;border-color:#378ADD;background:rgba(55,138,221,0.07);}
+.lesson-nav-btn.home:hover{background:rgba(55,138,221,0.15);}
+.lesson-nav-btn.disabled{opacity:.3;pointer-events:none;}
+.lesson-nav-label{font-size:10px;font-weight:400;color:#6B6456;display:block;margin-bottom:2px;}
+/* ── COMPLETE BUTTON ── */
+.complete-bar{text-align:center;padding:24px 40px 0;background:#1C1A14;}
+.btn-complete{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;border:2px solid #EF9F27;background:transparent;color:#EF9F27;transition:all .2s;}
+.btn-complete:hover{background:rgba(239,159,39,0.1);}
+.btn-complete.done{background:#EF9F27;color:#1C1A14;border-color:#EF9F27;}
+.btn-complete.done::before{content:'✓  ';}
+@media print{.lesson-nav-bar,.complete-bar{display:none;}}
+
 </style>
 </head>
 <body>
@@ -618,5 +635,38 @@ window.printDoc = function() {
   };
 })();
 </script>
+
+<div class="complete-bar">
+  <button class="btn-complete" id="completeBtn" onclick="toggleComplete(4)">
+    وحدة مكتملة — اضغط للتأكيد
+  </button>
+</div>
+<div class="lesson-nav-bar">
+  <a href="unit-03-inverter.html" class="lesson-nav-btn"><span><span class="lesson-nav-label">السابقة</span>← الإنفرترات</span></a>
+  <a href="../institute.html" class="lesson-nav-btn home">☰ قائمة الوحدات</a>
+  <a href="unit-05-batteries.html" class="lesson-nav-btn"><span><span class="lesson-nav-label">التالية</span>البطاريات →</span></a>
+</div>
+<script>
+(function(){
+  var key='sunnile_progress';
+  var n=4;
+  function load(){var d=localStorage.getItem(key);return d?JSON.parse(d):{};}
+  function save(d){localStorage.setItem(key,JSON.stringify(d));}
+  function update(){
+    var d=load();
+    var btn=document.getElementById('completeBtn');
+    if(!btn)return;
+    if(d[n]){btn.classList.add('done');btn.textContent='أحسنت! هذه الوحدة مكتملة';}
+    else{btn.classList.remove('done');btn.textContent='وحدة مكتملة — اضغط للتأكيد';}
+  }
+  window.toggleComplete=function(num){
+    var d=load();
+    if(d[num]){delete d[num];}else{d[num]=true;}
+    save(d);update();
+  };
+  document.addEventListener('DOMContentLoaded',update);
+})();
+</script>
+
 </body>
 </html>

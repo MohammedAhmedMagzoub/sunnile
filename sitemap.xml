@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://sunnile.org/</loc><priority>1.0</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/calculator.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/inverters.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/standards.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/institute.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/policy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/future.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/about.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-01-electrical-safety.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-02-solar-panels.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-03-inverter.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-04-system-sizing.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-05-batteries.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-06-cables.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-07-installation.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-08-testing.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-09-advanced-design.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-10-hybrid-grid.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-11-maintenance.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-12-advanced-inverters.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-13-grid-integration.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-14-electrical-diagrams.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-15-commercial-systems.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-16-documentation.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-17-derms.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-18-vpp.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-19-sunspec-modbus.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-20-performance-monitoring.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-21-community-systems.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-22-certification.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-23-project-management.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-24-leadership.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+</urlset>

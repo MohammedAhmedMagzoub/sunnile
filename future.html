@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>مستقبل الطاقة الشمسية — شمس النيل</title>
 <meta name="description" content="شمس النيل — مستقبل الطاقة الشمسية في السودان">
+<meta property="og:type" content="website">
+<meta property="og:title" content="مستقبل الطاقة في السودان — شمس النيل">
+<meta property="og:description" content="الشبكات الافتراضية VPP وتكامل الطاقة المتجددة — رؤية السودان الشمسية لعام 2030">
+<meta property="og:image" content="https://sunnile.org/mohammed-photo.jpg">
+<meta property="og:url" content="https://sunnile.org/future.html">
+<meta property="og:locale" content="ar_SD">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="مستقبل الطاقة في السودان — شمس النيل">
+<meta name="twitter:description" content="الشبكات الافتراضية VPP وتكامل الطاقة المتجددة — رؤية السودان الشمسية لعام 2030">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 
@@ -148,6 +157,22 @@ section:last-of-type{border-bottom:none;}
   .step{flex-direction:column;gap:10px;}
 }
 
+
+/* ── HAMBURGER MENU ── */
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text-muted);border-radius:2px;transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:768px){
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:var(--dark2);border-bottom:1px solid var(--border);flex-direction:column;padding:8px 0;z-index:98;}
+  .nav-links.open{display:flex;}
+  .nav-links li a{padding:12px 24px;font-size:14px;border-bottom:none;border-right:3px solid transparent;}
+  .nav-links li a:hover,.nav-links li a.active{border-right-color:var(--amber);border-bottom:none;}
+  .site-nav{position:relative;}
+}
+
 </style>
 </head>
 <body>
@@ -167,6 +192,7 @@ section:last-of-type{border-bottom:none;}
     <li><a href="institute.html">المعهد</a></li>
 <li><a href="about.html">عن المبادرة</a></li>
   </ul>
+<button class="nav-toggle" id="navToggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
@@ -521,5 +547,21 @@ function updateVPP(h) {
 updateVPP(500);
 </script>
 
+<script>
+(function(){
+  var btn=document.getElementById('navToggle');
+  var nav=document.querySelector('.nav-links');
+  if(!btn||!nav)return;
+  btn.addEventListener('click',function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+  document.addEventListener('click',function(e){
+    if(!btn.contains(e.target)&&!nav.contains(e.target)){
+      btn.classList.remove('open');nav.classList.remove('open');
+    }
+  });
+})();
+</script>
 </body>
 </html>
