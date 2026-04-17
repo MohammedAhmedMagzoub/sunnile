@@ -651,5 +651,27 @@ window.printDoc = function() {
 })();
 </script>
 
+<script>
+/* keyboard accessibility for quiz options */
+(function(){
+  function applyKeyboard(){
+    document.querySelectorAll('.quiz-option:not([tabindex])').forEach(function(opt){
+      opt.setAttribute('tabindex','0');
+      opt.setAttribute('role','button');
+      opt.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();opt.click();}
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', applyKeyboard);
+  // re-apply after retry (MutationObserver on quiz section)
+  var mo = new MutationObserver(applyKeyboard);
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.quiz-section').forEach(function(s){
+      mo.observe(s,{childList:true,subtree:true,attributes:true});
+    });
+  });
+})();
+</script>
 </body>
 </html>
