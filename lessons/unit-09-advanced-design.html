@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٩ — تصميم الأنظمة المتقدمة</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ١ من ٨</div>
+  <div class="doc-title">تصميم الأنظمة المتقدمة — ما وراء الحسابات البسيطة</div>
+  <div class="doc-title-en">Advanced System Design — Beyond Basic Calculations</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم الفرق بين التصميم المبتدئ والتصميم المتقدم ومتى تحتاج كل منهما</li>
+    <li>تحليل الظل وتأثيره الكارثي على إنتاج النظام وكيفية التعامل معه</li>
+    <li>حساب عدد الألواح في السلسلة بناءً على جهد الإنفرتر ودرجة الحرارة</li>
+    <li>تصميم أنظمة متعددة الإنفرترات للمشاريع الكبيرة والأسطح المتعددة الاتجاهات</li>
+    <li>إعداد تقرير تصميم احترافي يغطي جميع جوانب المشروع</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">ما بعد القياسات البسيطة — التصميم المتقدم</div>
+  <p>في المستوى الأول تعلمت حساب حجم النظام بطريقة بسيطة: احسب الأحمال، قسّم على إشعاع الموقع، واختر الألواح والإنفرتر. هذا كافٍ لنظام منزلي صغير بسقف نظيف لا يوجد فيه ظل. لكن عندما يكبر النظام أو يتعقد الموقع، هذه الطريقة وحدها تؤدي إلى أخطاء مكلفة.</p>
+  <p><strong>التصميم المبتدئ مقابل التصميم المتقدم:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الجانب</th><th>تصميم مبتدئ</th><th>تصميم متقدم</th></tr></thead>
+    <tbody>
+      <tr><td>الأداة</td><td>حسابات يدوية أو جداول بسيطة</td><td>PVsyst، Aurora Solar، HelioScope</td></tr>
+      <tr><td>الظل</td><td>يُتجاهل أو يُقدّر تقريباً</td><td>تحليل ثلاثي الأبعاد لكل ساعة في السنة</td></tr>
+      <tr><td>درجة الحرارة</td><td>معامل تخفيض ثابت</td><td>حساب دقيق لكل شهر ولكل سلسلة</td></tr>
+      <tr><td>السلاسل</td><td>سلسلة واحدة بسيطة</td><td>تعدد السلاسل وتوازن الأحمال</td></tr>
+      <tr><td>التقرير</td><td>صفحة أو صفحتان</td><td>تقرير مفصل بمخططات وتوقعات شهرية</td></tr>
+    </tbody>
+  </table>
+  <p><strong>أدوات التصميم المتقدمة:</strong></p>
+  <ul class="content-list">
+    <li><strong>PVsyst:</strong> المعيار الصناعي العالمي — محاكاة دقيقة جداً، تحليل ظل ثلاثي الأبعاد، تقارير احترافية. مدفوع لكن الأكثر استخداماً في المشاريع الكبيرة</li>
+    <li><strong>Aurora Solar:</strong> سحابي وسهل الاستخدام، يستخدم صور الأقمار الصناعية لتحليل الظل تلقائياً، شائع لدى المصممين في أستراليا وأمريكا الشمالية</li>
+    <li><strong>HelioScope:</strong> أداة سحابية متخصصة في التصميم الكهربائي التفصيلي وتحليل الأداء للمشاريع التجارية</li>
+  </ul>
+  <p><strong>متى تحتاج تصميماً متقدماً؟</strong></p>
+  <ul class="content-list">
+    <li>نظام أكبر من 10 kWp — الخطأ هنا يكلف كثيراً</li>
+    <li>ظل جزئي من أشجار أو مباني أو عوائق على السطح</li>
+    <li>أسطح معقدة — اتجاهات متعددة، زوايا مختلفة، أجزاء متعددة</li>
+    <li>مشاريع تجارية أو صناعية — العميل يتوقع تقريراً احترافياً</li>
+    <li>نظام سيُمول عبر قرض أو استثمار — البنك يطلب محاكاة معتمدة</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 القاعدة الذهبية في التصميم</div>
+    <p>كل خطأ في التصميم يُكلّف أكثر بكثير من وقت التصميم الصحيح. ساعة إضافية في التصميم تُوفّر أيام من إعادة العمل في الموقع أو سنوات من الإنتاج الضائع.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">تحليل الظل وتأثيره الكارثي على الإنتاج</div>
+  <p>الظل هو العدو الأول لنظام الطاقة الشمسية. ما يبدو ظلاً بسيطاً على جزء صغير من السطح قد يقلب معادلة إنتاج النظام رأساً على عقب.</p>
+  <p><strong>لماذا ظل 10% فقط قد يُقلّل الإنتاج بنسبة 50%؟</strong></p>
+  <p>الألواح الشمسية في السلسلة الواحدة متصلة على التوالي — هذا يعني أن <strong>التيار الكلي للسلسلة يساوي تيار أضعف لوح فيها</strong>. إذا أُظلّل لوح واحد وانخفض تياره إلى النصف، تنخفض السلسلة كلها إلى النصف بغض النظر عن عدد الألواح الأخرى.</p>
+  <p><strong>مفهوم البيباس ديود (Bypass Diode):</strong></p>
+  <p>كل لوح يحتوي على دايودات بيباس تقطع الخلايا المظللة من الدائرة وتحمي اللوح من الحرارة الزائدة. لكن هذا الحل يأتي بثمن: عندما يُفعَّل البيباس ديود، <strong>تخسر مجموعة الخلايا كاملة</strong> (عادة ثلث اللوح). يحمي اللوح لكنه لا يحل مشكلة الإنتاج.</p>
+  <div class="warn-box">
+    <div class="warn-title">⚠ لا تبدأ التصميم قبل تقييم الظل</div>
+    <p>لا تبدأ تصميم أي نظام قبل تقييم الظل في أسوأ يوم شمسي في السنة — ديسمبر 21. الظل الذي يبدو بسيطاً في الصيف قد يكون كارثياً في الشتاء عندما تكون الشمس في أدنى موضعها.</p>
+  </div>
+  <p><strong>الحلول التقنية لمشكلة الظل:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الحل</th><th>التكلفة الإضافية</th><th>متى يستحق؟</th></tr></thead>
+    <tbody>
+      <tr><td>تجنب الظل أولاً — إعادة توزيع الألواح</td><td>لا تكلفة — تصميم أفضل</td><td>دائماً الخيار الأول قبل أي حل آخر</td></tr>
+      <tr><td>Power Optimizer من SolarEdge أو Tigo</td><td>+15 إلى 25% من تكلفة الألواح</td><td>ظل جزئي لا يمكن تجنبه على بعض الألواح</td></tr>
+      <tr><td>Microinverter لكل لوح</td><td>+30 إلى 50% من تكلفة النظام</td><td>ظل شديد وغير منتظم، أسطح متعددة الاتجاهات</td></tr>
+      <tr><td>تقسيم السلاسل — MPPT منفصل لكل منطقة</td><td>إنفرتر بقنوات MPPT متعددة فقط</td><td>مناطق مختلفة من السطح بظل أو اتجاه مختلف</td></tr>
+    </tbody>
+  </table>
+  <p><strong>تحليل الظل خطوة بخطوة:</strong></p>
+  <ul class="content-list">
+    <li><strong>الخطوة 1 — اختر أسوأ يوم:</strong> ديسمبر 21 هو يوم الانقلاب الشتوي — الشمس في أدنى موضعها في السماء طوال اليوم. هذا هو اليوم الذي يجب تقييمه</li>
+    <li><strong>الخطوة 2 — تحقق من الساعات الحرجة:</strong> 9 صباحاً و3 مساءً — الشمس في أدنى زاوية ارتفاع، والظلال في أطول امتداد لها</li>
+    <li><strong>الخطوة 3 — قس مصادر الظل:</strong> مداخن، خزانات مياه، أطباق استقبال، شجرة قريبة، جدران مجاورة، مباني مجاورة</li>
+    <li><strong>الخطوة 4 — قرر:</strong> هل يمكن تجنب الظل بإعادة توزيع الألواح؟ أم تحتاج Power Optimizer أو Microinverter؟</li>
+  </ul>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">تصميم السلاسل — String Design</div>
+  <p>حساب عدد الألواح في السلسلة ليس تخميناً — هو حساب هندسي دقيق يحمي الإنفرتر ويضمن أقصى إنتاج. أهم قيد هو أن جهد السلسلة يجب ألا يتجاوز الحد الأقصى لجهد الإنفرتر.</p>
+  <p><strong>لماذا نحسب عند أدنى درجة حرارة؟</strong></p>
+  <p>جهد الدائرة المفتوحة Voc <strong>يرتفع</strong> كلما انخفضت درجة الحرارة. أعلى جهد يمكن أن تصل إليه السلسلة هو في أبرد صباح في السنة. إذا تجاوز هذا الجهد الحد الأقصى للإنفرتر، قد يتلف الإنفرتر أو يتوقف عن العمل.</p>
+  <p><strong>معادلة حساب Voc عند درجة حرارة منخفضة:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">المعادلة الأساسية</div>
+    <div class="spec-row">
+      <span class="spec-key">Voc عند درجة الحرارة T</span>
+      <span class="spec-val">Voc_STC × (1 + TK_V × ΔT)</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">ΔT (فرق الحرارة)</span>
+      <span class="spec-val">T_min − 25°C</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">TK_V (معامل درجة حرارة Voc)</span>
+      <span class="spec-val">من datasheet اللوح — عادة −0.25% إلى −0.35%/°C</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">أقصى عدد ألواح في السلسلة</span>
+      <span class="spec-val">Vdc_max الإنفرتر ÷ Voc اللوح عند T_min</span>
+    </div>
+  </div>
+  <p><strong>مثال عملي:</strong></p>
+  <p>لوح بـ Voc = 40.5V، معامل حرارة TK_V = −0.27%/°C، أدنى درجة حرارة في الموقع = 10°C، وإنفرتر بأقصى جهد DC = 550V.</p>
+  <ul class="content-list">
+    <li>ΔT = 10 − 25 = −15°C</li>
+    <li>Voc@10°C = 40.5 × (1 + (−0.0027) × (−15)) = 40.5 × (1 + 0.0405) = 40.5 × 1.0405 ≈ 42.1V</li>
+    <li>أقصى عدد ألواح = 550 ÷ 42.1 = 13.1 → <strong>13 لوح أقصى</strong> (نأخذ الأقل)</li>
+  </ul>
+  <p><strong>حساب عدد السلاسل الموازية:</strong></p>
+  <p>بعد تحديد عدد الألواح في السلسلة الواحدة، نحسب عدد السلاسل الموازية المطلوبة لتحقيق قدرة النظام:</p>
+  <ul class="content-list">
+    <li>التيار المطلوب = القدرة المستهدفة ÷ جهد MPPT النموذجي</li>
+    <li>عدد السلاسل = التيار المطلوب ÷ Isc لوح واحد (مع ترك هامش 10%)</li>
+  </ul>
+  <table class="content-table">
+    <thead><tr><th>Vdc_max الإنفرتر</th><th>Voc نموذجي للوح (40V)</th><th>أقصى عدد ألواح بالسلسلة</th><th>ملاحظة</th></tr></thead>
+    <tbody>
+      <tr><td>600V</td><td>42.1V (عند 10°C)</td><td>14 لوح</td><td>إنفرترات صغيرة ومتوسطة</td></tr>
+      <tr><td>800V</td><td>42.1V (عند 10°C)</td><td>19 لوح</td><td>إنفرترات تجارية شائعة</td></tr>
+      <tr><td>1000V</td><td>42.1V (عند 10°C)</td><td>23 لوح</td><td>إنفرترات تجارية وصناعية</td></tr>
+      <tr><td>1500V</td><td>42.1V (عند 10°C)</td><td>35 لوح</td><td>مشاريع الطاقة الكبيرة فقط</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box">
+    <div class="note-title">📌 قاعدة السلامة — دائماً استخدم العدد الأقل</div>
+    <p>إذا أعطاك الحساب 13.1 لوح، استخدم 13 وليس 14. الجهد الزائد ولو بفولت واحد يمكن أن يتلف الإنفرتر في أبرد يوم. الإنفرتر لا يُبلّغك — يتلف بصمت.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">تعدد الإنفرترات والأنظمة الكبيرة</div>
+  <p>نظام واحد كبير لا يعني بالضرورة إنفرتراً واحداً كبيراً. في كثير من الحالات، عدة إنفرترات أصغر تعطي أداءً أفضل وموثوقية أعلى.</p>
+  <p><strong>متى تحتاج أكثر من إنفرتر؟</strong></p>
+  <ul class="content-list">
+    <li><strong>نظام أكبر من 15 kWp:</strong> إنفرترات أكبر تكون أغلى نسبياً — أحياناً 2 × 10kW أرخص وأكثر مرونة من 1 × 20kW</li>
+    <li><strong>أسطح باتجاهات مختلفة:</strong> سطح جنوب وسطح شمال لهما جداول إنتاج مختلفة تماماً — إنفرتر لكل سطح يُعظّم الإنتاج في كل وقت</li>
+    <li><strong>الموثوقية:</strong> إذا توقف إنفرتر واحد عن العمل في نظام بإنفرترين، تستمر 50% من الطاقة. في إنفرتر واحد كبير: صفر</li>
+    <li><strong>التوازن الكهربائي:</strong> في الأنظمة ثلاثية الطور، كل إنفرتر يتصل بطور واحد لتحقيق التوازن</li>
+  </ul>
+  <p><strong>مثال: توزيع نظام 20 kWp على سطح ذي اتجاهين:</strong></p>
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">مخطط نظام 20 kWp — إنفرتران 10 kWp لكل سطح</div>
+    <svg width="100%" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <!-- Top row: South panels -->
+      <rect x="10" y="10" width="120" height="44" rx="5" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="70" y="28" text-anchor="middle" font-size="10" fill="#633806" font-family="Arial" font-weight="500">ألواح سطح جنوب</text>
+      <text x="70" y="44" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">10 kWp — 24 لوح</text>
+      <!-- Top row: North panels -->
+      <rect x="10" y="66" width="120" height="44" rx="5" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+      <text x="70" y="84" text-anchor="middle" font-size="10" fill="#085041" font-family="Arial" font-weight="500">ألواح سطح شمال</text>
+      <text x="70" y="100" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">10 kWp — 24 لوح</text>
+      <!-- Arrows to inverters -->
+      <line x1="130" y1="32" x2="195" y2="50" stroke="#BA7517" stroke-width="1.2" marker-end="url(#arr2)"/>
+      <line x1="130" y1="88" x2="195" y2="108" stroke="#1D9E75" stroke-width="1.2" marker-end="url(#arr2)"/>
+      <!-- Inverter 1 -->
+      <rect x="196" y="30" width="100" height="44" rx="5" fill="#1C1A14" stroke="#EF9F27" stroke-width="0.8"/>
+      <text x="246" y="50" text-anchor="middle" font-size="10" fill="#EF9F27" font-family="Arial" font-weight="500">إنفرتر 1</text>
+      <text x="246" y="65" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.5)" font-family="Arial">10 kW</text>
+      <!-- Inverter 2 -->
+      <rect x="196" y="88" width="100" height="44" rx="5" fill="#1C1A14" stroke="#EF9F27" stroke-width="0.8"/>
+      <text x="246" y="108" text-anchor="middle" font-size="10" fill="#EF9F27" font-family="Arial" font-weight="500">إنفرتر 2</text>
+      <text x="246" y="123" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.5)" font-family="Arial">10 kW</text>
+      <!-- Arrows to AC panel -->
+      <line x1="296" y1="52" x2="370" y2="80" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arr3)"/>
+      <line x1="296" y1="110" x2="370" y2="90" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arr3)"/>
+      <!-- AC Panel -->
+      <rect x="371" y="55" width="110" height="54" rx="5" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="426" y="77" text-anchor="middle" font-size="10" fill="#0C447C" font-family="Arial" font-weight="500">لوحة AC رئيسية</text>
+      <text x="426" y="95" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">20 kW مجموع</text>
+      <!-- Arrow to grid -->
+      <line x1="481" y1="82" x2="545" y2="82" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arr3)"/>
+      <!-- Grid/Load -->
+      <rect x="546" y="55" width="120" height="54" rx="5" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+      <text x="606" y="77" text-anchor="middle" font-size="10" fill="#26215C" font-family="Arial" font-weight="500">الأحمال / الشبكة</text>
+      <text x="606" y="95" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">مصنع / مبنى تجاري</text>
+    </svg>
+  </div>
+  <p><strong>إنفرترات ثلاثية الطور (Three-phase):</strong></p>
+  <p>في المشاريع التجارية والصناعية، الكهرباء الواردة من الشبكة ثلاثية الطور. استخدام إنفرتر ثلاثي الطور أو ثلاثة إنفرترات أحادية (طور لكل إنفرتر) يحقق <strong>توازن الطور</strong> — شرط في معظم دول العالم للاتصال بالشبكة التجارية.</p>
+  <p><strong>Zero Export Mode — تحديد الحقن بالشبكة:</strong></p>
+  <p>في بعض المناطق والمشاريع، لا يُسمح أو لا يُرغب في ضخ الطاقة الزائدة للشبكة. الإنفرترات الذكية الحديثة تدعم <strong>Zero Export Mode</strong> — وضع يستشعر في الوقت الفعلي استهلاك المبنى ويُقلّل إنتاج الإنفرتر تلقائياً لمنع أي حقن للشبكة.</p>
+  <div class="tip-box">
+    <div class="tip-title">💡 توازن الإنفرترات للمشاريع الكبيرة</div>
+    <p>عند تصميم نظام كبير بإنفرترات متعددة، حاول توزيع الألواح بالتساوي بين الإنفرترات. إنفرتر يعمل بأقل من 50% من طاقته باستمرار يعمل بكفاءة منخفضة. التوزيع المتوازن يُعظّم الكفاءة الإجمالية للنظام.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">تقرير التصميم الاحترافي — ما يجب أن يتضمنه</div>
+  <p>الفني الذي يُسلّم العميل مجرد فاتورة بعدد الألواح والإنفرتر شيء — والفني الذي يُسلّم تقريراً تصميمياً احترافياً شيء آخر تماماً. التقرير يبني الثقة، يحمي الفني قانونياً، ويمنع النزاعات مستقبلاً.</p>
+  <p><strong>أجزاء تقرير التصميم الاحترافي:</strong></p>
+  <ul class="content-list">
+    <li><strong>1. بيانات الموقع والإحداثيات:</strong> الاسم، العنوان، خط العرض وخط الطول، ارتفاع الموقع عن سطح البحر — هذه البيانات تحدد كمية الإشعاع الشمسي المتاح</li>
+    <li><strong>2. بيانات الإشعاع الشمسي:</strong> الإشعاع الشهري (kWh/m²/يوم)، مصدر البيانات (NASA POWER، Solargis، أو قياسات محلية)، خريطة الإشعاع السنوي</li>
+    <li><strong>3. حساب الأحمال:</strong> قائمة كل جهاز، قدرته بالواط، ساعات الاستخدام اليومي، الاستهلاك الشهري والسنوي المتوقع</li>
+    <li><strong>4. تصميم السلاسل:</strong> عدد الألواح في كل سلسلة، عدد السلاسل الموازية، حسابات Voc عند أدنى درجة حرارة، التحقق من توافق نطاق MPPT</li>
+    <li><strong>5. الإنتاج المتوقع السنوي:</strong> جدول شهري بالإنتاج المتوقع (kWh)، نسبة الاكتفاء الذاتي، الطاقة المُصدَّرة للشبكة إن وجدت</li>
+    <li><strong>6. مخطط التوصيلات الكهربائية (Single Line Diagram):</strong> رسم واضح يبين تسلسل المكونات من الألواح حتى لوحة التوزيع مع قيم الكابلات والحمايات</li>
+    <li><strong>7. قائمة المواد (BOM — Bill of Materials):</strong> كل مكون بموديله وكميته وضمانه — الألواح، الإنفرتر، الكابلات، القواطع، الحوامل، العدادات</li>
+    <li><strong>8. تحليل العائد على الاستثمار (ROI):</strong> التكلفة الإجمالية، التوفير الشهري المتوقع، فترة الاسترداد، العائد على 25 سنة</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 التقرير الاحترافي يصنع الفارق</div>
+    <p>التقرير الاحترافي يرفع قيمتك كفني ويبني الثقة مع العميل. العميل الذي يرى تقريراً مفصلاً بحسابات واضحة يثق في قرار الاستثمار — وهذا يعني عقوداً أكبر وإحالات أكثر.</p>
+  </div>
+  <p><strong>تنسيق التقرير:</strong></p>
+  <ul class="content-list">
+    <li>احرص على أن يكون التقرير قابلاً للطباعة وبصيغة PDF رسمية</li>
+    <li>ضع اسمك وشهادتك واعتمادك من شمس النيل في كل صفحة</li>
+    <li>وقّع التقرير وضع تاريخه — هذا يحميك قانونياً إذا أراد أحد تغيير التصميم لاحقاً</li>
+    <li>احفظ نسخة من كل تقرير لديك — سجل عملك هو أثمن ما تملك مهنياً</li>
+  </ul>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — تصميم الأنظمة المتقدمة</div>
+
+  <div class="quiz-q" data-correct="0">
+    <div class="quiz-q-text">١. لماذا يؤثر ظل 10% على لوح واحد على إنتاج السلسلة كلها؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأن الألواح المتصلة على التوالي تعمل بأضعف تيار فيها</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأن الظل يولد تيار عكسي يُلغي التيار الأصلي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لأن جهد السلسلة ينخفض فقط دون التيار</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا يوجد تأثير إذا كان الظل جزئياً</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما الصيغة الصحيحة لحساب أقصى عدد ألواح في سلسلة؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>عدد الألواح = Isc ÷ Voc_max الإنفرتر</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>عدد الألواح = Vdc_max الإنفرتر ÷ Voc اللوح عند أدنى درجة حرارة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>عدد الألواح = Pmax الإنفرتر ÷ Pmax اللوح</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا حد لعدد الألواح طالما القدرة الإجمالية لا تتجاوز قدرة الإنفرتر</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. لماذا يُحسب Voc عند أدنى درجة حرارة (وليس أعلى) عند تصميم السلاسل؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأن الإنتاج يكون أفضل في البرد فنصمم للأفضل</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأن Voc يرتفع بانخفاض الحرارة — وهذا هو أعلى جهد يصل للإنفرتر ويجب ألا يتجاوز الحد الأقصى</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لأن المعادلة أبسط رياضياً بدرجات منخفضة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا يهم درجة الحرارة في حساب عدد الألواح</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما هو Zero Export Mode في الإنفرترات الذكية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>وضع إيقاف التشغيل التلقائي ليلاً</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>وضع يمنع الإنفرتر من ضخ أي طاقة زائدة للشبكة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>وضع الشحن السريع للبطارية فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>وضع تقليل ضوضاء الإنفرتر في ساعات الليل</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. ما أسوأ وقت لتقييم الظل على الموقع؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>صيف يونيو الساعة 12 ظهراً عندما تكون الشمس في أعلى موضعها</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>ديسمبر 21 الساعة 9 صباحاً و3 مساءً — الشمس في أدنى موضعها والظلال في أطول امتداد</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>أي يوم غيمي لأن الغيوم تُقلّل الإنتاج</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>ليلاً لرؤية مصادر الضوء الصناعي القريبة</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٩ — تصميم الأنظمة المتقدمة</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

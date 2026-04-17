@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٢ — الإنفرترات المتقدمة</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ٤ من ٨</div>
+  <div class="doc-title">الإنفرترات المتقدمة — مقارنة وإتقان</div>
+  <div class="doc-title-en">Advanced Inverters — Comparison &amp; Mastery</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم الفرق بين Microinverter وPower Optimizer والإنفرتر الذكي ومتى تختار كل منها</li>
+    <li>مقارنة عميقة بين كبار المصنّعين: Fronius وSungrow وHuawei وSiGEnergy وVictron</li>
+    <li>قراءة مؤشرات الأداء الدقيقة وتفسير منحنيات الإنتاج اليومي</li>
+    <li>تحديث Firmware بأمان وضبط الإعدادات المتقدمة كـGrid Code وReactive Power</li>
+    <li>تطبيق التعديلات الوقائية اللازمة لبيئة السودان — حرارة وغبار وتقلبات جهد</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">ما وراء الإنفرتر العادي — الجيل الجديد</div>
+  <p>الإنفرتر التقليدي يعالج سلاسل كاملة من الألواح معاً — إذا تعرض لوح واحد للظل ينخفض إنتاج السلسلة كلها. الجيل الجديد من تقنيات الإنفرتر يحل هذه المشكلة بمعالجة كل لوح على حدة أو تحسين أداء كل لوح بشكل مستقل.</p>
+  <p><strong>Microinverter — إنفرتر لكل لوح:</strong></p>
+  <ul class="content-list">
+    <li>يُركَّب إنفرتر صغير خلف كل لوح شمسي مباشرة — كل لوح يعمل باستقلالية تامة</li>
+    <li>يُلغي تأثير الظل الجزئي كلياً — ظل على لوح واحد لا يؤثر على باقي الألواح</li>
+    <li>يزيد التكلفة بشكل ملحوظ — مناسب للأسطح المعقدة ذات الظلال الكثيرة</li>
+    <li>الصيانة أصعب — أي عطل يتطلب النزول على السطح وفحص كل وحدة</li>
+    <li>شركة Enphase هي الأكثر انتشاراً في هذه الفئة عالمياً</li>
+  </ul>
+  <p><strong>Power Optimizer — محسّن لكل لوح + إنفرتر مركزي:</strong></p>
+  <ul class="content-list">
+    <li>وحدة صغيرة تُركَّب خلف كل لوح تقوم بتتبع MPPT مستقل لكل لوح</li>
+    <li>مخرج الـOptimizer يبقى DC ويُرسَل لإنفرتر مركزي واحد — أرخص من Microinverter</li>
+    <li>يقلل تأثير الظل الجزئي بشكل كبير دون التخلي عن فوائد الإنفرتر المركزي</li>
+    <li>SolarEdge وTigo هما الأبرز في هذه الفئة — SolarEdge يشترط استخدام إنفرتره الخاص</li>
+  </ul>
+  <p><strong>String Inverter الذكي — MPPT متعددة + AI optimization:</strong></p>
+  <ul class="content-list">
+    <li>إنفرتر مركزي واحد لكنه يحتوي على قنوات MPPT متعددة — كل قناة تعالج سلسلة مستقلة</li>
+    <li>بعض الأجيال الحديثة تدمج خوارزميات AI لتحسين الإنتاج في ظروف الغيم الجزئي</li>
+    <li>التوازن المثالي بين التكلفة والأداء — الأكثر شيوعاً في السوق بشكل عام</li>
+  </ul>
+  <div class="note-box">
+    <div class="note-title">📌 ماذا تختار في السودان؟</div>
+    <p>في غالبية مواقع السودان — أسطح مفتوحة بظل ضئيل — <strong>String Inverter بقنوات MPPT متعددة هو الخيار الأنسب تكلفةً وأداءً</strong>. إذا كان الموقع يعاني من ظلال متكررة من أشجار أو مبانٍ مجاورة، أضف Power Optimizer (SolarEdge أو Tigo) على الألواح المتأثرة.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">Fronius وSungrow وHuawei — مقارنة عميقة</div>
+  <p>السوق مليء بخيارات، لكن خمسة مصنّعين يهيمنون على التركيبات الاحترافية حول العالم. فهم الفروق الحقيقية بينها يجعلك تقترح الحل الصحيح لكل عميل.</p>
+
+  <p><strong>Fronius GEN24 — النمسا:</strong></p>
+  <ul class="content-list">
+    <li>SunSpec Modbus ممتاز — الأفضل في الصناعة للتكامل مع منصات المراقبة والتحكم</li>
+    <li>خيار DC-coupled لبطارية BYD أو Fronius Solar Battery — كفاءة شحن أعلى</li>
+    <li>API مفتوح وتوثيق تقني متكامل — سهل التكامل مع أي منصة إدارة طاقة</li>
+    <li>الأكثر موثوقية في الحقل — عمر مثبت يتجاوز 15 سنة في بيئات صعبة</li>
+    <li>السعر أعلى نسبياً — مبرر للمشاريع التجارية والمواقع التي تحتاج مراقبة متقدمة</li>
+  </ul>
+  <p><strong>Sungrow SH — الصين:</strong></p>
+  <ul class="content-list">
+    <li>Best Value في فئته — أداء قريب من Fronius بسعر أقل بـ20-30%</li>
+    <li>تكامل مباشر مع بطاريات Sungrow SBR/SBH — نظام متكامل من مصنّع واحد</li>
+    <li>منتشر جداً في أستراليا وأفريقيا — قاعدة فنيين واسعة وقطع غيار متوفرة</li>
+    <li>SunSpec Modbus مدعوم بشكل جيد — مناسب للمشاريع التي تحتاج مراقبة احترافية</li>
+  </ul>
+  <p><strong>Huawei SUN2000 — الصين:</strong></p>
+  <ul class="content-list">
+    <li>AI optimizer مدمج في الإنفرتر — يحسن إنتاج كل سلسلة بشكل ذاتي</li>
+    <li>Smart Dongle: وحدة اتصال تضاف للإنفرتر توفر مراقبة متقدمة وتحديث عن بُعد</li>
+    <li>تطبيق FusionSolar الأفضل في سهولة الاستخدام — مفيد لشرح البيانات للعميل</li>
+    <li>يحتاج خادم Huawei Cloud — في حال انقطاع الإنترنت قد تتأثر بعض وظائف المراقبة</li>
+  </ul>
+  <p><strong>SiGEnergy — الصين:</strong></p>
+  <ul class="content-list">
+    <li>معمارية DC-coupled متقدمة — كفاءة تحويل أعلى وخسائر أقل عند الشحن والتفريغ</li>
+    <li>VPP-ready من البداية — مصمم للمشاركة في شبكات Virtual Power Plant</li>
+    <li>API نظيف وتوثيق ممتاز — يفضله مطورو منصات إدارة الطاقة</li>
+    <li>أحدث نسبياً في السوق — قاعدة تركيبات في تنامٍ سريع</li>
+  </ul>
+  <p><strong>Victron Energy — هولندا:</strong></p>
+  <ul class="content-list">
+    <li>الأفضل للأنظمة المنفصلة Off-grid — نظام MultiPlus وQuattro هو المعيار الذهبي</li>
+    <li>برمجة مرنة جداً عبر برنامج VEConfigure — يمكن ضبط كل سلوك ممكن</li>
+    <li>شبكة منتجات واسعة: شواحن، محولات، أجهزة قياس، تحكم — كل شيء يتكامل معاً</li>
+    <li>مجتمع تقني ضخم وتوثيق مفتوح — سهل إيجاد الحلول لأي مشكلة</li>
+  </ul>
+
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th>الإنفرتر</th>
+        <th>MPPT</th>
+        <th>البطارية</th>
+        <th>SunSpec</th>
+        <th>السعر النسبي</th>
+        <th>أفضل استخدام</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Fronius GEN24</strong></td><td>2 قنوات</td><td>DC-coupled / BYD</td><td>ممتاز ✓</td><td>عالٍ</td><td>تجاري / مراقبة متقدمة</td></tr>
+      <tr><td><strong>Sungrow SH</strong></td><td>2 قنوات</td><td>Sungrow SBR/SBH</td><td>جيد ✓</td><td>متوسط</td><td>سكني / تجاري صغير</td></tr>
+      <tr><td><strong>Huawei SUN2000</strong></td><td>2 قنوات</td><td>LUNA2000</td><td>محدود</td><td>متوسط</td><td>سكني / تطبيق سهل</td></tr>
+      <tr><td><strong>SiGEnergy</strong></td><td>متعددة</td><td>DC-coupled</td><td>ممتاز ✓</td><td>متوسط-عالٍ</td><td>VPP / مشاريع متقدمة</td></tr>
+      <tr><td><strong>Victron</strong></td><td>مرن</td><td>أي بطارية 48V</td><td>محدود</td><td>عالٍ</td><td>Off-grid / مناطق نائية</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">قراءة بيانات الإنفرتر المتقدمة وتفسيرها</div>
+  <p>الإنفرتر الذكي يولّد كميات هائلة من البيانات. الفني المتقدم يعرف ماذا يبحث عنه — ولا يكتفي بقراءة "إنتاج اليوم" فقط.</p>
+  <p><strong>مؤشرات الأداء الدقيقة:</strong></p>
+  <ul class="content-list">
+    <li><strong>Yield today:</strong> إجمالي إنتاج اليوم بالكيلوواط ساعة — قارنه مع متوسط أيام مماثلة في الأسبوع السابق</li>
+    <li><strong>Yield total:</strong> الإنتاج الكلي منذ التشغيل — مفيد لحساب العائد الفعلي للعميل</li>
+    <li><strong>System efficiency:</strong> نسبة الطاقة الفعلية المُنتجة مقارنة بالطاقة النظرية — انخفاضها يشير لمشكلة</li>
+    <li><strong>String current deviation:</strong> الفرق في تيار السلاسل المختلفة — انحراف كبير يشير لمشكلة في لوح أو كابل أو ظل</li>
+  </ul>
+  <p><strong>رسوم بيانية الإنتاج — قراءة منحنى الطاقة اليومي:</strong></p>
+  <p>المنحنى الطبيعي ليوم صحو يشبه <strong>شكل الجرس</strong> — يبدأ بعد الشروق ببطء، يصل ذروته عند منتصف النهار (12-14:00)، ثم ينخفض تدريجياً حتى الغروب. أي انحراف عن هذا الشكل يستحق التحقيق:</p>
+  <ul class="content-list">
+    <li><strong>قطع مفاجئ في المنتصف:</strong> قد يشير لإيقاف تلقائي بسبب ارتفاع حرارة الإنفرتر أو خطأ في الشبكة</li>
+    <li><strong>انبعاجات متكررة:</strong> غيوم متفرقة — طبيعي في بعض المواسم</li>
+    <li><strong>ذروة مقطوعة (clipping):</strong> الإنفرتر وصل لحده الأقصى — قد تكون الألواح أكبر من اللازم</li>
+    <li><strong>عدم تناسق بين الصباح والمساء:</strong> ظل في جهة معينة أو فرق في اتجاه السلاسل</li>
+  </ul>
+  <p><strong>تنبيهات الإنفرتر — الفرق بين Warning وFault وError:</strong></p>
+  <ul class="content-list">
+    <li><strong>Warning (تحذير):</strong> النظام يعمل لكن هناك حالة غير مثالية — مثل ارتفاع حرارة بسيط. راقب ولا تتدخل فوراً</li>
+    <li><strong>Fault (عطل):</strong> النظام توقف عن الإنتاج — يحتاج تدخلاً. افحص السبب وأعد التشغيل بعد الحل</li>
+    <li><strong>Error (خطأ):</strong> خطأ حرج في المكونات الداخلية — قد يحتاج إصلاحاً متخصصاً أو استبدال وحدة</li>
+  </ul>
+  <p><strong>Remote Monitoring — المراقبة عن بُعد:</strong></p>
+  <ul class="content-list">
+    <li>التطبيق الرسمي: كل مصنّع له تطبيق خاص — Fronius Solar.web، Sungrow iSolarCloud، Huawei FusionSolar</li>
+    <li>منصات مستقلة: Solar-Log وSolarEdge Monitoring وSMA Sunny Portal تدعم عدة ماركات</li>
+    <li>يمكن ضبط تنبيهات تلقائية عبر البريد الإلكتروني أو SMS عند حدوث أي fault</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 المراقبة الأسبوعية — عادة الفني المحترف</div>
+    <p>الإنفرتر الذكي يخبرك بالمشكلة قبل أن تلاحظها بالعين. راجع بيانات المراقبة كل أسبوع لكل موقع — تحقق من Yield والـString currents وأي تحذيرات. اكتشاف المشكلة مبكراً يوفر الوقت والتكلفة ويحمي علاقتك مع العميل.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">تحديث Firmware والإعدادات المتقدمة</div>
+  <p>الإنفرتر الحديث ليس جهازاً ثابتاً — هو جهاز يتطور. تحديث Firmware بانتظام وضبط الإعدادات المتقدمة هو جزء من خدمة ما بعد البيع الاحترافية.</p>
+  <p><strong>لماذا تحديث Firmware مهم؟</strong></p>
+  <ul class="content-list">
+    <li><strong>إصلاح أخطاء:</strong> كل إصدار جديد يصحح مشاكل اكتُشفت في الميدان — تحديثات الأمان مهمة خاصة</li>
+    <li><strong>تحسين خوارزميات MPPT:</strong> المصنّعون يطوّرون باستمرار خوارزميات تتبع الطاقة — التحديث يزيد الإنتاج فعلياً</li>
+    <li><strong>دعم بروتوكولات جديدة:</strong> معايير الشبكة تتطور — الإنفرتر المحدّث يواكب متطلبات Grid Code الجديدة</li>
+    <li><strong>تحسين التوافق:</strong> بطاريات وأجهزة جديدة تتطلب firmware محدّثاً للتكامل السليم</li>
+  </ul>
+  <p><strong>كيفية التحديث:</strong></p>
+  <ul class="content-list">
+    <li><strong>عبر USB:</strong> نزّل ملف الـFirmware من موقع المصنّع على ذاكرة USB وأدخلها في منفذ الإنفرتر — الطريقة الأكثر موثوقية</li>
+    <li><strong>عبر التطبيق الرسمي:</strong> معظم الإنفرترات الحديثة تتيح التحديث مباشرة من التطبيق عبر Bluetooth أو WiFi</li>
+    <li><strong>عبر Cloud:</strong> الإنفرترات المتصلة بالإنترنت يمكن تحديثها تلقائياً أو يدوياً من لوحة تحكم الـCloud</li>
+  </ul>
+  <p><strong>إعدادات Grid Code:</strong></p>
+  <p>كل شبكة كهرباء في العالم لها معايير خاصة تحدد كيف يجب أن يتصرف الإنفرتر — الجهد المسموح به، التردد، وقت الفصل عند الأعطال. يجب ضبط الإنفرتر على المعيار الصحيح:</p>
+  <ul class="content-list">
+    <li>في السودان: اختر Sudan Grid أو IEC General إذا لم يتوفر معيار سوداني محدد</li>
+    <li>ضبط Grid Code خاطئ قد يسبب فصل الإنفرتر بشكل متكرر أو عدم التوافق مع الشبكة</li>
+  </ul>
+  <p><strong>Reactive Power (القدرة الحثية) وcosφ:</strong></p>
+  <p>في المشاريع التجارية الكبيرة، بعض شركات الكهرباء تطلب تحسين Power Factor. يمكن ضبط الإنفرتر لتعديل قيمة cosφ لتحقيق هذا المطلب — هذا إعداد متقدم يحتاج معرفة بمتطلبات الشبكة المحلية.</p>
+  <div class="warn-box">
+    <div class="warn-title">⚠ تحذير هام — وقت التحديث</div>
+    <p>لا تُحدّث Firmware الإنفرتر أثناء ساعات الإنتاج (من شروق لغروب الشمس). التحديث يوقف الإنفرتر مؤقتاً ويسبب خسارة في الإنتاج. نفّذ التحديث بعد الغروب أو قبل الشروق.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">الإنفرترات في البيئة السودانية — تعديلات وقائية</div>
+  <p>الإنفرتر مصمم عالمياً لكن السودان يفرض تحديات بيئية استثنائية — حرارة شديدة وغبار كثيف وتقلبات في الجهد وطقس متباين بين شمال وجنوب وشرق البلاد. الفني المحترف يضيف طبقة وقاية إضافية لكل تركيب.</p>
+  <p><strong>الحرارة الشديدة:</strong></p>
+  <ul class="content-list">
+    <li>الإنفرترات تبدأ بخفض إنتاجها (thermal derating) عند تجاوز درجة حرارة معينة — عادة 45-50°C داخلياً</li>
+    <li><strong>الحل:</strong> تركيب ظلة فوق الإنفرتر خارجياً من ألومنيوم أو صاج — تقلل درجة حرارة الجسم الخارجي 15-20°C</li>
+    <li>لا تركّب الإنفرتر على جدار يواجه الشمس مباشرة في الساعات 12-15:00 — اختر الجانب الشمالي أو الشرقي</li>
+    <li>اترك مسافة لا تقل عن 30 سم بين الإنفرتر والجدار لضمان تدفق الهواء</li>
+  </ul>
+  <p><strong>الغبار:</strong></p>
+  <ul class="content-list">
+    <li>الغبار يتراكم على مشعاع الحرارة (heat sink) في الإنفرتر ويعزل الحرارة — مثل وضع بطانية على المبرّد</li>
+    <li><strong>الحل:</strong> تنظيف مشعاع الحرارة كل 3 أشهر باستخدام هواء مضغوط أو فرشاة ناعمة</li>
+    <li>الإنفرترات بفتحات تهوية (وليس IP65 كاملة) أكثر عرضة — تحقق من درجة الحماية قبل الاختيار</li>
+  </ul>
+  <p><strong>تقلبات الجهد:</strong></p>
+  <ul class="content-list">
+    <li>شبكة الكهرباء في السودان تعاني من تذبذب في الجهد — أحياناً يرتفع لـ260V أو ينخفض لـ180V</li>
+    <li>الإنفرترات السودانية تحتاج نطاق Input Voltage واسع — تحقق أن الإنفرتر يقبل 150-270V على الأقل</li>
+    <li>في المواقع الحرجة (عيادات، خوادم) أضف UPS أو Voltage Stabilizer بين الشبكة والإنفرتر</li>
+  </ul>
+  <p><strong>المياه والرطوبة — بورتسودان والساحل الشرقي:</strong></p>
+  <ul class="content-list">
+    <li>الرطوبة الملحية من البحر الأحمر مدمّرة للمعدات الكهربائية على المدى البعيد</li>
+    <li><strong>IP65 إلزامي</strong> في أي موقع على بعد أقل من 5 كم من البحر</li>
+    <li>تجنب التثبيت على الجدران المواجهة للبحر أو التي تتعرض للرياح الساحلية المباشرة</li>
+    <li>فحص دوري للنقاط الختمية والـgaskets كل 6 أشهر في المناطق الساحلية</li>
+  </ul>
+  <p><strong>موسم الأمطار — الاستعداد الموسمي:</strong></p>
+  <ul class="content-list">
+    <li>قبل موسم الأمطار (يونيو-سبتمبر): افحص ختم الإنفرتر وتأكد أن لا تشققات في الغطاء الخارجي</li>
+    <li>تحقق من عزل الكابلات عند نقاط الدخول للإنفرتر — أي فراغ يسمح بدخول الرطوبة</li>
+    <li>في مناطق السيول (أودية شرق السودان): ثبّت الإنفرتر على ارتفاع لا يقل عن متر من الأرض</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 قائمة الفحص الموسمي السوداني</div>
+    <p>ضع في جدول عملك فحصاً موسمياً لكل موقع مرتين سنوياً: <strong>قبل الصيف (مارس-أبريل)</strong> للتحقق من نظافة المشعاع والظلة، <strong>وقبل موسم الأمطار (مايو-يونيو)</strong> للتحقق من الختم والعزل. هذه الزيارتان تمنعان 80% من أعطال الإنفرتر في السودان.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — الإنفرترات المتقدمة</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما الفائدة الرئيسية لـPower Optimizer في النظام الشمسي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>تخفيض تكلفة الإنفرتر</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تقليل تأثير الظل الجزئي على الإنتاج عبر تحسين كل لوح بشكل مستقل</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>زيادة جهد DC</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>شحن البطارية بشكل أسرع</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٢. أي إنفرتر الأنسب للأنظمة المنفصلة Off-grid في المناطق النائية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>Fronius GEN24</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>Huawei SUN2000</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>Victron</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>Sungrow SH</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. ما معنى انحراف كبير في تيار السلاسل (String Current Deviation) في بيانات الإنفرتر؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الإنفرتر يعمل بكفاءة عالية</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>إحدى السلاسل تنتج تياراً مختلفاً — يشير لمشكلة في لوح أو كابل أو ظل جزئي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>البطارية شبه ممتلئة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>حرارة عالية مؤقتة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. لماذا يجب تنظيف مشعاع الحرارة للإنفرتر كل 3 أشهر في السودان؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لتحسين الكفاءة الكهربائية</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>الغبار يتراكم على مشعاع الحرارة فيرفع درجة حرارة الإنفرتر ويقلل أداءه</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>شرط الضمان فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لإزالة الصدأ</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. متى يجب عدم تحديث Firmware الإنفرتر؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>في الشتاء</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>أثناء ساعات الإنتاج النهارية — التحديث قد يوقف النظام مؤقتاً</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>عند اتصال البطارية</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>عند توصيل شبكة خارجية</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٢ — الإنفرترات المتقدمة</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

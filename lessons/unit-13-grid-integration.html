@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٣ — التكامل مع الشبكة</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ٥ من ٨</div>
+  <div class="doc-title">التكامل مع الشبكة — الفني الشمسي ومنظومة الكهرباء</div>
+  <div class="doc-title-en">Grid Integration — The Solar Technician and the Power Grid</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم بنية الشبكة الكهربائية ومصطلحاتها الأساسية كما يحتاجها الفني الشمسي</li>
+    <li>معرفة متطلبات التوصيل بالشبكة في السودان والإجراءات المطلوبة</li>
+    <li>فهم المعايير الدولية التي يجب أن يدعمها الإنفرتر المتصل بالشبكة</li>
+    <li>تطبيق اشتراطات السلامة الكهربائية عند نقاط الاتصال بالشبكة</li>
+    <li>استيعاب توجهات الشبكة السودانية ومكانة الفني الشمسي المعتمد في هذا المستقبل</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">كيف تعمل الشبكة الكهربائية — أساسيات المهندس الشمسي</div>
+  <p>الشبكة الكهربائية ليست مجرد أسلاك — هي <strong>منظومة متكاملة</strong> من ثلاثة أجزاء رئيسية: <strong>الإنتاج</strong> (المحطات الحرارية والشمسية والمائية) + <strong>النقل</strong> (خطوط الجهد العالي عبر المسافات) + <strong>التوزيع</strong> (الشبكة المحلية التي تصل المنازل والمباني). الفني الشمسي يتعامل دائماً مع طرف شبكة التوزيع — هذا هو نقطة الاتصال الحرجة.</p>
+  <p><strong>الجهد المنزلي في السودان:</strong></p>
+  <ul class="content-list">
+    <li><strong>الجهد الاسمي:</strong> 230 فولت تيار متردد AC — هذا ما تراه في أي مقبس منزلي</li>
+    <li><strong>نطاق التحمل:</strong> 230V ± 10% — أي من 207V إلى 253V مقبول تشغيلياً</li>
+    <li><strong>التردد:</strong> 50 هرتز — الإنفرتر يجب أن يتطابق مع هذا التردد بدقة عالية</li>
+    <li><strong>أحادي الطور (Single-phase):</strong> المنازل والمحلات الصغيرة — تيار واحد، جهد 230V</li>
+    <li><strong>ثلاثي الطور (Three-phase):</strong> المصانع والمباني التجارية الكبيرة — ثلاثة تيارات متناوبة، جهد 400V بين الأطوار</li>
+  </ul>
+  <p><strong>Power Factor — ما هو ولماذا يهم؟</strong></p>
+  <p>معامل الاستطاعة (Power Factor) هو نسبة الطاقة الحقيقية المستهلكة فعلاً (واط) إلى الطاقة الظاهرية الكلية (فولت-أمبير). القيمة المثالية هي 1.0 — لكن المحركات الكهربائية والملفات تسحب طاقة غير مفيدة تُسمى Reactive Power. شركات الكهرباء تهتم بهذا لأن الطاقة غير المفيدة تُحمّل الشبكة دون أن تُدفع عنها. الإنفرتر الحديث يمكنه تصحيح Power Factor وتقديم Reactive Power لمساعدة الشبكة — هذه قيمة مضافة حقيقية.</p>
+  <div class="key-box">
+    <div class="key-title">🔑 Grid Synchronization — المفهوم الجوهري</div>
+    <p>الإنفرتر المتصل بالشبكة لا يضخ الكهرباء بشكل عشوائي — قبل أن يبدأ في إرسال أي طاقة، يقيس الإنفرتر تردد الشبكة وجهدها وطورها بدقة، ثم يضبط خرجه ليتطابق تماماً. هذه العملية تسمى <strong>Grid Synchronization</strong>. إذا لم تتحقق المزامنة، يرفض الإنفرتر الاتصال. هذا ليس اختياراً — هو شرط السلامة الأول.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">متطلبات التوصيل بالشبكة في السودان</div>
+  <p>السودان لا يملك حتى الآن نظام <strong>Feed-in Tariff</strong> فعّالاً منتشراً — أي لا يوجد قانون ملزم يُلزم شركة الكهرباء بشراء الطاقة الزائدة من أصحاب الأنظمة الشمسية في معظم المناطق. لكن هذا لا يعني أن التوصيل بالشبكة غير ممكن — يعني فقط أن الإطار التنظيمي لا يزال يتشكل.</p>
+  <p><strong>ما يُطلب عادةً لتوصيل نظام شمسي بالشبكة:</strong></p>
+  <ul class="content-list">
+    <li><strong>إذن من شركة الكهرباء:</strong> تقديم طلب رسمي مع مخطط النظام وبيانات الإنفرتر — بعض الولايات تطلب هذا قبل التركيب</li>
+    <li><strong>مقياس ثنائي الاتجاه (Bi-directional Meter):</strong> يقيس الكهرباء المسحوبة من الشبكة والمحقونة إليها بشكل منفصل في عدادين مختلفين</li>
+    <li><strong>حماية من الجزيرة (Anti-islanding):</strong> إلزامي دائماً — الإنفرتر يجب أن يفصل فوراً عند انقطاع الشبكة</li>
+    <li><strong>توثيق الإنفرتر:</strong> تقديم datasheet رسمي يُثبت التوافق مع المعايير الدولية المطلوبة</li>
+  </ul>
+  <p><strong>Net Metering مقابل Net Billing — الفرق الحاسم:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>النظام</th><th>كيف يعمل</th><th>من يطبقه</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Net Metering</strong></td><td>الطاقة المحقونة في الشبكة تُقاس وتُخصم من فاتورتك بنفس سعر الاستهلاك — ما يزيد يُرحّل للشهر القادم</td><td>أستراليا، أمريكا، بعض دول الخليج</td></tr>
+      <tr><td><strong>Net Billing</strong></td><td>الطاقة المحقونة تُدفع عنها بسعر أقل من سعر الشراء — مثل بيع بالجملة</td><td>بريطانيا، بعض الدول الأوروبية</td></tr>
+      <tr><td><strong>الوضع الحالي في السودان</strong></td><td>لا يوجد نظام رسمي — الزيادة تُهدر في الشبكة مجاناً أو يُحكم ضبطها بالإنفرتر لعدم الحقن</td><td>غالبية الولايات السودانية</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box">
+    <div class="note-title">📌 تجربة رائدة في الشمال</div>
+    <p>ولاية نهر النيل والولاية الشمالية تجربان بشكل محدود السماح بالتوصيل بالشبكة للأنظمة الشمسية المنزلية. تابع التطورات عبر الجمعية السودانية للطاقة المتجددة — هذا الملف يتحرك وقد تتغير اللوائح قريباً.</p>
+  </div>
+  <p>توصية للمهني الشمسي: <strong>حتى إن لم يكن هناك تشريع واضح للتوصيل بالشبكة، ركّب الإنفرتر مع حماية من الجزيرة دائماً</strong> — فهذا شرط سلامة مطلق بغض النظر عن وضع التشريع.</p>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">معايير الشبكة التي يجب أن يدعمها الإنفرتر</div>
+  <p>الإنفرتر المتصل بالشبكة ليس جهازاً سلبياً — هو مشارك نشط في صحة الشبكة. المعايير الدولية التالية تحدد كيف يجب أن يتصرف الإنفرتر تجاه الشبكة في كل الأحوال.</p>
+  <table class="content-table">
+    <thead><tr><th>المعيار</th><th>ما يفعله الإنفرتر</th><th>لماذا مهم للسودان</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Volt-Watt Response</strong></td><td>عند ارتفاع جهد الشبكة فوق حد معين (مثلاً 253V)، يبدأ الإنفرتر تلقائياً في تقليل الطاقة المنتجة حتى يعود الجهد للنطاق الآمن</td><td>يمنع ظاهرة رفع الجهد المحلي (Overvoltage) في الشبكات الريفية الضعيفة — مشكلة شائعة في أحياء التوسع الحضري</td></tr>
+      <tr><td><strong>Volt-VAR Response</strong></td><td>يضبط الإنفرتر كمية الطاقة الغير فعّالة (Reactive Power) التي يبعثها أو يمتصها لتثبيت جهد الشبكة المحلية</td><td>يساهم في استقرار جهد الشبكة في نقطة الاتصال — يقلل تأثير التذبذبات</td></tr>
+      <tr><td><strong>Frequency Response</strong></td><td>عند ارتفاع تردد الشبكة عن 50 Hz (مؤشر على زيادة الإنتاج مقارنة بالاستهلاك)، يقلل الإنفرتر إنتاجه تلقائياً</td><td>يمنع عدم استقرار الشبكة عند زيادة التوليد الشمسي الموزع — سيصبح حرجاً مع انتشار الطاقة الشمسية</td></tr>
+      <tr><td><strong>Anti-islanding (IEC 62116)</strong></td><td>الفصل التلقائي عن الشبكة خلال 2 ثانية كحد أقصى عند اكتشاف انقطاع الشبكة</td><td>يحمي عمال الكهرباء من الصعق أثناء إصلاح الخطوط — شرط سلامة أول وغير قابل للتنازل</td></tr>
+      <tr><td><strong>LVRT / HVRT</strong></td><td>Low/High Voltage Ride-Through — البقاء متصلاً أثناء تقلبات الجهد المؤقتة (هبوط أو ارتفاع مؤقت) بدلاً من الفصل الفوري</td><td>مطلوب في الشبكات الحديثة لتجنب انفصال آلاف الإنفرترات معاً عند أي تقلب عابر — يحافظ على استقرار الشبكة</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box">
+    <div class="note-title">📌 AS/NZS 4777.2 — المرجع العملي</div>
+    <p>معيار AS/NZS 4777.2 الأسترالي النيوزيلندي هو من أكثر معايير توصيل الإنفرترات بالشبكة شمولاً وتطبيقاً في العالم. معظم الإنفرترات المعتمدة من شمس النيل تستوفي هذا المعيار — وهو يشمل Volt-Watt وVolt-VAR والحماية من الجزيرة في وثيقة واحدة.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">نقاط الاتصال بالشبكة — السلامة الكهربائية</div>
+  <p><strong>نقطة الاتصال بالشبكة (Point of Interconnection — POI)</strong> هي المكان الذي يلتقي فيه خرج الإنفرتر بالشبكة الكهربائية — في الغالب عند <strong>لوحة الكهرباء الرئيسية</strong> للمبنى. كل ما يتصل بعد هذه النقطة باتجاه الشبكة يصبح مسؤولية مشتركة بينك وبين شركة الكهرباء.</p>
+  <p><strong>AC Disconnect — مفتاح الفصل الرئيسي:</strong></p>
+  <p>يجب تركيب مفتاح فصل AC واضح وسهل الوصول يمكن لعمال الكهرباء فصله بسهولة دون الحاجة لدخول المبنى. هذا المفتاح يفصل الإنفرتر تماماً عن الشبكة ويجب أن يكون:</p>
+  <ul class="content-list">
+    <li>في مكان ظاهر وسهل الوصول — ليس في غرفة مقفلة أو على سطح صعب</li>
+    <li>مُسمّى بلافتة واضحة: "فصل النظام الشمسي" أو ما يعادلها</li>
+    <li>قادراً على قطع التيار تحت الحمل الكامل بأمان</li>
+    <li>معزولاً بشكل كافٍ — لا يمكن إعادة تشغيله عن طريق الخطأ</li>
+  </ul>
+  <p><strong>تسمية ولافتات لوحة الكهرباء:</strong></p>
+  <p>يجب أن تحمل لوحة الكهرباء الرئيسية في أي مبنى به نظام شمسي متصل بالشبكة <strong>لافتة واضحة</strong> تنص على: "هذا المبنى به نظام طاقة شمسية متصل بالشبكة". اللافتة تُنبّه عمال الشبكة قبل أن يلمسوا أي سلك — خاصة في حالات الطوارئ.</p>
+  <p><strong>قياس جودة الطاقة — THD:</strong></p>
+  <p>التشوه الهارموني الكلي (Total Harmonic Distortion — THD) هو مقياس لمدى نظافة موجة AC التي يُخرجها الإنفرتر. الإنفرتر الجيد يُنتج موجة جيبية نظيفة قريبة من الشكل المثالي. يمكن قياس THD باستخدام Power Analyzer.</p>
+  <div class="spec-box">
+    <div class="spec-title">قياسات جودة الطاقة — المرجع</div>
+    <div class="spec-row"><span class="spec-key">THD — إنفرتر جيد</span><span class="spec-val">&lt; 3%</span></div>
+    <div class="spec-row"><span class="spec-key">THD — مقبول</span><span class="spec-val">3% – 5%</span></div>
+    <div class="spec-row"><span class="spec-key">THD — سيء / يؤثر على الأجهزة</span><span class="spec-val">&gt; 5%</span></div>
+    <div class="spec-row"><span class="spec-key">Power Factor — مثالي</span><span class="spec-val">1.0</span></div>
+    <div class="spec-row"><span class="spec-key">Power Factor — مقبول تجارياً</span><span class="spec-val">≥ 0.95</span></div>
+  </div>
+  <div class="warn-box">
+    <div class="warn-title">⚠ قانون وأخلاق — ليس اختياراً</div>
+    <p>الإنفرتر المتصل بالشبكة بدون مفتاح فصل طوارئ ظاهر ومُسمّى هو خطر مميت على عمال شركة الكهرباء. عند انقطاع الكهرباء في الحي، العامل يفترض أن الخط ميت — لكن الإنفرتر الذي لا يُفصل يُبقي الخط حياً. الفني الذي يركب نظاماً بدون هذه الحماية يتحمل مسؤولية أخلاقية وقانونية كاملة.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">مستقبل الشبكة السودانية — فرص الفني الشمسي</div>
+  <p>السودان يمر بمرحلة تحول طاقوي حقيقي — الأزمة الاقتصادية والانقطاعات المتكررة دفعت الأسر والشركات والحكومة نحو البحث عن بدائل. هذا ليس مجرد سوق جديد — هو إعادة بناء منظومة كهرباء بأكملها.</p>
+  <p><strong>مبادرات الكهرباء الوطنية:</strong></p>
+  <p>وزارة الطاقة والنفط السودانية أعلنت توجهاً استراتيجياً نحو الطاقة المتجددة في خططها للتوسع الكهربائي. تمويل من البنك الدولي وشركاء دوليين يُوجَّه نحو مشاريع الطاقة الشمسية والرياح. الفني المعتمد الذي يعمل ضمن هذا الإطار يُعدّ جزءاً من البنية التحتية الوطنية.</p>
+  <p><strong>نظام التعريفة التبادلية — ما المتوقع؟</strong></p>
+  <ul class="content-list">
+    <li>تطبيق Feed-in Tariff أو Net Metering في الولايات الرائدة متوقع خلال السنوات القادمة</li>
+    <li>عندما يتحقق هذا، أصحاب الأنظمة الحالية الذين ركبوا إنفرترات متوافقة مع الشبكة سيستفيدون مباشرة</li>
+    <li>الفنيون الذين علّموا عملاءهم هذه الأنظمة سيكون لهم ميزة تنافسية ضخمة</li>
+  </ul>
+  <p><strong>Mini-grids — الفرصة الحقيقية في القرى:</strong></p>
+  <p>المناطق النائية في السودان — كردفان، دارفور، النيل الأزرق، كسلا — تضم مئات القرى التي لن تصلها شبكة الكهرباء الوطنية قريباً. Mini-grid شمسي مع تخزين هو الحل الوحيد العملي. نماذج ناجحة بدأت بالفعل في كسلا وأجزاء من كردفان بتمويل من منظمات دولية. هذا السوق بحاجة لفنيين مؤهلين يفهمون تصميم الشبكات الصغيرة وتشغيلها وصيانتها.</p>
+  <p><strong>أرقام السوق المتوقعة:</strong></p>
+  <ul class="content-list">
+    <li>تقديرات القطاع تشير إلى تركيب أكثر من <strong>50,000 نظام منزلي</strong> بحلول 2030 في حال توفر التمويل والسياسات المناسبة</li>
+    <li>كل نظام يحتاج تركيباً + صيانة دورية + توسعة محتملة = عمل مستمر للفني المعتمد</li>
+    <li>شركات مشاريع الطاقة الكبيرة تبحث عن فنيين معتمدين بالجملة لتنفيذ العقود الحكومية</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 الفني الذي يفهم الشبكة — يعمل مع المشاريع الكبيرة</div>
+    <p>الفني المعتمد الذي يفهم Grid Synchronization وVolt-Watt وAnti-islanding ومعايير السلامة الكهربائية ليس مجرد مركّب ألواح — هو مؤهل للعمل مع شركات المشاريع الكبيرة التي تنفذ عقود وزارية وبنكية. هذه الفرص لا تُعطى لمن يركب بدون فهم — تُعطى لمن يستطيع توقيع ضمان فني حقيقي.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — التكامل مع الشبكة</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما هو Grid Synchronization في الإنفرتر المتصل بالشبكة؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>مزامنة بيانات الإنتاج مع التطبيق</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>مطابقة الإنفرتر لتردد وجهد الشبكة قبل الاتصال بها</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>مزامنة توقيت الشحن مع البطارية</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>ربط الإنفرتر بخدمة الاشتراك السحابي</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما وظيفة Volt-Watt Response في الإنفرتر المتصل بالشبكة؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>زيادة الإنتاج عند ارتفاع الجهد</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تقليل الإنتاج تلقائياً عند ارتفاع جهد الشبكة فوق الحد — يمنع رفع الجهد المحلي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>حماية البطارية من الشحن الزائد</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>قياس الجهد الخارج من الإنفرتر</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. لماذا يجب وضع لافتة "هذا المبنى به نظام شمسي" على لوحة الكهرباء؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>شرط تسويقي لإظهار النظام للزوار</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لتنبيه عمال الكهرباء بوجود مصدر طاقة إضافي لتجنب حوادث الصعق</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>شرط ضمان الإنفرتر من المصنّع</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>تزيين لوحة الكهرباء</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما الفرق بين Net Metering وNet Billing؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>Net Metering للتجاري وNet Billing للسكني فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>Net Metering يقيس الفرق بنفس السعر، Net Billing يدفع للحقن بسعر أقل من سعر الاستهلاك</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لا فرق بينهما — مجرد اختلاف في التسمية</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>Net Billing هو الاسم الأحدث لنفس النظام</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٥. ما الحد الأقصى المقبول للتشوه الهارموني THD من إنفرتر جيد؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>10%</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>5%</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>3%</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>1%</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٣ — التكامل مع الشبكة</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

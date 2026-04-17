@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٢٤ — الريادة في قطاع الطاقة</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+
+/* Capstone-specific: completion banner */
+.capstone-banner{background:linear-gradient(135deg,#1C1A14 60%,#2a2318 100%);border:1px solid var(--sun);border-radius:10px;padding:1.5rem;margin:1.5rem 0;text-align:center;}
+.capstone-banner-title{font-size:1.1rem;font-weight:500;color:var(--sun);margin-bottom:.4rem;}
+.capstone-banner-sub{font-size:12px;color:rgba(245,237,212,.55);line-height:1.7;}
+
+/* Leadership type cards */
+.lead-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.lead-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.lead-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.lead-card-icon{font-size:20px;margin-bottom:.4rem;}
+.lead-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.lc-tech{border-top:2px solid var(--nile);}
+.lc-biz{border-top:2px solid var(--green);}
+.lc-soc{border-top:2px solid var(--sun);}
+
+/* Quote block */
+.quote-block{border-right:3px solid var(--sun);padding:.75rem 1rem;margin:1rem 0;background:var(--sun-l);border-radius:0 6px 6px 0;}
+.quote-block p{font-size:13px;color:var(--sun-d);font-style:italic;margin:0;line-height:1.9;}
+.quote-block .quote-attr{font-size:11px;color:var(--hint);margin-top:.4rem;font-style:normal;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثالث — متقدم · الوحدة ٨ من ٨ · الوحدة الختامية</div>
+  <div class="doc-title">الريادة في قطاع الطاقة — شمس السودان لا تغيب</div>
+  <div class="doc-title-en">Leadership in the Energy Sector — Sudan's Sun Never Sets</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">الوحدة الختامية — ٢٤ من ٢٤</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم الفرق بين الفني الممتاز والرائد الذي يُغيّر قطاعاً بأكمله</li>
+    <li>معرفة نماذج الأعمال المتاحة لبناء شركة طاقة شمسية ناجحة في السودان من الصفر</li>
+    <li>استيعاب الأثر التنموي الأعمق للطاقة الشمسية على المجتمع والمناخ والاقتصاد</li>
+    <li>الانخراط في مشهد السياسات والتشريعات الطاقية وفهم دورك فيه</li>
+    <li>استحضار الرسالة الكاملة لشمس النيل والانطلاق كرائد طاقة مسؤول</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">من فني إلى رائد — القفزة التي يصنعها القرار</div>
+  <p>الريادة ليست لقباً تُمنح ولا شهادة تُعلَّق على الجدار. الريادة <strong>قرار داخلي</strong> يتخذه الإنسان في لحظة صمت: «لن أنتظر أن يُبنى هذا القطاع بيد غيري — سأبنيه أنا.»</p>
+  <p>التاريخ مليء بهذا النمط. حين بدأت شبكات الكهرباء تضيء المدن الأولى في أواخر القرن التاسع عشر، لم يكن كثير من الذين ركّبوا أوائل الخطوط والمحطات مهندسين متخرجين — كانوا فنيين، صنّاعاً، ومبادرين قرروا أن يتعلموا بالفعل. توماس إديسون نفسه لم يحمل شهادة جامعية. ما حمله كان شيئاً أعمق: <strong>إرادة أن يُبني ما لم يكن موجوداً بعد.</strong></p>
+  <p><strong>السودان اليوم أمام نفس اللحظة:</strong></p>
+  <p>قطاع الطاقة الشمسية في السودان يعاني من فراغ قيادي حقيقي — لا في المال ولا في الشمس ولا في الحاجة، بل في <strong>الكفاءات المُنظِّمة</strong>: من يقود الفرق، يبني الشركات، يضع المعايير، ويمثل القطاع أمام صانعي القرار. هذا الفراغ ليس مشكلة — هو فرصة لا تتكرر لمن يتحلى بالشجاعة والمعرفة.</p>
+  <p>أنت اليوم — بعد إتمام ٢٤ وحدة من شمس النيل — تحمل من المعرفة ما لا يحمله كثيرون ممن يدّعون الخبرة في هذا السوق. السؤال الوحيد المتبقي: ماذا ستفعل بهذه المعرفة؟</p>
+
+  <p><strong>ثلاثة أنواع من الريادة الشمسية:</strong></p>
+  <div class="lead-grid">
+    <div class="lead-card lc-tech">
+      <div class="lead-card-icon">⚙</div>
+      <div class="lead-card-title">الريادة التقنية</div>
+      <div class="lead-card-val">تكون الأفضل مهارةً في ميدانك<br>تُدرّب الآخرين<br>تضع معايير الجودة<br>تُحل ما يعجز عنه غيرك</div>
+    </div>
+    <div class="lead-card lc-biz">
+      <div class="lead-card-icon">🏗</div>
+      <div class="lead-card-title">ريادة الأعمال</div>
+      <div class="lead-card-val">تبني شركة من الصفر<br>توظّف وتُطوّر فريقاً<br>تخلق قيمة اقتصادية<br>تُنمّي السوق بتنافسية نظيفة</div>
+    </div>
+    <div class="lead-card lc-soc">
+      <div class="lead-card-icon">🌍</div>
+      <div class="lead-card-title">الريادة المجتمعية</div>
+      <div class="lead-card-val">تُحرّك التغيير الاجتماعي<br>تجلب الطاقة لمن لا يملكها<br>تُأثّر في السياسات العامة<br>تُلهم الجيل القادم</div>
+    </div>
+  </div>
+
+  <p>لا يُشترط أن تختار نوعاً واحداً — أعظم الرواد دمجوا الثلاثة. لكن كل رحلة تبدأ بنوع واحد يتناسب مع موارد اللحظة.</p>
+
+  <div class="key-box">
+    <div class="key-title">شمس النيل وُلدت من قرار رجل واحد</div>
+    <p>محمد أحمد مجذوب البشير لم ينتظر منحة حكومية، ولم يستأذن جهة دولية، ولم يشترط توفّر بنية تحتية مثالية. قرر أن يُعطي بلده ما أعطاه الله من علم وتجربة — وهكذا وُلدت شمس النيل. أي شيء تبنيه بعد اليوم يمكن أن يبدأ بنفس القرار البسيط: «أُعطي ما عندي، وأبدأ من حيث أنا.»</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">بناء شركة طاقة شمسية من الصفر في السودان</div>
+  <p>الشركة ليست حلماً يُنتظر — هي قرار يُتّخذ ثم خطوات تُنفَّذ. السودان اليوم سوق في مراحله الأولى، وهذا يعني أن الدخول الآن يمنحك ميزة المبادر التي ستظل تحصد ثمارها لسنوات.</p>
+
+  <p><strong>نماذج الأعمال المتاحة في قطاع الطاقة الشمسية:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>النموذج</th><th>ما تفعله</th><th>متطلبات البداية</th></tr></thead>
+    <tbody>
+      <tr><td>شركة تركيب وتصميم</td><td>تُصمم وتُركّب الأنظمة الشمسية للمنازل والشركات</td><td>فريق فنيين معتمدين، أدوات، سيارة، عقود أولى</td></tr>
+      <tr><td>شركة مراقبة وصيانة</td><td>تُدير أنظمة مُركّبة مسبقاً وتضمن أداءها الأمثل</td><td>منصة مراقبة، عقود صيانة سنوية، فريق صغير</td></tr>
+      <tr><td>وكيل إنفرترات أو ألواح</td><td>تمثّل علامة تجارية عالمية في السودان</td><td>اتفاقية وكالة، مخزن، شبكة توزيع</td></tr>
+      <tr><td>مدرب ومؤهِّل معتمد</td><td>تُدرّب الفنيين وتمنح شهادات معتمدة</td><td>اعتماد شمس النيل، مكان تدريب، مناهج</td></tr>
+      <tr><td>استشارات هندسية</td><td>تُصمم المشاريع الكبيرة وتُشرف على تنفيذها</td><td>خبرة موثّقة، شبكة علاقات، سمعة مهنية</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>الخطوات العملية لتأسيس شركتك:</strong></p>
+  <ul class="content-list">
+    <li><strong>اختيار النموذج:</strong> ابدأ بنموذج واحد يتناسب مع مواردك الحالية — لا تحاول فعل كل شيء في البداية</li>
+    <li><strong>تسجيل الشركة:</strong> سجّل كياناً قانونياً حتى لو كان صغيراً — يمنحك مصداقية مع العملاء والموردين</li>
+    <li><strong>بناء الفريق:</strong> ابدأ بشريك واحد يكمّل مهاراتك — فنياً إن كنت تجارياً، وتجارياً إن كنت فنياً</li>
+    <li><strong>الحصول على موردين:</strong> تواصل مع وكلاء المعدات وابنِ علاقات مباشرة — السعر يتحسن مع الحجم</li>
+    <li><strong>أول 10 مشاريع:</strong> هذه هي الأصعب والأهم — تؤسس سمعتك وتبني محفظة أعمالك</li>
+  </ul>
+
+  <p><strong>تمويل البداية — خياراتك الواقعية:</strong></p>
+  <ul class="content-list">
+    <li><strong>التمويل الذاتي:</strong> البداية المثلى — لا ديون، قرارات أسرع، مرونة كاملة</li>
+    <li><strong>قروض الأسرة والمعارف:</strong> مقبول في مراحل البدء — وثّقها بشكل واضح للحفاظ على العلاقات</li>
+    <li><strong>منح المشاريع الصغيرة:</strong> تتوفر من منظمات دولية وبرامج تنمية — ابحث واتقدم بجدية</li>
+    <li><strong>الشراكات الاستراتيجية:</strong> شارك مع مورّد أو جهة تمويل مقابل حصة أو أفضلية في الأسعار</li>
+  </ul>
+
+  <p><strong>ما يميز الشركات الناجحة في السودان:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">ثلاثة أعمدة لا تُكسر</div>
+    <div class="spec-row"><span class="spec-key">الاعتمادية</span><span class="spec-val">تظهر في الموعد وتُنجز ما وعدت — دائماً</span></div>
+    <div class="spec-row"><span class="spec-key">الجودة</span><span class="spec-val">لا تتنازل عن المعايير مهما كان الضغط على السعر</span></div>
+    <div class="spec-row"><span class="spec-key">الخدمة المستمرة</span><span class="spec-val">ما بعد التركيب هو ما يُبني السمعة — لا تختفِ بعد التسليم</span></div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">مثال ملهم — من شخصين إلى ٢٠٠ تركيب</div>
+    <p>شركة سودانية ناشئة بدأت عام 2021 بمؤسّسَيْن فقط — فني معتمد وشريك تجاري. اتفقا على قاعدة واحدة: لا يُسلَّم أي مشروع قبل أن يرضى عنه الاثنان. في نهاية عامهم الأول: 18 مشروعاً. في نهاية عامهم الثالث: أكثر من 200 تركيب سنوياً وفريق من 11 شخصاً. السر لم يكن التمويل — كان الاعتمادية التي بنت شبكة إحالات ذاتية التوسع.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">التأثير الاجتماعي — الطاقة الشمسية كأداة تنمية</div>
+  <p>عندما تُركّب نظاماً شمسياً في منزل أو قرية، أنت لا تُضيف كيلوواتاً — أنت تُغيّر حياة. الطاقة <strong>مضاعف للتنمية</strong>: كل استثمار في الكيلوواط يُنتج أثراً اقتصادياً واجتماعياً يتجاوز قيمته الأولية بكثير.</p>
+
+  <p><strong>الطاقة الشمسية في الاقتصاد السوداني:</strong></p>
+  <p>الدراسات الدولية تُشير إلى أن كل دولار يُستثمر في الطاقة النظيفة في الاقتصادات النامية يُولّد ما بين 2.5 و3.5 دولاراً من النشاط الاقتصادي المحلي — من توظيف الفنيين، وتشغيل المضخات والمصانع الصغيرة، وتخفيض تكلفة التشغيل على الأسر. في السودان حيث ثمن الوقود والكهرباء التقليدية يستنزف كثيراً من الدخل، هذا الرقم قد يكون أعلى.</p>
+
+  <p><strong>مثال السودان — قرية واحدة، ثلاثة قطاعات:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">أثر نظام شمسي واحد على قرية</div>
+    <div class="spec-row"><span class="spec-key">مضخة مياه تعمل على الشمس</span><span class="spec-val">مياه نظيفة طوال اليوم → قطاع الصحة والزراعة</span></div>
+    <div class="spec-row"><span class="spec-key">ثلاجة للأدوية في عيادة القرية</span><span class="spec-val">لقاحات محفوظة → قطاع الصحة العامة</span></div>
+    <div class="spec-row"><span class="spec-key">إضاءة ليلية في الفصول</span><span class="spec-val">دراسة ليلية ممكنة → قطاع التعليم</span></div>
+  </div>
+
+  <p>ثلاثة قطاعات تتحسن من مصدر طاقة واحد. هذا ما يعنيه المضاعف التنموي — وأنت الواسطة التي تُحوّل ألواحاً وكابلات إلى فرصة حياة.</p>
+
+  <p><strong>الطاقة الشمسية والمرأة في السودان:</strong></p>
+  <p>الأبحاث في أفريقيا جنوب الصحراء تُظهر أن توافر الكهرباء الموثوقة في المناطق النائية يرفع نسبة التحاق الإناث بالتعليم بما يتراوح بين 25 و35%. السبب مباشر: الإضاءة تتيح المراجعة الليلية، والثلاجات تحفظ الأغذية فتُقلل عبء الحصول على الماء والطعام اليومي الذي يقع كثيراً على كاهل الفتيات. الفني الشمسي لا يُركّب نظاماً — يفتح باباً.</p>
+
+  <p><strong>البعد المناخي — السودان يبني مستقبلاً نظيفاً:</strong></p>
+  <ul class="content-list">
+    <li>كل kWp شمسي مُركَّب يُوفّر تقريباً نصف طن من انبعاثات CO2 سنوياً مقارنة بالمولّدات الديزل</li>
+    <li>نظام 5 kWp = 2.5 طن CO2 أقل سنوياً = ما يمتصه شجرة بالغة في 25 سنة</li>
+    <li>السودان بإمكانياته الشمسية يمكنه أن يكون نموذجاً إقليمياً للتحوّل الطاقوي النظيف في أفريقيا</li>
+  </ul>
+
+  <div class="quote-block">
+    <p>«لست فقط تُركّب ألواحاً — أنت تُسقط سقفاً من الظلام عن أسرة كاملة، وتُعيد للطفل حقه في أن يقرأ، وللمرأة حقها في أن تحفظ دواءها، وللمزارع حقه في أن يسقي أرضه. هذا ليس عملاً — هذا رسالة.»</p>
+    <div class="quote-attr">— مبدأ شمس النيل في التأثير الاجتماعي</div>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">الانخراط في مشهد السياسات والتشريعات</div>
+  <p>كثير من الفنيين يعتقدون أن السياسات والتشريعات شأن السياسيين والمحامين. هذا خطأ. <strong>القوانين تُحدد ما يمكنك فعله وبأي سعر وبأي شروط</strong> — والفني الذي يجهل البيئة التشريعية يعمل بعيون مغلقة.</p>
+
+  <p><strong>لماذا يهم الفني المتقدم بيئة السياسة الطاقية؟</strong></p>
+  <ul class="content-list">
+    <li><strong>التعريفة والتسعير:</strong> قرارات الحكومة بشأن سعر بيع الكهرباء الشمسية للشبكة تؤثر مباشرة على عوائد مشاريعك وعملائك</li>
+    <li><strong>التراخيص والاشتراطات:</strong> من المسموح له بتركيب أنظمة شمسية؟ ما الحد الأدنى من المؤهلات؟ — هذه قرارات تشريعية</li>
+    <li><strong>الرسوم الجمركية:</strong> رسوم استيراد المعدات الشمسية تؤثر على أسعار السوق وتنافسيتك</li>
+    <li><strong>إعانات ودعم الطاقة المتجددة:</strong> البرامج الحكومية والدولية لدعم التحوّل الشمسي تخلق فرصاً ضخمة لمن يعلم بها مسبقاً</li>
+  </ul>
+
+  <p><strong>كيف تشارك في صياغة السياسة الطاقية:</strong></p>
+  <ul class="content-list">
+    <li><strong>تعليق على مشاورات وزارة الطاقة:</strong> معظم الوزارات تفتح فترات تعليق عام على اللوائح — شارك بتعليق مكتوب مبني على خبرة ميدانية</li>
+    <li><strong>عضوية جمعيات الطاقة المتجددة:</strong> الجمعيات المهنية تمثّل القطاع أمام الجهات التشريعية — كن عضواً فاعلاً لا مجرد اسم</li>
+    <li><strong>التواصل مع ممثلي الولايات:</strong> مجالس الولايات أقرب للواقع الميداني وأكثر استعداداً للاستماع للخبراء المحليين</li>
+    <li><strong>تقارير موضوعية:</strong> وثّق تجربتك الميدانية — التحديات، والأسعار الواقعية، ونقاط الضعف في اللوائح — وقدّمها لصانعي القرار</li>
+  </ul>
+
+  <p><strong>Feed-in Tariff — الحجة الاقتصادية:</strong></p>
+  <p>نظام التعريفة التفضيلية (Feed-in Tariff) يتيح لأصحاب الأنظمة الشمسية بيع فائض الطاقة للشبكة بسعر محدد مسبقاً. في السودان حيث الشبكة تعاني من عجز ضخم في التوليد، هذا النظام له حجة اقتصادية قوية: يُشجّع الاستثمار الخاص في التوليد دون أن تدفع الحكومة شيئاً مسبقاً، ويُقلل الضغط على محطات التوليد المرهقة، ويُخلق عائداً للمواطنين يُقلل من فترة استعادة التكلفة.</p>
+
+  <div class="note-box">
+    <div class="note-title">شمس النيل كصوت القطاع</div>
+    <p>شمس النيل تسعى لأن تكون المنصة التي تُجمّع صوت الفنيين والمستثمرين والمشغّلين أمام صانعي القرار. كل خريج من شمس النيل يُضيف ثقلاً لهذا الصوت. عندما يتحدث ١٠٠٠ فني معتمد بلسان واحد أمام وزارة الطاقة — يُسمع ذلك.</p>
+  </div>
+
+  <p><strong>اللوبي الإيجابي — الفرق بين المطالبة والإسهام:</strong></p>
+  <p>التأثير في السياسة لا يعني المظاهرات أو الضغط السياسي. يعني تقديم تقارير موضوعية مدعومة بأرقام وتجارب ميدانية، وطرح حلول عملية لا مجرد شكاوى، وبناء علاقات احترام مهني مع صانعي القرار تجعلهم يثقون بمدخلاتك.</p>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">رسالة الختام — شمس السودان لا تغيب</div>
+
+  <p>بلغت الوحدة الأخيرة في مسيرة شمس النيل. ما بدأ بالوحدة الأولى — السلامة الكهربائية، الأساس الذي يحمي الحياة قبل كل شيء — يصل اليوم إلى وحدته الرابعة والعشرين: الريادة، البناء، والرؤية.</p>
+
+  <p><strong>ما الذي بنيته عبر هذا المسار:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>المستوى</th><th>الوحدات</th><th>ما اكتسبته</th></tr></thead>
+    <tbody>
+      <tr><td>المستوى الأول — مبتدئ</td><td>١–٨</td><td>السلامة · الألواح · الإنفرتر · تصميم النظام · البطاريات · الكابلات · التركيب · الاختبار</td></tr>
+      <tr><td>المستوى الثاني — متوسط</td><td>٩–١٦</td><td>التصميم المتقدم · الشبكة الهجينة · الصيانة · الإنفرترات المتقدمة · تكامل الشبكة · المخططات الكهربائية · الأنظمة التجارية · التوثيق</td></tr>
+      <tr><td>المستوى الثالث — متقدم</td><td>١٧–٢٤</td><td>DERMS · VPP · SunSpec Modbus · مراقبة الأداء · (٢١–٢٣ وحدات ضبط واتصالات متقدمة) · الريادة</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>ما ينتظرك في السوق:</strong></p>
+  <ul class="content-list">
+    <li><strong>سوق في بداياته:</strong> الطاقة الشمسية في السودان لا تزال في مراحلها الأولى — المنافسة على الكفاءات محدودة جداً، والطلب يتجاوز العرض بمراحل</li>
+    <li><strong>فجوة المعرفة:</strong> كثير من المركّبين في السوق يعملون بمعرفة منقوصة — اعتمادك وعمقك التقني ميزة تنافسية حقيقية</li>
+    <li><strong>التحوّل الطاقوي الأفريقي:</strong> القارة بأسرها في طور تحوّل طاقوي كبير — الخبرة المكتسبة في السودان قابلة للتصدير</li>
+    <li><strong>الدعم الدولي المتنامي:</strong> منظمات وبرامج دولية تبحث عن شركاء محليين موثوقين ذوي كفاءة — هذا أنت</li>
+  </ul>
+
+  <p><strong>مسؤولية المعرفة — ما تعلمته عليك نقله:</strong></p>
+  <p>المعرفة التي لا تُنقل تموت بصاحبها. الاعتماد لا يكتمل معناه إلا حين تبدأ في تدريب غيرك — زميل، ابن أخ، فني مبتدئ في منطقتك. كل شخص تُدرّبه يُضاعف أثرك ويُطيل عمر عطائك. هذا ما نسميه في شمس النيل <strong>مسؤولية المعرفة</strong>.</p>
+
+  <div class="capstone-banner">
+    <div class="capstone-banner-title">رسالة شمس النيل إليك</div>
+    <div class="capstone-banner-sub">«شمس النيل وُلدت من شوق. شوق إلى أن يكون لبلدنا معهدٌ يُعلّم بالعربية، بمعايير عالمية، مجاناً — لأن المعرفة لا ينبغي أن تكون امتيازاً لمن يملك. الله أعطانا كل شيء: شمساً لا تتوقف، وشعباً يتقن الصمود والعطاء. بقي فقط أن نُعطي أنفسنا فرصة.»</div>
+  </div>
+
+  <p><strong>ما بعد الاعتماد — الخطوات القادمة:</strong></p>
+  <ul class="content-list">
+    <li>أكمل تقييم الاعتماد النهائي للحصول على شهادتك من شمس النيل</li>
+    <li>انضم إلى مجتمع خريجي شمس النيل — خبراتكم معاً أكبر من مجموعها</li>
+    <li>ابدأ بتطبيق ما تعلمته في مشروع حقيقي — حتى لو كان صغيراً</li>
+    <li>درّب شخصاً واحداً بما تعلمته — هذه هي البداية الحقيقية لريادتك</li>
+  </ul>
+
+  <div class="quote-block">
+    <p>«شمس السودان لا تغيب — وأنت الآن جزء منها.»</p>
+    <div class="quote-attr">— شمس النيل · معهد فنيي الطاقة الشمسية</div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">اختبار الوحدة الختامية — الريادة في قطاع الطاقة</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما أهم عامل يميز شركة طاقة شمسية ناجحة في السودان؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الأسعار الأدنى دائماً</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>الثقة المبنية على الاعتمادية + الجودة + خدمة ما بعد التركيب المستمرة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الإعلان الواسع</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الحجم الكبير للشركة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. كيف تؤثر الطاقة الشمسية على التنمية المجتمعية بشكل غير مباشر؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>تُقلل استهلاك الوقود فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تُمكّن ضخ المياه والتبريد الطبي والتعليم الليلي — ثلاثة قطاعات تتحسن من مصدر طاقة واحد</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تُخفض فاتورة الكهرباء فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>تؤثر فقط على المنازل التي تمتلكها</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="0">
+    <div class="quiz-q-text">٣. لماذا يجب على الفني المتقدم الاهتمام بسياسات الطاقة وتشريعاتها؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأن القوانين تُحدد ما يمكنه فعله وبأي سعر — المشاركة في صياغتها تحمي مصالح القطاع</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأنها متطلب للاعتماد فقط</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لا علاقة للفني التقني بالسياسات</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>فقط إذا كان يعمل في المشاريع الحكومية</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما معنى جملة «مسؤولية المعرفة» في سياق اعتماد شمس النيل؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الالتزام بدفع رسوم التجديد</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>نقل ما تعلمته لتدريب الآخرين والمساهمة في بناء القدرات الوطنية</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الحفاظ على أسرار التقنية للتميز التنافسي</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>التوثيق الصارم لكل مشروع</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. من منظور شمس النيل، ماذا يمثل الفني الشمسي السوداني المعتمد؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>موظفاً تقنياً متخصصاً فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>ركيزة في بناء منظومة طاقة وطنية مستدامة ومحركاً للتنمية المجتمعية</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>ممثلاً تجارياً لمنتجات الطاقة الشمسية</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>منفذاً لتعليمات شركات أجنبية</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٢٤ — الريادة في قطاع الطاقة</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح. تهانينا على إتمام مسار شمس النيل كاملاً!';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر وانطلق برسالتك.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار — الطريق لا يزال أمامك.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

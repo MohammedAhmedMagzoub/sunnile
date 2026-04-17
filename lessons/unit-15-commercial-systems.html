@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٥ — الأنظمة التجارية</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ٧ من ٨</div>
+  <div class="doc-title">الأنظمة التجارية — من المنزل للمصنع</div>
+  <div class="doc-title-en">Commercial Systems — From Residential to Industrial</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>التمييز بين الأنظمة السكنية والتجارية من حيث النطاق والجهد والمتطلبات</li>
+    <li>تصميم نظام تجاري ثلاثي الطور مع تحليل Load Profile وتوازن الأطوار</li>
+    <li>معرفة المعدات التجارية الإضافية: String Combiners وEnergy Meters وSCADA</li>
+    <li>إجراء دراسة جدوى اقتصادية كاملة وحساب Payback Period وIRR</li>
+    <li>إدارة مشروع تجاري من العقد حتى التسليم والصيانة</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">الفرق بين النظام السكني والتجاري</div>
+  <p>النظام السكني والتجاري يعتمدان على نفس المبدأ — ألواح شمسية وإنفرتر وتوزيع كهربائي — لكن حجم التحديات وعمق المتطلبات يختلفان اختلافاً جوهرياً.</p>
+
+  <div class="inv-grid">
+    <div class="inv-card ic-grid">
+      <div class="inv-card-title">النظام السكني</div>
+      <div class="inv-card-en">Residential</div>
+      <div class="inv-card-val">1 – 10 kWp<br>أحادي الطور 230V<br>عميل واحد يقرر<br>تركيب يوم أو يومين<br><br><strong style="color:#185FA5;">للمنازل والشقق</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid">
+      <div class="inv-card-title">النظام التجاري</div>
+      <div class="inv-card-en">Commercial (C&I)</div>
+      <div class="inv-card-val">10 – 500 kWp<br>ثلاثي الطور 400V<br>موافقات متعددة<br>تركيب أسابيع<br><br><strong style="color:#085041;">للمصانع والمؤسسات</strong></div>
+    </div>
+    <div class="inv-card ic-off">
+      <div class="inv-card-title">النظام الصناعي</div>
+      <div class="inv-card-en">Industrial / Utility</div>
+      <div class="inv-card-val">500 kWp وما فوق<br>ربط شبكة عالي الجهد<br>دراسات هندسية معمقة<br>مشاريع متعددة السنوات<br><br><strong style="color:#BA7517;">للشركات الكبرى</strong></div>
+    </div>
+  </div>
+
+  <p><strong>المتطلبات الإضافية في الأنظمة التجارية:</strong></p>
+  <ul class="content-list">
+    <li><strong>دراسة الجدوى الاقتصادية:</strong> المستثمر التجاري يريد أرقاماً دقيقة — Payback Period وIRR وNPV — قبل اتخاذ أي قرار</li>
+    <li><strong>موافقات متعددة:</strong> وزارة الكهرباء، شركة التوزيع، بلدية المبنى، وأحياناً هيئات بيئية</li>
+    <li><strong>ضمان الأداء:</strong> العميل التجاري يطلب Performance Guarantee مكتوباً — إنتاج لا يقل عن نسبة معينة سنوياً</li>
+    <li><strong>مراقبة مستمرة:</strong> SCADA أو منصة مراقبة مع تنبيهات فورية لأي عطل</li>
+    <li><strong>مهندس مراجعة:</strong> كثير من الجهات تشترط توقيع مهندس كهربائي مرخص على المخططات</li>
+  </ul>
+
+  <p><strong>الفرصة المالية — لماذا يستحق الانتقال للتجاري؟</strong></p>
+  <p>مشروع تجاري واحد بقدرة <strong>50 kWp</strong> قد تكون قيمته تعادل <strong>5 إلى 10 أضعاف</strong> قيمة 5 مشاريع سكنية متفرقة — مع هامش ربح أعلى نسبياً وعميل واحد تتعامل معه بدلاً من خمسة.</p>
+
+  <div class="key-box">
+    <div class="key-title">🔑 الانتقال للأنظمة التجارية — استثمار في نفسك</div>
+    <p>الانتقال للأنظمة التجارية يتطلب مهارات إضافية: تصميم ثلاثي الطور، دراسة جدوى، إدارة مشروع، والتعامل مع متخذي قرار تجاريين. لكن هذه المهارات تضاعف دخلك بشكل كبير وتفتح أمامك سوقاً أوسع بكثير من السوق السكني.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">تصميم نظام تجاري — الاعتبارات الإضافية</div>
+  <p>تصميم النظام التجاري يبدأ قبل رسم أي مخطط — يبدأ بجمع البيانات الصحيحة. الخطأ الأكثر شيوعاً هو البدء بالتصميم قبل فهم استهلاك المنشأة الفعلي.</p>
+
+  <p><strong>البيانات التي يجب جمعها قبل التصميم:</strong></p>
+  <ul class="content-list">
+    <li><strong>فاتورة الكهرباء لـ 12 شهراً كاملة:</strong> لفهم موسمية الاستهلاك والحد الأقصى الشهري</li>
+    <li><strong>مخطط المصنع أو المبنى:</strong> لتحديد مساحة السطح المتاحة واتجاهات التركيب</li>
+    <li><strong>مواعيد العمل:</strong> هل يعمل الموقع نهاراً فقط؟ على مدار الساعة؟ أيام العطل؟ — هذا يحدد كم ستستفيد من إنتاج الطاقة الشمسية مباشرة</li>
+    <li><strong>Load Schedule:</strong> قائمة بالأجهزة والمعدات وأوقات تشغيلها لبناء ملف استهلاك يومي دقيق</li>
+  </ul>
+
+  <p><strong>Load Profile التجاري وأهميته:</strong></p>
+  <p>الـ Load Profile هو رسم بياني يوضح الاستهلاك الكهربائي على مدار اليوم. في المنشأة التجارية التي تعمل نهاراً، يكون الاستهلاك الأعلى متزامناً مع أعلى إنتاج شمسي — وهذا مثالي.</p>
+
+  <p><strong>Demand Charge — رسوم القدرة القصوى:</strong></p>
+  <p>كثير من الشركات تدفع غرامات شهرية تُحسب على أساس أعلى قدرة مسحوبة خلال الشهر — وليس فقط مجموع الاستهلاك. مثال: إذا كانت المصنع سحب 200 kW لمدة 15 دقيقة في يوم واحد فقط، يدفع رسوماً على 200 kW طوال الشهر. <strong>النظام الشمسي مع نظام تحكم ذكي يخفض هذا الحد الأقصى</strong>، مما يزيد الوفر الحقيقي بشكل ملحوظ.</p>
+
+  <p><strong>ثلاثي الطور — توازن الأطوار:</strong></p>
+  <p>الشبكة التجارية تعمل على ثلاثة أطوار (L1, L2, L3) بجهد 400V بين الأطوار و230V بين كل طور والأرضي. <strong>توازن الطور ضروري</strong> — يجب توزيع الألواح والإنفرترات على الأطوار الثلاثة بشكل متساوٍ قدر الإمكان لتجنب اختلال الشبكة والغرامات التنظيمية.</p>
+
+  <table class="content-table">
+    <thead><tr><th>الطور</th><th>الجهد (Phase-Neutral)</th><th>الجهد (Phase-Phase)</th><th>مثال التوزيع في 30 kWp</th></tr></thead>
+    <tbody>
+      <tr><td>L1 (الطور الأول)</td><td>230V</td><td>400V</td><td>10 kWp — 25 لوح</td></tr>
+      <tr><td>L2 (الطور الثاني)</td><td>230V</td><td>400V</td><td>10 kWp — 25 لوح</td></tr>
+      <tr><td>L3 (الطور الثالث)</td><td>230V</td><td>400V</td><td>10 kWp — 25 لوح</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <div class="note-title">📌 مثال عملي — مستشفى 150 kWh/day</div>
+    <p>مستشفى يستهلك 150 kWh يومياً يعمل 24 ساعة. تصميم النظام: 30 kWp شمسي للأحمال النهارية + بطاريات للأحمال الحرجة ليلاً (غرف العمليات، أجهزة الإنعاش). التوزيع: 10 kWp على كل طور. الوفر المتوقع: تغطية 60-70% من الاستهلاك اليومي في أشهر الذروة.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">المعدات التجارية — ما يختلف عن السكني</div>
+  <p>النظام التجاري لا يختلف في المبدأ عن السكني — لكنه يتطلب معدات إضافية لضمان السلامة والأداء والمراقبة على نطاق أوسع.</p>
+
+  <p><strong>الإنفرترات التجارية ثلاثية الطور:</strong></p>
+  <ul class="content-list">
+    <li><strong>Fronius Symo:</strong> إنفرتر ثلاثي الطور مشهور، Modbus ممتاز، نطاق 3–27.6 kW، موثوقية عالية</li>
+    <li><strong>Sungrow SG (Three-Phase):</strong> واسع الانتشار، أسعار تنافسية، متوفر بقدرات من 5 kW حتى 125 kW</li>
+    <li><strong>Huawei SUN2000-100KTL:</strong> للمشاريع الكبيرة، 100 kW، AI Smart IV Diagnosis، String Monitoring مدمج</li>
+  </ul>
+
+  <p><strong>String Combiner Box — صندوق التجميع:</strong></p>
+  <p>في الأنظمة الكبيرة يوجد عشرات السلاسل من الألواح. بدلاً من توصيلها مباشرة بالإنفرتر، تُجمع أولاً في <strong>String Combiner Box</strong> الذي يحتوي على:</p>
+  <ul class="content-list">
+    <li><strong>فيوز لكل سلسلة:</strong> يحمي الألواح والأسلاك من التيار العكسي والأعطال</li>
+    <li><strong>SPD (Surge Protection Device):</strong> حماية من الصواعق والجهد الزائد</li>
+    <li><strong>قاطع رئيسي DC:</strong> لفصل الجانب الشمسي كاملاً عند الصيانة</li>
+    <li><strong>String Monitoring (اختياري):</strong> قياس تيار كل سلسلة منفردة للكشف المبكر عن الأعطال</li>
+  </ul>
+
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">بنية نظام تجاري 100 kWp — نظرة عامة</div>
+    <svg width="100%" viewBox="0 0 720 110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr2b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <rect x="5" y="20" width="110" height="50" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="60" y="41" text-anchor="middle" font-size="10" fill="#633806" font-family="Arial" font-weight="500">ألواح شمسية</text>
+      <text x="60" y="56" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">250 لوح × 400W</text>
+      <line x1="115" y1="45" x2="145" y2="45" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <rect x="145" y="18" width="110" height="54" rx="6" fill="#1C1A14" stroke="#EF9F27" stroke-width="0.8"/>
+      <text x="200" y="39" text-anchor="middle" font-size="10" fill="#EF9F27" font-family="Arial" font-weight="500">String Combiner</text>
+      <text x="200" y="53" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.5)" font-family="Arial">فيوز + SPD + قاطع</text>
+      <text x="200" y="65" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.35)" font-family="Arial">DC</text>
+      <line x1="255" y1="45" x2="285" y2="45" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <rect x="285" y="15" width="110" height="60" rx="6" fill="#1C1A14" stroke="#EF9F27" stroke-width="1"/>
+      <text x="340" y="38" text-anchor="middle" font-size="11" fill="#EF9F27" font-family="Arial" font-weight="500">إنفرتر تجاري</text>
+      <text x="340" y="52" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.5)" font-family="Arial">3-Phase 100 kW</text>
+      <text x="340" y="65" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.35)" font-family="Arial">DC → AC 400V</text>
+      <line x1="395" y1="45" x2="425" y2="45" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arr2b)"/>
+      <rect x="425" y="20" width="110" height="50" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="480" y="40" text-anchor="middle" font-size="10" fill="#0C447C" font-family="Arial" font-weight="500">AC Distribution</text>
+      <text x="480" y="55" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">Energy Meter + SCADA</text>
+      <line x1="535" y1="45" x2="565" y2="45" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arr2b)"/>
+      <rect x="565" y="20" width="145" height="50" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+      <text x="637" y="40" text-anchor="middle" font-size="10" fill="#085041" font-family="Arial" font-weight="500">أحمال المنشأة</text>
+      <text x="637" y="55" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">مصنع · مستشفى · مركز تجاري</text>
+    </svg>
+  </div>
+
+  <p><strong>AC Distribution Board — لوحة توزيع مستقلة:</strong></p>
+  <p>في النظام التجاري، يُنصح بتركيب لوحة توزيع AC خاصة بالنظام الشمسي <strong>مستقلة عن لوحة المبنى الرئيسية</strong>. هذا يسهل الصيانة، ويحمي النظام من أعطال مبنى المنشأة، ويسمح بقطع التغذية الشمسية بشكل سريع وآمن.</p>
+
+  <p><strong>Energy Meters وSCADA:</strong></p>
+  <ul class="content-list">
+    <li><strong>Bi-directional Energy Meter على الشبكة:</strong> يقيس الطاقة المستوردة من الشبكة والمصدّرة إليها</li>
+    <li><strong>PV Production Meter:</strong> يقيس إنتاج النظام الشمسي بدقة للتحقق من الأداء</li>
+    <li><strong>Load Monitoring:</strong> يتتبع استهلاك المنشأة لتحسين توقيت الأحمال</li>
+    <li><strong>SCADA أو منصة مراقبة:</strong> واجهة مركزية تُظهر حالة النظام في الوقت الفعلي مع تنبيهات فورية لأي انحراف عن الأداء المتوقع</li>
+  </ul>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">تقييم الجدوى الاقتصادية للمشروع التجاري</div>
+  <p>المستثمر التجاري لا يشتري ألواحاً شمسية — هو يشتري عائداً مالياً. دورك كفني محترف هو تقديم أرقام واقعية وموثوقة تساعده على اتخاذ قرار مدروس.</p>
+
+  <p><strong>خطوات دراسة الجدوى — الخمس خطوات الأساسية:</strong></p>
+  <ul class="content-list">
+    <li><strong>الخطوة 1 — الإنتاج السنوي المتوقع:</strong> كWh السنوية = قدرة النظام (kWp) × متوسط ساعات الذروة الشمسية (PSH) × Performance Ratio (PR) × 365 يوم</li>
+    <li><strong>الخطوة 2 — الوفر السنوي:</strong> الوفر = kWh السنوية × سعر الكهرباء التجارية للكيلوواط ساعة (يشمل Demand Charges إن وجدت)</li>
+    <li><strong>الخطوة 3 — التكلفة الإجمالية (CAPEX):</strong> تكلفة الألواح + الإنفرترات + الهيكل + الكابلات + التركيب + المراقبة + التصاريح</li>
+    <li><strong>الخطوة 4 — Payback Period:</strong> فترة الاسترداد = CAPEX ÷ الوفر السنوي</li>
+    <li><strong>الخطوة 5 — IRR وNPV للمستثمرين:</strong> حساب معدل العائد الداخلي وصافي القيمة الحالية على مدى 20-25 سنة عمر النظام</li>
+  </ul>
+
+  <div class="spec-box">
+    <div class="spec-title">مثال حسابي — نظام 50 kWp لمصنع</div>
+    <div class="spec-row"><span class="spec-key">قدرة النظام</span><span class="spec-val">50 kWp</span></div>
+    <div class="spec-row"><span class="spec-key">ساعات الذروة الشمسية (PSH) — السودان</span><span class="spec-val">5.5 ساعة/يوم</span></div>
+    <div class="spec-row"><span class="spec-key">Performance Ratio (PR)</span><span class="spec-val">75%</span></div>
+    <div class="spec-row"><span class="spec-key">الإنتاج السنوي المتوقع</span><span class="spec-val">50 × 5.5 × 0.75 × 365 = 75,281 kWh</span></div>
+    <div class="spec-row"><span class="spec-key">سعر الكهرباء التجارية</span><span class="spec-val">$0.12 / kWh</span></div>
+    <div class="spec-row"><span class="spec-key">الوفر السنوي</span><span class="spec-val">75,281 × $0.12 ≈ $9,034 / سنة</span></div>
+    <div class="spec-row"><span class="spec-key">تكلفة المشروع الإجمالية (CAPEX)</span><span class="spec-val">$30,000</span></div>
+    <div class="spec-row"><span class="spec-key">Payback Period</span><span class="spec-val">$30,000 ÷ $9,034 ≈ 3.3 سنة</span></div>
+    <div class="spec-row"><span class="spec-key">عمر النظام المتوقع</span><span class="spec-val">25 سنة</span></div>
+    <div class="spec-row"><span class="spec-key">إجمالي الوفر (25 سنة)</span><span class="spec-val">≈ $225,000</span></div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 السودان — الوفر الحقيقي أعلى من الحسابات البسيطة</div>
+    <p>في السودان مع انقطاع الكهرباء المستمر، كثير من الشركات تعتمد على مولدات ديزل باهظة التكلفة. الوفر الحقيقي لا يُحسب فقط مقارنة بسعر الشبكة — بل يشمل تكلفة الديزل المُستبدَل. هذا يرفع الوفر الفعلي أحياناً لضعفين أو ثلاثة أضعاف الرقم في الجداول.</p>
+  </div>
+
+  <p><strong>Performance Ratio (PR) — لماذا 75% وليس 100%؟</strong></p>
+  <p>الـ PR يعكس كفاءة النظام الفعلية بعد حساب جميع الخسائر: حرارة الألواح (~10%)، خسائر الأسلاك (~2%)، خسائر الإنفرتر (~3%)، الغبار والظل (~5%)، وخسائر أخرى. في السودان الحار، PR بين 72-78% هو نطاق واقعي.</p>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">إدارة مشروع تجاري — من العقد للتشغيل</div>
+  <p>المشروع التجاري ليس مجرد تركيب — هو عملية منظمة تبدأ قبل أول لوح وتستمر بعد آخر توقيع. الفني الذي يتقن إدارة المشروع يبني سمعة احترافية تجلب عملاء جدداً.</p>
+
+  <p><strong>وثائق العقد التجاري الأساسية:</strong></p>
+  <ul class="content-list">
+    <li><strong>المواصفات الفنية التفصيلية:</strong> قائمة بكل معدة مع الموديل والمواصفات — لا مجال للغموض</li>
+    <li><strong>ضمانات الأداء (Performance Guarantee):</strong> الإنتاج السنوي المضمون وآلية التعويض في حالة عدم الوفاء</li>
+    <li><strong>جدول التنفيذ:</strong> مراحل المشروع مع تواريخ محددة ومعالم واضحة</li>
+    <li><strong>بنود الدفع:</strong> مرتبطة بإنجازات المشروع — لا دفع كامل قبل التسليم الناجح</li>
+  </ul>
+
+  <p><strong>الفريق المطلوب للمشروع التجاري:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الدور</th><th>المسؤولية</th><th>ملاحظة</th></tr></thead>
+    <tbody>
+      <tr><td>مدير المشروع</td><td>التنسيق، الجدول الزمني، التواصل مع العميل</td><td>قد يكون أنت في المشاريع الصغيرة</td></tr>
+      <tr><td>فنيو التركيب</td><td>تركيب الألواح، الهيكل، التوصيلات</td><td>2-4 فنيين حسب حجم المشروع</td></tr>
+      <tr><td>الكهربائي المرخص</td><td>التوصيلات AC، لوحة التوزيع، الربط بالشبكة</td><td>مطلوب قانونياً في معظم الدول</td></tr>
+      <tr><td>مهندس المراجعة</td><td>مراجعة المخططات والتوقيع عليها</td><td>مطلوب للمشاريع الكبيرة والجهات الرسمية</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>مراحل المشروع التجاري:</strong></p>
+  <ul class="content-list">
+    <li><strong>1 — دراسة الجدوى:</strong> تحليل الموقع والاستهلاك وإعداد الجدوى الاقتصادية</li>
+    <li><strong>2 — التصميم التفصيلي:</strong> مخططات كاملة، Single Line Diagram، Layout الألواح، تفاصيل الهيكل</li>
+    <li><strong>3 — الموافقات والتصاريح:</strong> تقديم الطلبات للجهات المختصة والحصول على الموافقات</li>
+    <li><strong>4 — التركيب:</strong> تنفيذ المشروع وفق المخططات المعتمدة</li>
+    <li><strong>5 — Commissioning:</strong> اختبار النظام كاملاً، قياس الأداء، تحقق من الأمان</li>
+    <li><strong>6 — التسليم والتدريب:</strong> تسليم جميع الوثائق وتدريب فريق المنشأة</li>
+    <li><strong>7 — الصيانة الدورية:</strong> عقد صيانة سنوي — مصدر دخل منتظم ومستمر</li>
+  </ul>
+
+  <p><strong>Handover Package — ما يجب تسليمه للعميل:</strong></p>
+  <ul class="content-list">
+    <li><strong>دليل التشغيل والصيانة:</strong> بالعربية، واضح، يشمل إجراءات الطوارئ</li>
+    <li><strong>شهادات الاختبار والـ Commissioning:</strong> موقعة من الفني والمهندس المسؤول</li>
+    <li><strong>ضمانات المعدات الأصلية:</strong> بطاقات ضمان الإنفرتر والألواح</li>
+    <li><strong>مخططات As-Built:</strong> المخططات النهائية التي تعكس ما تم تركيبه فعلياً — قد تختلف قليلاً عن مخططات التصميم</li>
+    <li><strong>بيانات تسجيل الدخول لمنصة المراقبة:</strong> لضمان وصول العميل لبيانات نظامه</li>
+  </ul>
+
+  <div class="key-box">
+    <div class="key-title">🔑 عقد الصيانة السنوي — الذهب المخفي</div>
+    <p>الفنيون الناجحون في الأنظمة التجارية لا يكتفون بربح المشروع مرة واحدة — يبنون دخلاً منتظماً من عقود الصيانة السنوية. عقد صيانة لمشروع 50 kWp قد يدر 3-5% من قيمة المشروع سنوياً، وبعد 10 مشاريع تجارية يصبح لديك دخل ثابت من الصيانة يغنيك عن البحث عن عملاء جدد باستمرار.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — الأنظمة التجارية</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما الجهد الكهربائي المميز للأنظمة التجارية ثلاثية الطور؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>230V</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>400V</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>110V</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>1000V</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما Demand Charge وكيف يؤثر على قرار التركيب الشمسي في المشاريع التجارية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>رسوم على إجمالي الاستهلاك الشهري فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>رسوم على القدرة القصوى المسحوبة — النظام الشمسي يخفضها مما يزيد الوفر الحقيقي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>رسوم على قطع الكهرباء</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا علاقة له بالطاقة الشمسية</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. ما Payback Period لمشروع تكلفته $30,000 ووفره السنوي $9,000؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>9 سنوات</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>3.3 سنوات</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>30 سنة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>سنة واحدة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. لماذا يجب تركيب String Combiner Box في الأنظمة التجارية الكبيرة؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لتحسين الجماليات</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لتجميع سلاسل متعددة مع حماية (فيوز + SPD + قاطع) لكل سلسلة بشكل منظم وآمن</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>بديل عن الإنفرتر</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>تنظيم حراري فقط</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. ما أهمية عقد الصيانة السنوي للفني بعد تسليم مشروع تجاري؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>شرط قانوني فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>مصدر دخل منتظم ومستمر للفني مع ضمان أداء النظام للعميل</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لا يهم بعد التسليم</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>يخفض ضمان المعدات</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٥ — الأنظمة التجارية</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

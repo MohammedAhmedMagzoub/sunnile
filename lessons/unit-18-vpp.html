@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٨ — أنظمة VPP والتحكم الموزع</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثالث — متقدم · الوحدة ٢ من ٨</div>
+  <div class="doc-title">أنظمة VPP والتحكم الموزع — المحطة الافتراضية</div>
+  <div class="doc-title-en">VPP &amp; Distributed Control — The Virtual Power Plant</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الثاني</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم مفهوم VPP وكيف تصبح آلاف المنازل محطة كهرباء افتراضية واحدة</li>
+    <li>معرفة الطبقات الثلاث التي يقوم عليها نظام VPP من الأجهزة إلى الخوارزمية</li>
+    <li>تحديد المتطلبات الفنية التي يجب أن يستوفيها الإنفرتر للانضمام لبرنامج VPP</li>
+    <li>الاطلاع على نماذج VPP ناجحة حول العالم وإمكانية تطبيقها في السودان</li>
+    <li>تطبيق خطوات تهيئة نظام عميل للانضمام الفعلي لبرنامج VPP</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">ما هو VPP — المحطة الافتراضية التي لا تُرى</div>
+  <p><strong>VPP — Virtual Power Plant</strong> أو المحطة الافتراضية: آلاف الأنظمة الشمسية المنزلية وبطارياتها تعمل معاً كمحطة كهرباء واحدة من حيث التأثير على الشبكة — لكن بدون مكان مركزي واحد.</p>
+  <p><strong>بالأرقام:</strong> 10,000 منزل × 5 kWh بطارية = <strong>50 MWh احتياطية</strong> متاحة للشبكة. هذا مساوٍ تماماً لمحطة توليد متوسطة الحجم — لكنه موزع في آلاف المنازل بدلاً من موقع واحد.</p>
+  <p><strong>الفرق الجوهري عن الشبكة التقليدية:</strong></p>
+  <ul class="content-list">
+    <li><strong>المحطة التقليدية:</strong> مكان واحد، توربينات ضخمة، إدارة مركزية، تكلفة إنشاء مليارية</li>
+    <li><strong>VPP:</strong> لا مكان مركزي — الطاقة موزعة في آلاف المنازل، التكلفة موزعة على الأسر، البنية التحتية موجودة بالفعل</li>
+    <li><strong>المرونة:</strong> يمكن تفعيل VPP في ثوانٍ — محطة الغاز التقليدية تحتاج 15-30 دقيقة لبدء التشغيل</li>
+  </ul>
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">VPP — من منازل منفصلة إلى محطة افتراضية واحدة</div>
+    <svg width="100%" viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <!-- House 1 -->
+      <rect x="15" y="55" width="80" height="40" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <polygon points="15,55 55,28 95,55" fill="#EF9F27" opacity="0.3"/>
+      <text x="55" y="72" text-anchor="middle" font-size="9" fill="#633806" font-family="Arial">منزل + بطارية</text>
+      <text x="55" y="85" text-anchor="middle" font-size="8" fill="#888780" font-family="Arial">5 kWh</text>
+      <!-- House 2 -->
+      <rect x="115" y="55" width="80" height="40" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <polygon points="115,55 155,28 195,55" fill="#EF9F27" opacity="0.3"/>
+      <text x="155" y="72" text-anchor="middle" font-size="9" fill="#633806" font-family="Arial">منزل + بطارية</text>
+      <text x="155" y="85" text-anchor="middle" font-size="8" fill="#888780" font-family="Arial">5 kWh</text>
+      <!-- House 3 -->
+      <rect x="215" y="55" width="80" height="40" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <polygon points="215,55 255,28 295,55" fill="#EF9F27" opacity="0.3"/>
+      <text x="255" y="72" text-anchor="middle" font-size="9" fill="#633806" font-family="Arial">منزل + بطارية</text>
+      <text x="255" y="85" text-anchor="middle" font-size="8" fill="#888780" font-family="Arial">5 kWh</text>
+      <!-- dots -->
+      <text x="320" y="80" text-anchor="middle" font-size="16" fill="#BA7517" font-family="Arial">···</text>
+      <!-- Internet cloud -->
+      <ellipse cx="430" cy="45" rx="45" ry="22" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.8"/>
+      <text x="430" y="42" text-anchor="middle" font-size="9" fill="#185FA5" font-family="Arial" font-weight="500">منصة VPP</text>
+      <text x="430" y="55" text-anchor="middle" font-size="8" fill="#185FA5" font-family="Arial">خوارزمية التحكم</text>
+      <!-- arrows up to cloud -->
+      <line x1="55" y1="55" x2="390" y2="50" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+      <line x1="155" y1="55" x2="395" y2="50" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <line x1="255" y1="55" x2="400" y2="50" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <!-- Grid -->
+      <rect x="560" y="30" width="100" height="50" rx="5" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+      <text x="610" y="52" text-anchor="middle" font-size="10" fill="#085041" font-family="Arial" font-weight="500">شبكة الكهرباء</text>
+      <text x="610" y="65" text-anchor="middle" font-size="8" fill="#888780" font-family="Arial">50 MWh متاحة</text>
+      <line x1="475" y1="45" x2="558" y2="50" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr2)"/>
+    </svg>
+  </div>
+  <p><strong>مثال حقيقي — Tesla Virtual Power Plant في جنوب أستراليا:</strong> أكثر من 4,000 منزل مجهّز ببطاريات Powerwall متصلة ببعضها عبر منصة Tesla. عند ذروة الطلب على الكهرباء، تُفرَّغ آلاف البطاريات في نفس الوقت لتغذية الشبكة — وكأنها محطة واحدة.</p>
+  <div class="key-box">
+    <div class="key-title">🔑 VPP هو أكبر تحول في صناعة الكهرباء منذ 100 سنة</div>
+    <p>لأول مرة في التاريخ، يمكن لملايين المستهلكين أن يصبحوا منتجين ومخزّنين ومورّدين للكهرباء في آنٍ واحد. هذا يُعيد رسم خارطة الطاقة من النموذج المركزي القديم إلى نموذج موزع لا مركزي.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">كيف يعمل VPP — الطبقات الثلاث</div>
+  <p>نظام VPP ليس تقنية واحدة — هو <strong>ثلاث طبقات متكاملة</strong> تعمل معاً بشكل متواصل:</p>
+  <div class="inv-grid">
+    <div class="inv-card ic-off">
+      <div class="inv-card-title">الطبقة الفيزيائية</div>
+      <div class="inv-card-en">Physical Layer</div>
+      <div class="inv-card-val">الأنظمة الشمسية<br>والبطاريات في المنازل<br>الإنفرترات الذكية<br>العدادات الدقيقة<br><br><strong style="color:#BA7517;">الأساس المادي</strong></div>
+    </div>
+    <div class="inv-card ic-grid">
+      <div class="inv-card-title">طبقة الاتصالات</div>
+      <div class="inv-card-en">Communication Layer</div>
+      <div class="inv-card-val">كل جهاز متصل بالإنترنت<br>يرسل ويتلقى أوامر<br>في وقت حقيقي<br>بروتوكولات آمنة<br><br><strong style="color:#185FA5;">العصب الرقمي</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid">
+      <div class="inv-card-title">طبقة التحكم</div>
+      <div class="inv-card-en">Control Layer</div>
+      <div class="inv-card-val">خوارزمية مركزية<br>تُقرّر متى تشحن<br>وتفرّغ أي بطارية<br>لتحقيق هدف الشبكة<br><br><strong style="color:#085041;">الدماغ المحرّك</strong></div>
+    </div>
+  </div>
+  <p><strong>دور الـ Aggregator:</strong> شركة متخصصة تجمّع أجهزة الموزعة المشاركين وتتفاوض نيابةً عنهم مع سوق الكهرباء أو مشغل الشبكة. هي الوسيط التجاري والتقني بين المنازل والشبكة.</p>
+  <table class="content-table">
+    <thead><tr><th>الطرف</th><th>دوره في منظومة VPP</th><th>مثال</th></tr></thead>
+    <tbody>
+      <tr><td>المستهلك / صاحب المنزل</td><td>يوفر الطاقة المخزّنة في بطاريته ويسمح بالتحكم الجزئي</td><td>صاحب منزل بـPowerwall</td></tr>
+      <tr><td>Aggregator</td><td>يجمّع الأجهزة ويتفاوض مع سوق الكهرباء</td><td>Tesla Energy، Reposit Power</td></tr>
+      <tr><td>مشغل الشبكة</td><td>يطلب الطاقة في أوقات الذروة ويدفع مقابلها</td><td>AEMO في أستراليا</td></tr>
+      <tr><td>منصة VPP</td><td>تنسّق الأوامر في الوقت الحقيقي بين آلاف الأجهزة</td><td>Tesla VPP Platform</td></tr>
+    </tbody>
+  </table>
+  <p><strong>العائد للمستهلك المشارك:</strong> صاحب المنزل يُعوَّض بأحد شكلين — تخفيض مباشر على فاتورة الكهرباء، أو دفع نقدي دوري — مقابل السماح لـAggregator بالتحكم المحدود في بطاريته في أوقات محددة.</p>
+  <div class="note-box">
+    <div class="note-title">📌 التحكم محدود ومقيّد</div>
+    <p>المشارك في VPP لا يفقد التحكم في نظامه. الـAggregator يتحكم فقط في الجزء المتفق عليه من الطاقة — وفي أوقات محددة. صاحب المنزل دائماً يحتفظ بالحد الأدنى المتفق عليه كاحتياطي شخصي.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">متطلبات الإنفرتر للانضمام لـVPP</div>
+  <p>ليس كل إنفرتر يصلح للانضمام لبرنامج VPP. الإنفرتر الذي لا يستوفي هذه المتطلبات لن تقبله أي منصة VPP مهما كانت جودته في وظائفه الأساسية.</p>
+  <ul class="content-list">
+    <li><strong>استجابة سريعة — أقل من ثانيتين:</strong> عند وصول أمر التحكم، يجب أن يستجيب الإنفرتر ويغيّر حالته (شحن / تفريغ / توقف) خلال أقل من ثانيتين. الاستجابة البطيئة تُفسد التوازن اللحظي للشبكة</li>
+    <li><strong>اتصال موثوق ومستمر:</strong> LAN سلكي أو WiFi أو 4G — مع بروتوكول اتصال آمن (TLS/HTTPS) ومُشفَّر. الانقطاع المتكرر يجعل الجهاز غير قابل للاعتماد عليه في VPP</li>
+    <li><strong>DRED / Smart API:</strong> واجهة برمجية تتيح التحكم عن بُعد في مستوى الإنتاج أو الشحن بنسب محددة (0% / 30% / 50% / 100%). بدونه لا يمكن للـAggregator إصدار أوامر</li>
+    <li><strong>Metering دقيق:</strong> قراءة للطاقة الفعلية كل 5 دقائق على الأقل — وفي أنظمة VPP المتقدمة كل 30 ثانية. البيانات غير الدقيقة تُخل بحسابات الفوترة والأداء</li>
+    <li><strong>SunSpec Modbus:</strong> بروتوكول مفتوح للتكامل مع أي منصة تحكم — يتيح قراءة حالة الجهاز والتحكم فيه بطريقة موحّدة بغض النظر عن الشركة المصنّعة</li>
+  </ul>
+  <p><strong>جدول مقارنة إنفرترات شائعة ودعمها لـVPP:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الإنفرتر</th><th>يدعم VPP؟</th><th>البروتوكول</th><th>ملاحظات</th></tr></thead>
+    <tbody>
+      <tr><td>Fronius GEN24</td><td><span class="approved-badge">نعم</span></td><td>SunSpec Modbus + Solar API</td><td>دعم كامل، استجابة ممتازة، شائع في أستراليا</td></tr>
+      <tr><td>Sungrow SH Series</td><td><span class="approved-badge">نعم</span></td><td>SunSpec Modbus + iSolarCloud</td><td>دعم VPP عبر منصة iSolarCloud</td></tr>
+      <tr><td>SiGEnergy</td><td><span class="approved-badge">نعم — مثالي</span></td><td>REST API نظيف + SunSpec</td><td>مصمم VPP-ready منذ البداية، API متقدم، DC-coupled</td></tr>
+      <tr><td>Huawei SUN2000</td><td><span class="approved-badge">نعم</span></td><td>Modbus TCP + FusionSolar</td><td>دعم قوي لكن يفضّل منصة Huawei الخاصة</td></tr>
+      <tr><td>Victron MultiPlus</td><td><span class="approved-badge">جزئي</span></td><td>VE.Bus + MQTT</td><td>قوي في off-grid، VPP يحتاج GX device وإعداد إضافي</td></tr>
+    </tbody>
+  </table>
+  <div class="tip-box">
+    <div class="tip-title">💡 ابدأ بالسؤال الصحيح</div>
+    <p>عند اختيار مكونات لموقع قد ينضم مستقبلاً لـVPP، اسأل: "هل لهذا الإنفرتر API موثّق عام؟ وهل يدعم DRED؟" — هذان السؤالان يوفران عليك الكثير لاحقاً.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">نماذج VPP ناجحة حول العالم</div>
+  <p>VPP ليس نظرية مستقبلية — هو يعمل الآن في عدة دول وأثبت جدواه التقنية والاقتصادية. إليك أبرز النماذج الحقيقية:</p>
+  <table class="content-table">
+    <thead><tr><th>المشروع</th><th>الدولة</th><th>الحجم</th><th>الإنجاز</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tesla Virtual Power Plant</strong></td><td>أستراليا (جنوب)</td><td>50,000+ منزل</td><td>ادخار 50% على فاتورة الكهرباء للمشاركين</td></tr>
+      <tr><td><strong>Sunrun Shift</strong></td><td>أمريكا (كاليفورنيا)</td><td>25,000 منزل</td><td>يبيع الطاقة المخزّنة في سوق الكهرباء بأسعار الذروة</td></tr>
+      <tr><td><strong>Reposit Power</strong></td><td>أستراليا</td><td>آلاف الأنظمة</td><td>يبيع احتياطي البطاريات كـFrequency Control Ancillary Services — دخل إضافي للأسر</td></tr>
+      <tr><td><strong>Mini-VPP القروية</strong></td><td>المغرب</td><td>مجموعات قروية</td><td>VPP صغير في مناطق نائية — تبادل الطاقة بين جيران داخل ميكروجريد واحد</td></tr>
+    </tbody>
+  </table>
+  <p><strong>ماذا تعلّمنا هذه النماذج؟</strong></p>
+  <ul class="content-list">
+    <li><strong>التكديس يُغيّر المعادلة:</strong> 1000 بطارية كل منها 5 kWh لا تعني شيئاً بمفردها — لكن مجتمعةً تُشكّل قوة 5 MWh تستجيب في ثوانٍ</li>
+    <li><strong>العائد الاقتصادي حقيقي:</strong> المشاركون في Tesla VPP يوفّرون في المتوسط 50% من فواتيرهم — ليس بسبب الإنتاج فقط بل بسبب بيع الطاقة في الأوقات الذهبية</li>
+    <li><strong>التردد أكبر عائق:</strong> كثير من أصحاب المنازل يترددون في السماح بالتحكم في بطارياتهم — لكن البيانات تثبت أن التأثير على الاستخدام الشخصي ضئيل جداً</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 السودان — فرصة حقيقية لشمس النيل</div>
+    <p>الخرطوم والمدن الكبرى تشهد نمواً سريعاً في تركيب الأنظمة الشمسية. إذا بنى السودان 50,000+ نظام بمعايير VPP-ready، فستكون البنية التحتية جاهزة لتشكيل mini-VPP يُساهم في استقرار الشبكة الوطنية. شمس النيل تضع هذا الأساس الآن عبر اشتراط DRED وSunSpec في كل إنفرتر معتمد.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">كيف يُهيئ الفني المتقدم نظاماً للانضمام لـVPP</div>
+  <p>التهيئة لـVPP تبدأ من لحظة اختيار المكونات — وليس بعد التركيب. هذه الخطوات الخمس تضمن أن النظام الذي تركّبه اليوم يمكن انضمامه لبرنامج VPP غداً بأقل جهد ممكن:</p>
+  <p><strong>الخطوة 1 — اختيار مكونات VPP-ready:</strong></p>
+  <ul class="content-list">
+    <li>إنفرتر من القائمة المعتمدة يدعم DRED + SunSpec Modbus + API موثّق (Fronius / Sungrow / SiGEnergy)</li>
+    <li>بطارية ذكية مع BMS يدعم الاتصال بالإنفرتر الرئيسي وإعداد SOC Minimum من الخارج</li>
+    <li>عدّاد ذكي (Smart Meter) يدعم قراءة كل 5 دقائق على الأقل</li>
+  </ul>
+  <p><strong>الخطوة 2 — إعداد الاتصال:</strong></p>
+  <ul class="content-list">
+    <li>تخصيص Static IP للإنفرتر أو إعداد Dynamic DNS — للتأكد من أن عنوان الإنفرتر ثابت ومعروف للـAggregator</li>
+    <li>فتح المنافذ المطلوبة على جدار الحماية للبروتوكول المستخدم (عادةً 502 لـModbus TCP أو HTTPS للـAPI)</li>
+    <li>اختبار الاتصال من شبكة خارجية قبل تسليم الموقع</li>
+  </ul>
+  <p><strong>الخطوة 3 — تسجيل النظام مع Aggregator:</strong></p>
+  <ul class="content-list">
+    <li>تسجيل بيانات الجهاز: نوع الإنفرتر، الطراز، IP، بيانات المصادقة (API key أو credentials)</li>
+    <li>تسجيل بيانات الموقع: العنوان الجغرافي، الحي، رمز الشبكة (NMI أو مكافئه)</li>
+    <li>تسجيل الطاقة المتاحة: قدرة البطارية الكلية، SOC الحالي، قدرة الشحن/التفريغ القصوى</li>
+  </ul>
+  <p><strong>الخطوة 4 — تطبيق قواعد التحكم وحماية العميل:</strong></p>
+  <ul class="content-list">
+    <li>تحديد <strong>SOC Minimum</strong> مناسب مع العميل — مثلاً: "لا تفرّغ البطارية أدنى من 30%" لضمان احتياطي للاستخدام المنزلي الليلي</li>
+    <li>تحديد ساعات السماح بالتحكم — مثلاً: "التحكم مسموح من 3 مساءً إلى 9 مساءً فقط"</li>
+    <li>مراجعة شروط العقد مع الـAggregator مع العميل — خاصةً بنود التعويض والحدود القصوى للتدخل</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ التوازن بين VPP وحاجة العميل</div>
+    <p>العميل يريد الربح من VPP — لكنه يريد أيضاً كهرباء عند الانقطاع. إذا فُرّغت بطاريته للشبكة في الساعة 6 مساءً ثم انقطعت الكهرباء ساعة 8 مساءً، سيلومك. حدّد SOC Minimum بعناية وبموافقة صريحة من العميل.</p>
+  </div>
+  <p><strong>الخطوة 5 — مراقبة المشاركة بعد التشغيل:</strong></p>
+  <ul class="content-list">
+    <li>تتبع الأوامر المُنفَّذة من لوحة تحكم الـAggregator — كم أمر استُجيب له؟ كم أمر فشل؟</li>
+    <li>مراقبة العائد المالي الفعلي وإبلاغ العميل به شهرياً</li>
+    <li>تحديث إعدادات SOC Minimum إذا شكا العميل من نقص الاحتياطي</li>
+    <li>التأكد من أن تحديثات firmware الإنفرتر لا تكسر توافق API مع منصة VPP</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 VPP يرفع قيمة خدمتك كفني</div>
+    <p>الفني الذي يعرف كيف يهيئ نظاماً لـVPP لا يبيع ألواحاً فقط — يبيع دخلاً إضافياً مستمراً لعميله. هذا تمييز تنافسي حقيقي في السوق ويبرر قيمة خدماتك المتقدمة.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — أنظمة VPP والتحكم الموزع</div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">١. ما حجم الطاقة التي يمكن تجميعها من VPP يضم 10,000 منزل بـ5 kWh بطارية لكل منزل؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>5 MWh</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>10 MWh</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>50 MWh</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>500 MWh</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما دور الـAggregator في منظومة VPP؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>يصنع البطاريات</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>يجمّع الأجهزة الموزعة ويتفاوض مع سوق الكهرباء نيابةً عن المشاركين</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>يراقب الاستهلاك فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>يُصدر تراخيص التركيب</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٣. ما أقصى وقت استجابة مقبول للإنفرتر في نظام VPP؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>10 دقائق</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>ثانية واحدة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>ثانيتان</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>5 دقائق</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. لماذا يُعدّ SiGEnergy خياراً جيداً في أنظمة VPP؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأنه أرخص الإنفرترات في السوق</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأنه مصمم بمعمارية DC-coupled متقدمة مع API نظيف وVPP-ready منذ البداية</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لأنه لا يحتاج اتصالاً بالإنترنت</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لأن ضمانه أطول</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. ما التوازن الذي يجب مراعاته عند تسجيل نظام عميل في برنامج VPP؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الربح القصوى للمشارك في كل حالة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تحديد Minimum SOC مناسب ليضمن العميل احتياطياً كافياً للاستخدام الشخصي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الإنتاج القصوى من الألواح</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا توازن مطلوب — كل الطاقة للشبكة</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٨ — أنظمة VPP والتحكم الموزع</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٦ — التوثيق والتسليم</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ٨ من ٨</div>
+  <div class="doc-title">التوثيق والتسليم — ختم المستوى الثاني</div>
+  <div class="doc-title-en">Documentation &amp; Handover — Completing Level 2</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">الوحدة الختامية للمستوى الثاني</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم لماذا التوثيق هو ما يميز الفني المتميز عن غيره</li>
+    <li>إعداد وثائق ما قبل التركيب بشكل احترافي — تقرير الموقع وعرض الأسعار والعقد</li>
+    <li>توثيق مراحل التركيب والاختبارات الكهربائية بدقة</li>
+    <li>تسليم العميل حزمة وثائق كاملة تشمل As-Built والضمانات ودليل المستخدم</li>
+    <li>إدارة ملفات العملاء رقمياً بنظام منظم واحترافي</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">لماذا التوثيق يصنع الفني المتميز</div>
+  <p>في كل خلاف بين فني وعميل، السؤال الأول هو: <strong>هل هناك وثائق؟</strong> الإحصاءات تقول إن <strong>90% من النزاعات بين فنيين وعملاء سببها غياب التوثيق</strong> — لا لأن العميل كاذب، بل لأنه لا توجد وثيقة تثبت ما اتُّفق عليه وما نُفّذ.</p>
+  <p><strong>التوثيق يحمي ثلاثة أطراف في آن واحد:</strong></p>
+  <ul class="content-list">
+    <li><strong>الفني قانونياً:</strong> إذا ادّعى عميل وجود مشكلة في التركيب، سجلات الاختبارات والمخططات تثبت أن العمل نُفّذ بشكل صحيح</li>
+    <li><strong>العميل تقنياً:</strong> دليل المستخدم وسجل الضمانات يضمنان له الحصول على الصيانة والضمان متى احتاج</li>
+    <li><strong>النظام من الأخطاء المستقبلية:</strong> المخططات التفصيلية تمكّن أي فني آخر من الاستمرار بعدك دون أخطاء</li>
+  </ul>
+  <p><strong>التوثيق أداة تسويقية قوية:</strong></p>
+  <p>الفني الذي يُسلّم العميل ملفاً احترافياً منظماً — يحتوي مخططات واضحة وسجلات اختبارات وضمانات مرتّبة — يترك انطباعاً لا يُنسى. هذا العميل سيوصي بك لجيرانه وأصدقائه. التوثيق ليس عبئاً إضافياً — هو استثمار مباشر في سمعتك.</p>
+  <div class="key-box">
+    <div class="key-title">🔑 معيار شمس النيل — غير قابل للتفاوض</div>
+    <p>كل مشروع يجب أن ينتهي بملف توثيق كامل — هذا معيار شمس النيل. الفني المعتمد من شمس النيل الذي يُسلّم مشروعاً بدون توثيق لا يلتزم بمعايير الاعتماد.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">وثائق ما قبل التركيب</div>
+  <p>قبل أن تحمل أي أداة أو تتصل بأي سلك، يجب أن تكون لديك ثلاث وثائق موقّعة. هذه الوثائق تحمي الجميع وتضع توقعات واضحة من البداية.</p>
+  <p><strong>أولاً: تقرير تقييم الموقع — Site Survey Report</strong></p>
+  <ul class="content-list">
+    <li><strong>الموقع والإحداثيات:</strong> العنوان الدقيق وإحداثيات GPS — لتحديد زاوية الشمس وأفضل اتجاه للألواح</li>
+    <li><strong>فحص السطح وحمل التحميل:</strong> نوع السطح (خرساني / معدني / مائل)، حالته، وقدرته على تحمّل وزن الألواح</li>
+    <li><strong>تقييم الظل وتواريخه:</strong> أين تقع الأشجار والمباني المجاورة وفي أي أوقات تُلقي ظلاً على موقع الألواح</li>
+    <li><strong>قراءة الاستهلاك من الفاتورة:</strong> آخر 6-12 فاتورة كهرباء لتحديد حجم النظام المناسب</li>
+    <li><strong>صور الموقع:</strong> 4 اتجاهات على الأقل + صور السطح الكاملة — كل زاوية مهمة</li>
+  </ul>
+  <p><strong>ثانياً: عرض الأسعار — Quotation</strong></p>
+  <ul class="content-list">
+    <li><strong>قائمة المواد الكاملة BOM مع الأسعار:</strong> كل قطعة بالاسم والموديل والكمية والسعر — لا أرقام مجملة</li>
+    <li><strong>تكلفة التركيب:</strong> يوم العمل والمواد الإضافية والكابلات والمعدات الصغيرة</li>
+    <li><strong>الإنتاج السنوي المتوقع:</strong> بالكيلوواط ساعة — محسوب بناءً على بيانات الإشعاع الشمسي للمنطقة</li>
+    <li><strong>فترة الاسترداد:</strong> بالسنوات — يساعد العميل على فهم جدوى الاستثمار</li>
+  </ul>
+  <p><strong>ثالثاً: عقد التركيب</strong></p>
+  <p>يوقّعه العميل والفني قبل بدء أي عمل. يجب أن يتضمن: نطاق العمل المتفق عليه، الجدول الزمني، شروط الدفع، وتفاصيل الضمانات المقدّمة.</p>
+  <table class="content-table">
+    <thead><tr><th>الوثيقة</th><th>محتواها الأساسي</th><th>من يوقّعها</th></tr></thead>
+    <tbody>
+      <tr><td>تقرير تقييم الموقع</td><td>حالة السطح، الظل، الاستهلاك، الصور</td><td>الفني + العميل</td></tr>
+      <tr><td>عرض الأسعار</td><td>BOM كامل، تكاليف التركيب، الإنتاج المتوقع، فترة الاسترداد</td><td>الفني + العميل</td></tr>
+      <tr><td>عقد التركيب</td><td>نطاق العمل، الجدول الزمني، الدفع، الضمانات</td><td>الفني + العميل + شاهد إن أمكن</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">وثائق أثناء التركيب</div>
+  <p>التوثيق أثناء التركيب هو الأكثر تجاهلاً من قِبل الفنيين — وهو الأكثر أهمية عند الحاجة. هذه الوثائق تُنشأ في الموقع يوماً بيوم، وليس بعد الانتهاء.</p>
+  <p><strong>أولاً: سجل الاستلام</strong></p>
+  <p>عند وصول المعدات للموقع، سجّل كل قطعة واردة مع رقمها التسلسلي. هذا السجل يثبت أن المعدة المُركّبة هي نفسها التي اتُّفق عليها في العقد — وليست بديلاً أو قطعة مختلفة.</p>
+  <p><strong>ثانياً: تقرير التقدم اليومي</strong></p>
+  <ul class="content-list">
+    <li>ما تم إنجازه في هذا اليوم بالضبط</li>
+    <li>أي انحراف عن الخطة الأصلية وسببه</li>
+    <li>صور يومية تُثبت حالة العمل في نهاية كل يوم</li>
+  </ul>
+  <p><strong>ثالثاً: سجل الاختبارات — Test Records</strong></p>
+  <p>هذا أهم سجل على الإطلاق — يُوثّق نتائج كل اختبار كهربائي تُجريه على النظام:</p>
+  <ul class="content-list">
+    <li><strong>Voc لكل سلسلة:</strong> جهد الدائرة المفتوحة لكل String من الألواح — يُثبت أن الألواح موصّلة صح</li>
+    <li><strong>نتائج اختبار العزل:</strong> المقاومة بين الموصلات والأرض — يكشف أي عزل تالف قبل التشغيل</li>
+    <li><strong>مقاومة التأريض:</strong> قياس مقاومة نظام التأريض — يجب أن تكون ضمن الحدود المقررة</li>
+    <li><strong>اختبار Anti-islanding:</strong> التحقق من أن الإنفرتر يفصل عند انقطاع الشبكة — اختبار السلامة الأهم</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ لا تتخطى سجل الاختبارات — أبداً</div>
+    <p>سجل الاختبارات الكهربائية هو ما يحميك إذا ادّعى عميل وجود مشكلة تركيب لاحقاً. بدون هذا السجل، لا يمكنك إثبات أن النظام كان سليماً يوم التسليم. هذا السجل ليس ورقة بيروقراطية — هو درعك القانوني والمهني.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">حزمة تسليم العميل — As-Built Package</div>
+  <p>في يوم التسليم، لا تسلّم العميل النظام فقط — سلّمه ملفاً كاملاً يُمكّنه من فهم ما ملكه وصيانته والمطالبة بالضمان متى احتاج. هذه هي حزمة As-Built.</p>
+  <p><strong>١. مخططات As-Built</strong></p>
+  <p>هي المخططات النهائية المُحدَّثة بما نُفّذ فعلياً على الأرض. قد تختلف عن مخططات التصميم الأولي بسبب تغييرات طرأت أثناء التركيب — مسار كابل تغيّر، موضع قاطع اختلف، إضافة مكوّن لم يكن في الخطة. مخططات As-Built هي الحقيقة كما هي على الأرض.</p>
+  <p><strong>٢. شهادة الإتمام — Certificate of Completion</strong></p>
+  <p>وثيقة رسمية يوقّعها العميل والفني تُثبت استلام النظام بحالة جيدة وبشكل مُرضٍ. تتضمن تاريخ الاكتمال وقائمة بالمكونات المُركّبة.</p>
+  <p><strong>٣. ضمانات المعدات</strong></p>
+  <ul class="content-list">
+    <li><strong>الألواح الشمسية:</strong> ضمان الأداء 25 سنة — نسخة أصلية أو رقمية من شهادة الضمان</li>
+    <li><strong>الإنفرتر:</strong> ضمان المنتج 5-10 سنوات حسب الشركة المصنّعة</li>
+    <li><strong>البطارية:</strong> ضمان يتفاوت بين 5-10 سنوات — راجع شروط كل شركة</li>
+  </ul>
+  <p><strong>٤. دليل المستخدم المُبسّط — User Manual</strong></p>
+  <p>لا تعطِ العميل كتيّب المصنّع التقني — اكتب له دليلاً مُبسّطاً بالعربية يشمل:</p>
+  <ul class="content-list">
+    <li>كيف يقرأ شاشة الإنفرتر وما معنى كل مؤشر</li>
+    <li>علامات تعني أنه يجب الاتصال بك — الإنذارات والأضواء الحمراء</li>
+    <li>جدول الصيانة البسيطة: تنظيف الألواح كل 3 أشهر، فحص بصري كل 6 أشهر</li>
+  </ul>
+  <p><strong>٥. قائمة التحقق الختامية — Handover Checklist</strong></p>
+  <p>قائمة من 20 بنداً يوقّعها الفني والعميل معاً — تُثبت أن كل بند في النظام تم فحصه وتسليمه بشكل صحيح.</p>
+  <div class="note-box">
+    <div class="note-title">📌 الفرق بين As-Designed وAs-Built</div>
+    <p>As-Designed هي ما خططت له قبل التركيب. As-Built هي ما نُفّذ فعلياً على الأرض. دائماً قدّم للعميل As-Built — لأنها الحقيقة التي يحتاجها أي فني يأتي بعدك.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">التوثيق الرقمي وإدارة ملفات العملاء</div>
+  <p>المشروع المُوثَّق على ورق فقط يضيع. الفني الاحترافي يُدير ملفاته رقمياً — بنظام يُمكّنه من إيجاد أي وثيقة لأي عميل في ثوانٍ، حتى بعد سنوات.</p>
+  <p><strong>نظام التسمية الاحترافي</strong></p>
+  <p>اعتمد نظاماً ثابتاً لتسمية الملفات والمجلدات: <strong>رقم المشروع + اسم العميل + التاريخ</strong>. مثال: <code style="background:var(--bg);padding:2px 6px;border-radius:3px;font-size:12px;">2024-031_محمد_أحمد_2024-03-15</code>. هذا النظام يُسهّل الإيجاد لاحقاً ويمنع الخلط بين مشاريع متعددة.</p>
+  <p><strong>أدوات التوثيق الرقمي المجانية</strong></p>
+  <ul class="content-list">
+    <li><strong>Google Drive:</strong> مجاني بالكامل — مجلد لكل عميل، مشاركة سهلة، وصول من أي جهاز</li>
+    <li><strong>Notion:</strong> قاعدة بيانات للمشاريع مع حقول مخصصة — مناسب للفنيين الذين لديهم 10+ مشاريع نشطة</li>
+    <li><strong>قوائم WhatsApp Business المنظّمة:</strong> لإرسال التحديثات للعملاء وحفظ المحادثات المرتبطة بكل مشروع</li>
+  </ul>
+  <p><strong>التصوير الاحترافي أثناء التركيب</strong></p>
+  <p>الصور ليست للذكرى — هي وثائق تقنية. صوّر كل مرحلة: قبل البدء، أثناء التركيب، وبعد الانتهاء. صوّر جميع الأرقام التسلسلية للمعدات. كل صورة يجب أن يظهر فيها التاريخ والوقت (تفعيل Timestamp في إعدادات الكاميرا).</p>
+  <p><strong>النسخ الاحتياطية — قاعدة المكانين</strong></p>
+  <p>احفظ ملفات كل مشروع في مكانين على الأقل: المحلي (جهازك) + السحابي (Google Drive أو ما شابهه). ملف في مكان واحد فقط هو ملف مُعرَّض للضياع.</p>
+  <div class="tip-box">
+    <div class="tip-title">💡 قاعدة النسخة الاحتياطية الكاملة</div>
+    <p>مع كل 10 مشاريع مُكتملة، اعمل نسخة احتياطية كاملة من جميع ملفاتك على قرص صلب خارجي. السحابة ممتازة لكنها ليست ضماناً مطلقاً — القرص الخارجي هو الشبكة الأخيرة.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — التوثيق والتسليم</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما أهم سبب لتوثيق نتائج الاختبارات الكهربائية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>متطلب دراسي فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>حماية الفني قانونياً إذا ادّعى عميل وجود مشكلة تركيب لاحقاً</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لحساب الضريبة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا فائدة عملية</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما الفرق بين مخططات As-Designed ومخططات As-Built؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>As-Built للأنظمة الكبيرة فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>As-Built هي المخططات المُحدَّثة بما نُفّذ فعلياً — قد تختلف عن التصميم الأولي بسبب تغييرات الموقع</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>As-Designed أدق دائماً</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا فرق بينهما في الأنظمة الصغيرة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. ما المعلومة الأهم في سجل استلام المعدات؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>سعر المعدة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>الرقم التسلسلي لكل معدة — يُثبت أنها المعدة المتفق عليها وليست بديلاً</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>وزن الشحنة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لون الصندوق</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٤. ما مدة ضمان الألواح الشمسية القياسية التي يجب إرفاقها في حزمة التسليم؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>5 سنوات</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>10 سنوات</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>25 سنة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>مدى الحياة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. كيف تنظّم ملفات عملائك الرقمية بشكل احترافي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>ملف واحد للكل</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>نظام تسمية منتظم: رقم المشروع + اسم العميل + التاريخ، مع نسخ احتياطية في مكانين على الأقل</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الصور فقط كافية</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>التوثيق الورقي أفضل دائماً</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="section">
+  <div class="section-num">ملحق</div>
+  <div class="section-title">قائمة التحقق الختامية للتسليم — اطبعها لكل مشروع</div>
+  <table class="content-table">
+    <thead><tr><th>البند</th><th>الحالة</th></tr></thead>
+    <tbody>
+      <tr><td>تقرير تقييم الموقع موقَّع من الطرفين</td><td>☐ مكتمل &nbsp; ☐ ناقص</td></tr>
+      <tr><td>عرض الأسعار موقَّع مع BOM كامل</td><td>☐ مكتمل &nbsp; ☐ ناقص</td></tr>
+      <tr><td>عقد التركيب موقَّع قبل البدء</td><td>☐ موقَّع &nbsp; ☐ غير موقَّع</td></tr>
+      <tr><td>سجل استلام المعدات مع الأرقام التسلسلية</td><td>☐ مكتمل &nbsp; ☐ ناقص</td></tr>
+      <tr><td>تقارير التقدم اليومي محفوظة</td><td>☐ كاملة &nbsp; ☐ ناقصة</td></tr>
+      <tr><td>سجل اختبارات Voc لكل String موثَّق</td><td>☐ مسجَّل &nbsp; ☐ لم يُسجَّل</td></tr>
+      <tr><td>نتيجة اختبار العزل موثَّقة</td><td>☐ مسجَّلة &nbsp; ☐ لم تُسجَّل</td></tr>
+      <tr><td>قياس مقاومة التأريض موثَّق</td><td>☐ مسجَّل &nbsp; ☐ لم يُسجَّل</td></tr>
+      <tr><td>اختبار Anti-islanding نُفِّذ وسُجِّل</td><td>☐ مكتمل &nbsp; ☐ لم يُنفَّذ</td></tr>
+      <tr><td>مخططات As-Built نهائية جاهزة</td><td>☐ جاهزة &nbsp; ☐ لم تُعدَّ</td></tr>
+      <tr><td>شهادة الإتمام موقَّعة من العميل والفني</td><td>☐ موقَّعة &nbsp; ☐ لم توقَّع</td></tr>
+      <tr><td>نسخ ضمانات الألواح (25 سنة) مُسلَّمة</td><td>☐ مُسلَّمة &nbsp; ☐ ناقصة</td></tr>
+      <tr><td>نسخة ضمان الإنفرتر مُسلَّمة</td><td>☐ مُسلَّمة &nbsp; ☐ ناقصة</td></tr>
+      <tr><td>نسخة ضمان البطارية مُسلَّمة (إن وُجدت)</td><td>☐ مُسلَّمة &nbsp; ☐ لا ينطبق</td></tr>
+      <tr><td>دليل المستخدم المُبسَّط بالعربية مُسلَّم</td><td>☐ مُسلَّم &nbsp; ☐ لم يُعدَّ</td></tr>
+      <tr><td>تدريب العميل على قراءة شاشة الإنفرتر</td><td>☐ تم &nbsp; ☐ لم يتم</td></tr>
+      <tr><td>الصور قبل/أثناء/بعد محفوظة رقمياً</td><td>☐ محفوظة &nbsp; ☐ ناقصة</td></tr>
+      <tr><td>ملف المشروع مُرفَّع على Google Drive</td><td>☐ مرفوع &nbsp; ☐ لم يُرفَّع</td></tr>
+      <tr><td>نسخة احتياطية محلية على الجهاز</td><td>☐ محفوظة &nbsp; ☐ لم تُحفَّظ</td></tr>
+      <tr><td>العميل أبدى رضاه وتم توديعه باحترافية</td><td>☐ نعم &nbsp; ☐ __________</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٦ — التوثيق والتسليم</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

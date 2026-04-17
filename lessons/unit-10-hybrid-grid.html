@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٠ — أنظمة الشبكة المختلطة</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثاني — متوسط · الوحدة ٢ من ٨</div>
+  <div class="doc-title">أنظمة الشبكة المختلطة — إتقان الإنفرتر الهجين</div>
+  <div class="doc-title-en">Hybrid Grid Systems — Mastering the Hybrid Inverter</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم المصادر الأربعة للطاقة في النظام الهجين وكيف يوازن الإنفرتر بينها</li>
+    <li>تحديد الوضع التشغيلي المناسب للإنفرتر الهجين حسب الموقع والاحتياج</li>
+    <li>ضبط الإعدادات الحرجة بشكل صحيح — SOC وجهد الشحن وأولويات الطاقة</li>
+    <li>تكامل المولد الاحتياطي مع النظام الهجين بأمان وكفاءة</li>
+    <li>تشخيص وحل المشاكل الشائعة في أنظمة الشبكة المختلطة</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">فهم الشبكة المختلطة — أربعة مصادر في نظام واحد</div>
+  <p>النظام الهجين هو الأكثر تعقيداً وتنوعاً في عائلة الطاقة الشمسية — يجمع بين أربعة مصادر مختلفة للطاقة في نظام واحد متكامل. الإنفرتر الهجين هو المخ الذي يقرر كل لحظة من أين تأتي الطاقة وإلى أين تذهب.</p>
+  <p><strong>المصادر الأربعة للطاقة في النظام الهجين:</strong></p>
+  <ul class="content-list">
+    <li><strong>الألواح الشمسية (PV):</strong> المصدر الأساسي — ينتج كهرباء مجانية أثناء ساعات النهار المشمس</li>
+    <li><strong>الشبكة العامة:</strong> مصدر احتياطي متاح عند الحاجة — يمكن الاستفادة منه أو تصدير الفائض إليه</li>
+    <li><strong>البطاريات:</strong> خزان الطاقة — تخزن الفائض وتوفره عند غياب الشمس أو انقطاع الشبكة</li>
+    <li><strong>المولد الاحتياطي:</strong> الخيار الأخير — يُستخدم عند نفاد البطاريات وغياب الشبكة والشمس</li>
+  </ul>
+
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">مخطط تدفق الطاقة في النظام الهجين</div>
+    <svg width="100%" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <!-- Inverter center -->
+      <rect x="280" y="70" width="140" height="65" rx="6" fill="#1C1A14" stroke="#EF9F27" stroke-width="1.5"/>
+      <text x="350" y="96" text-anchor="middle" font-size="12" fill="#EF9F27" font-family="Arial" font-weight="500">إنفرتر هجين</text>
+      <text x="350" y="113" text-anchor="middle" font-size="10" fill="rgba(245,237,212,.5)" font-family="Arial">Hybrid Inverter</text>
+      <text x="350" y="127" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.3)" font-family="Arial">يوازن المصادر الأربعة</text>
+      <!-- PV top -->
+      <rect x="285" y="5" width="130" height="45" rx="5" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="350" y="24" text-anchor="middle" font-size="11" fill="#633806" font-family="Arial" font-weight="500">ألواح شمسية PV</text>
+      <text x="350" y="39" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">تيار DC — الأولوية الأولى</text>
+      <line x1="350" y1="50" x2="350" y2="68" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <!-- Grid left -->
+      <rect x="30" y="80" width="120" height="45" rx="5" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="90" y="99" text-anchor="middle" font-size="11" fill="#0C447C" font-family="Arial" font-weight="500">الشبكة العامة</text>
+      <text x="90" y="114" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">AC — الأولوية الثالثة</text>
+      <line x1="150" y1="102" x2="278" y2="102" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <!-- Battery bottom-left -->
+      <rect x="60" y="148" width="120" height="45" rx="5" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+      <text x="120" y="167" text-anchor="middle" font-size="11" fill="#085041" font-family="Arial" font-weight="500">البطاريات</text>
+      <text x="120" y="182" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">DC — الأولوية الثانية</text>
+      <line x1="180" y1="162" x2="278" y2="130" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <!-- Generator bottom-right -->
+      <rect x="520" y="148" width="130" height="45" rx="5" fill="#F7F4EE" stroke="#888780" stroke-width="0.5"/>
+      <text x="585" y="167" text-anchor="middle" font-size="11" fill="#2C2C2A" font-family="Arial" font-weight="500">المولد الاحتياطي</text>
+      <text x="585" y="182" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">AC — الأولوية الرابعة</text>
+      <line x1="520" y1="162" x2="422" y2="130" stroke="#888780" stroke-width="1.5" marker-end="url(#arr5)"/>
+      <!-- Load right -->
+      <rect x="550" y="80" width="120" height="45" rx="5" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+      <text x="610" y="99" text-anchor="middle" font-size="11" fill="#26215C" font-family="Arial" font-weight="500">الأحمال</text>
+      <text x="610" y="114" text-anchor="middle" font-size="9" fill="#888780" font-family="Arial">AC 230V للأجهزة</text>
+      <line x1="420" y1="102" x2="548" y2="102" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arr3)"/>
+    </svg>
+  </div>
+
+  <p><strong>أولوية شمس النيل الموصى بها لمصادر الطاقة:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الأولوية</th><th>المصدر</th><th>الحالة</th><th>الهدف</th></tr></thead>
+    <tbody>
+      <tr><td>1 — الأولى</td><td>الشمس (PV)</td><td>نهار مشمس</td><td>صفر تكلفة — استخدم الطاقة المجانية أولاً</td></tr>
+      <tr><td>2 — الثانية</td><td>البطاريات</td><td>ليل أو غيوم</td><td>استخدم الطاقة المخزنة قبل الشبكة</td></tr>
+      <tr><td>3 — الثالثة</td><td>الشبكة العامة</td><td>البطاريات منخفضة</td><td>شراء من الشبكة عند الحاجة فقط</td></tr>
+      <tr><td>4 — الرابعة</td><td>المولد</td><td>كل ما سبق غير متاح</td><td>آخر ملجأ — تكلفة وقود + صيانة</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>تدفق الطاقة في حالات مختلفة:</strong></p>
+  <ul class="content-list">
+    <li><strong>نهار مشمس وشبكة متاحة:</strong> PV يغذي الأحمال → الفائض يشحن البطارية → ما زال هناك فائض يُصدَّر للشبكة</li>
+    <li><strong>ليل وشبكة متاحة:</strong> البطارية تغذي الأحمال حتى تنخفض لحد SOC المينيموم → الشبكة تكمل التغذية</li>
+    <li><strong>انقطاع الكهرباء + نهار مشمس:</strong> PV يغذي مباشرة + يشحن البطارية — وضع الجزيرة المعزولة</li>
+    <li><strong>انقطاع + غيوم + بطارية منخفضة:</strong> المولد يبدأ تلقائياً لشحن البطارية وتغذية الأحمال الحرجة</li>
+  </ul>
+
+  <div class="key-box">
+    <div class="key-title">🔑 الإنفرتر الهجين الحديث يحتاج برمجة صحيحة</div>
+    <p>الإنفرتر الهجين الحديث يحتاج برمجة صحيحة لأولويات الطاقة — الإعدادات الخاطئة تهدر الطاقة. إنفرتر مضبوط على "Grid First" بدلاً من "PV First" سيشتري الكهرباء من الشبكة حتى وهو يستقبل طاقة شمسية كافية — خسارة مالية يومية لا يلاحظها أحد إلا عند مراجعة فاتورة الكهرباء.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">أوضاع عمل الإنفرتر الهجين</div>
+  <p>الإنفرتر الهجين ليس جهازاً بوضع واحد — يمكنه العمل بأساليب مختلفة تماماً حسب البرمجة والموقع. فهم هذه الأوضاع ضروري قبل أي تركيب.</p>
+
+  <div class="inv-grid">
+    <div class="inv-card ic-grid">
+      <div class="inv-card-title">Grid-Tie</div>
+      <div class="inv-card-en">مرتبط بالشبكة</div>
+      <div class="inv-card-val">الشبكة كـ"بطارية لانهائية"<br>لا يعمل بدون الشبكة<br>أبسط وضع تشغيل<br><br><strong style="color:#185FA5;">للمناطق ذات الشبكة المستقرة جداً</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid">
+      <div class="inv-card-title">Self-Consumption</div>
+      <div class="inv-card-en">الاستهلاك الذاتي</div>
+      <div class="inv-card-val">PV أولاً → فائض للبطارية<br>→ فائض أخير للشبكة<br>الوضع الأمثل لتوفير الفاتورة<br><br><strong style="color:#085041;">الخيار الأمثل للسودان ✓</strong></div>
+    </div>
+    <div class="inv-card ic-off">
+      <div class="inv-card-title">Backup Mode</div>
+      <div class="inv-card-en">وضع الاحتياطي</div>
+      <div class="inv-card-val">البطارية احتياطي فقط<br>تُشحن من الشبكة بالليل<br>لا تُستخدم في النهار<br><br><strong style="color:#BA7517;">للمواقع ذات انقطاعات نادرة</strong></div>
+    </div>
+  </div>
+
+  <p><strong>أوضاع إضافية مهمة:</strong></p>
+  <ul class="content-list">
+    <li><strong>Off-Grid Mode:</strong> الإنفرتر يعمل مستقلاً كمصدر للجهد — يصنع AC 230V بنفسه. يُستخدم في المناطق النائية أو عند انقطاع الشبكة كلياً. البطاريات ضخمة ضرورية.</li>
+    <li><strong>Time-of-Use (TOU):</strong> الإنفرتر يشحن البطارية من الشبكة في ساعات الليل الرخيصة لاستخدامها في ساعات الذروة باهظة الثمن. مفيد جداً حيث توجد تعريفة طاقة متغيرة.</li>
+  </ul>
+
+  <table class="content-table">
+    <thead><tr><th>الوضع</th><th>متى تستخدمه</th><th>الإعداد في السودان</th></tr></thead>
+    <tbody>
+      <tr><td>Self-Consumption</td><td>الحالة الافتراضية — معظم التركيبات السودانية</td><td>Output Priority: SBU (Solar → Battery → Utility)</td></tr>
+      <tr><td>Grid-Tie</td><td>شبكة مستقرة جداً ولا حاجة لاحتياطي</td><td>Output Priority: UTI — نادر في السودان</td></tr>
+      <tr><td>Backup Mode</td><td>الانقطاعات نادرة والأولوية للبطارية الممتلئة دائماً</td><td>شحن البطارية من الشبكة ليلاً، لا تفريغ نهاراً</td></tr>
+      <tr><td>Off-Grid</td><td>مناطق بدون شبكة، أو خلال انقطاع كامل</td><td>Automatic عند فقدان الشبكة — يُبرمج تلقائياً</td></tr>
+      <tr><td>Time-of-Use</td><td>حيث توجد تعريفة ليل/نهار مختلفة</td><td>ليس شائعاً حالياً في السودان</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <div class="note-title">📌 SBU — الترتيب الصحيح للسودان</div>
+    <p><strong>SBU = Solar → Battery → Utility</strong> هو إعداد Output Priority الصحيح لغالبية التركيبات السودانية. يعني: استخدم الشمس أولاً، ثم البطارية، ثم الشبكة. هذا يضمن أقصى استفادة من الطاقة المجانية ويقلل فاتورة الكهرباء إلى أدنى مستوى.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">برمجة الإنفرتر الهجين — الإعدادات الحرجة</div>
+  <p>برمجة الإنفرتر الهجين بشكل صحيح هي أحد أهم مهام الفني عند التركيب. الإعدادات الخاطئة لا تقلل كفاءة النظام فحسب — بعضها يتلف البطاريات نهائياً.</p>
+
+  <p><strong>الإعدادات الحرجة الخمسة:</strong></p>
+
+  <div class="spec-box">
+    <div class="spec-title">الإعدادات الحرجة — مرجع الفني</div>
+    <div class="spec-row"><span class="spec-key">SOC المينيموم للتفريغ (Minimum SOC / Battery Low Voltage)</span><span class="spec-val">20% للرصاص · 10% للليثيوم</span></div>
+    <div class="spec-row"><span class="spec-key">جهد شحن Bulk (Constant Current)</span><span class="spec-val">من Datasheet البطارية بالضبط</span></div>
+    <div class="spec-row"><span class="spec-key">جهد Float (الصيانة)</span><span class="spec-val">من Datasheet البطارية بالضبط</span></div>
+    <div class="spec-row"><span class="spec-key">Output Priority</span><span class="spec-val">SBU للسودان (Solar→Battery→Utility)</span></div>
+    <div class="spec-row"><span class="spec-key">AC Input Voltage Range</span><span class="spec-val">170V – 270V للسودان</span></div>
+    <div class="spec-row"><span class="spec-key">Max Charger Current</span><span class="spec-val">لا تتجاوز حد صانع البطارية</span></div>
+  </div>
+
+  <p><strong>شرح تفصيلي للإعدادات:</strong></p>
+  <ul class="content-list">
+    <li><strong>SOC المينيموم (Minimum Discharge SOC):</strong> الحد الأدنى لمستوى شحن البطارية قبل أن يتوقف الإنفرتر عن تفريغها. للبطاريات الرصاصية اضبطه 20% — التفريغ أكثر يقصّر عمرها بشكل حاد. للبطاريات الليثيوم يمكن الوصول لـ10% بأمان.</li>
+    <li><strong>جهد Bulk/Absorption:</strong> الجهد الأعلى الذي يشحن الإنفرتر عنده البطارية بتيار كامل. يجب أن يطابق مواصفات البطارية بالضبط — لكل كيمياء بطارية قيمة مختلفة.</li>
+    <li><strong>جهد Float:</strong> الجهد الذي يحافظ الإنفرتر على البطارية عنده بعد الشحن الكامل. أعلى من الصحيح يسبب شحناً زائداً وتلفاً.</li>
+    <li><strong>Output Priority:</strong> يحدد من أين تأتي الطاقة للأحمال. ثلاثة خيارات: <strong>PV First</strong> (شمس أولاً إن أمكن)، <strong>Grid First / UTI</strong> (شبكة أولاً)، <strong>SBU</strong> (شمس → بطارية → شبكة). اختر SBU دائماً في السودان.</li>
+    <li><strong>AC Input Voltage Range:</strong> النطاق الذي يقبل فيه الإنفرتر الجهد الوارد من الشبكة. شبكة السودان غير مستقرة — اضبطه على 170-270V ليتحمل التذبذبات الطبيعية دون فصل متكرر.</li>
+    <li><strong>Max Charger Current:</strong> أقصى تيار يسمح للإنفرتر بشحن البطارية به. لا تتجاوز أبداً الحد الذي يحدده صانع البطارية — الشحن السريع الزائد يولد حرارة مدمرة.</li>
+  </ul>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠ جهد الشحن الخاطئ يتلف البطارية</div>
+    <p>إعداد جهد شحن خاطئ يتلف البطارية خلال أشهر — تحقق من Datasheet البطارية دائماً. كل بطارية لها قيمة Bulk وFloat محددة — الإنفرتر الهجين من علامة تجارية والبطارية من علامة أخرى يعني أنك مسؤول عن ضبط هذه القيم يدوياً. لا تثق في الإعدادات الافتراضية للإنفرتر.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">تكامل المولد مع النظام الهجين</div>
+  <p>رغم تراجع الاعتماد على المولد في الأنظمة الهجينة الحديثة، يبقى المولد الاحتياطي ضرورة عملية في كثير من المواقع السودانية — خاصة عند فترات الغيوم الممتدة أو الأحمال التجارية الكبيرة.</p>
+
+  <p><strong>لماذا يبقى المولد في النظام الهجين؟</strong></p>
+  <ul class="content-list">
+    <li><strong>فترات الغيوم الطويلة:</strong> في موسم الأمطار أو المناطق الساحلية، قد تنخفض إنتاجية PV لأيام متتالية — البطاريات وحدها لا تكفي</li>
+    <li><strong>الأحمال الثقيلة المؤقتة:</strong> مضخة مياه كبيرة أو آلة صناعية تحتاج قدرة لحظية تفوق حجم الإنفرتر</li>
+    <li><strong>الموثوقية الحرجة:</strong> المستشفيات والمرافق الحيوية تحتاج طبقة احتياطي إضافية</li>
+  </ul>
+
+  <p><strong>اختيار حجم المولد المناسب:</strong></p>
+  <ul class="content-list">
+    <li>يجب أن تكون قدرة المولد <strong>أكبر من قدرة الشاحن بالإنفرتر</strong> — مثال: إنفرتر بشاحن 60A على 48V = 2880W شحن — المولد يجب أن يكون 3kW على الأقل</li>
+    <li>إذا كان المولد أصغر من قدرة الشاحن، سيعمل المولد على حمل يفوق قدرته وسيتلف</li>
+    <li>بعض الإنفرترات تتيح ضبط Max Generator Input Current لتقليل الحمل على مولد صغير</li>
+  </ul>
+
+  <p><strong>قاعدة 75% — حماية المولد من التشغيل الخفيف:</strong></p>
+  <p>شغّل المولد فوق 75% من قدرته لتجنب تراكم الكربون (Carbon build-up) وضمان كفاءة الاحتراق. المولد الذي يعمل لفترات طويلة بحمل منخفض (أقل من 30-40% من قدرته) يتراكم فيه الكربون ويتدهور أداؤه ويحتاج صيانة مبكرة. إذا كانت أحمالك صغيرة، اختر مولداً أصغر بدلاً من تشغيل مولد كبير بحمل خفيف.</p>
+
+  <p><strong>Auto-start — بدء المولد تلقائياً:</strong></p>
+  <ul class="content-list">
+    <li>معظم الإنفرترات الحديثة تدعم Auto-start عبر إشارة كهربائية (relay) لبدء المولد تلقائياً</li>
+    <li>يُبرمج ليبدأ عند: انخفاض SOC البطارية لمستوى محدد (مثلاً 20%) أو انقطاع الشبكة + ليل</li>
+    <li>يُبرمج ليتوقف عند: وصول البطارية لمستوى شحن كافٍ (مثلاً 80%) أو عودة الشبكة أو شروق الشمس</li>
+    <li>تحقق من توافق مخرج Dry Contact في الإنفرتر مع دائرة Auto-start في المولد</li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 المولد في المشاريع التجارية بالسودان</div>
+    <p>في السودان، المولد الاحتياطي للمشاريع التجارية يجب أن يكون ديزل ثلاثي الأطوار (3-phase diesel) للمشاريع التي تتجاوز 15kW. المولدات أحادية الطور مناسبة للتركيبات السكنية حتى ~10kW. تأكد دائماً من أن مخرج المولد المتصل بالإنفرتر أحادي الطور حتى لو كان المولد ثلاثياً.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">استكشاف أخطاء الشبكة المختلطة</div>
+  <p>أنظمة الشبكة المختلطة أكثر تعقيداً من الأنظمة البسيطة — وعند حدوث مشكلة هناك أربعة مصادر محتملة للخطأ. المنهجية في التشخيص أهم من المعرفة التقنية وحدها.</p>
+
+  <table class="content-table">
+    <thead><tr><th>الأعراض</th><th>التشخيص</th><th>الحل</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>الإنفرتر لا يتحول لوضع OFF-GRID عند انقطاع الكهرباء</td>
+        <td>Anti-islanding delay طويل جداً أو تأخر Transfer Time</td>
+        <td>تحقق من إعداد Transfer Time — يجب أن يكون أقل من 2 ثانية في إعدادات الإنفرتر</td>
+      </tr>
+      <tr>
+        <td>البطارية لا تشحن من الشبكة رغم انخفاض SOC</td>
+        <td>إعداد Output Priority على PV First أو AC Charger Switch مغلق</td>
+        <td>تحقق من Output Priority وتأكد من تفعيل AC Charger في إعدادات الشاحن</td>
+      </tr>
+      <tr>
+        <td>الإنفرتر يفصل ويوصل باستمرار عند توصيل الشبكة</td>
+        <td>الجهد الوارد من الشبكة خارج نطاق AC Input Range المضبوط</td>
+        <td>وسّع AC Input Voltage Range إلى 170-270V — الشبكة السودانية متذبذبة</td>
+      </tr>
+      <tr>
+        <td>المولد لا يشحن البطارية رغم تشغيله</td>
+        <td>تردد/جهد المولد خارج النطاق المقبول للإنفرتر، أو Charger Current مضبوط على صفر</td>
+        <td>تحقق من ضبط تردد المولد (50Hz)، وجهده (220-230V)، وارفع Max Charger Current</td>
+      </tr>
+      <tr>
+        <td>البطارية تنضب بسرعة غير متوقعة</td>
+        <td>SOC المينيموم مضبوط منخفض جداً أو حمل خفي يعمل ليلاً</td>
+        <td>ارفع Minimum SOC، وافحص الأحمال الليلية عبر بيانات المراقبة في التطبيق</td>
+      </tr>
+      <tr>
+        <td>الإنفرتر يُظهر خطأ "Over Load" بشكل متكرر</td>
+        <td>الأحمال اللحظية تتجاوز قدرة الإنفرتر — عادةً عند بدء تشغيل مكيف أو مضخة</td>
+        <td>تحقق من تيار الاندفاع (Inrush Current) للأحمال — قد تحتاج تشغيلها تدريجياً</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>منهجية التشخيص الصحيحة:</strong></p>
+  <ul class="content-list">
+    <li><strong>ابدأ بسجل الأحداث (Event Log):</strong> كل إنفرتر هجين حديث يحتفظ بسجل كامل — افتحه وابحث عن الأخطاء قبل أي إجراء</li>
+    <li><strong>تحقق من إعدادات البرمجة أولاً:</strong> 80% من المشاكل في الأنظمة الهجينة سببها إعدادات خاطئة وليس عطلاً ميكانيكياً</li>
+    <li><strong>قيّس جهد البطارية مباشرة:</strong> استخدم مولتيميتر للتحقق من جهد البطارية الفعلي ومقارنته بما يعرضه الإنفرتر</li>
+    <li><strong>افصل المصادر واحداً واحداً:</strong> افصل الشبكة وراقب، ثم أعد توصيلها وافصل PV — يساعد في تحديد المصدر المشكل</li>
+  </ul>
+
+  <div class="note-box">
+    <div class="note-title">📌 التوثيق أثناء التشخيص</div>
+    <p>صوّر شاشة الإنفرتر وسجل الإعدادات قبل تغيير أي شيء. إذا تفاقمت المشكلة بعد التغيير، ستحتاج للعودة للإعدادات الأصلية. هذه عادة مهنية تميز الفني الخبير عن غيره.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — أنظمة الشبكة المختلطة</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما الترتيب الصحيح لأولوية الطاقة الموصى به في شمس النيل للإنفرتر الهجين؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>شبكة ← PV ← بطارية ← مولد</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>PV ← بطارية ← شبكة ← مولد</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>بطارية ← PV ← شبكة ← مولد</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>مولد ← PV ← بطارية ← شبكة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما الحد الأدنى لـSOC الموصى به للبطارية الليثيوم قبل التفريغ؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>0%</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>10%</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>30%</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>50%</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. لماذا يجب توسيع نطاق جهد الدخل AC للإنفرتر في السودان؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لتحسين الكفاءة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأن جهد الشبكة السودانية غير مستقر — نطاق واسع (170-270V) يمنع فصل الإنفرتر بسبب تذبذبات الجهد الطبيعية</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>شرط الضمان</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لزيادة تيار الشحن</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما قاعدة "75%" عند تشغيل المولد مع النظام الهجين؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>شحن البطارية لـ75% فقط عند وجود مولد</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>شغّل المولد فوق 75% من قدرته لتجنب تراكم الكربون وضمان كفاءة الاحتراق</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>المولد يشحن البطارية بـ75% من تياره فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>أوقف المولد عند بلوغ SOC البطارية 75%</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. الإنفرتر يفصل ويوصل باستمرار عند توصيل الشبكة. ما الحل الأول الذي تتحقق منه؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>فصل البطارية</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تحقق من نطاق جهد الدخل AC وتوسيعه ليناسب تذبذبات جهد الشبكة المحلية</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تحديث firmware الإنفرتر</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>إعادة ضبط المصنع</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٠ — أنظمة الشبكة المختلطة</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ١٩ — بروتوكولات SunSpec Modbus</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* CODE BLOCK */
+.code-block{background:#1C1A14;border-radius:6px;padding:1rem 1.25rem;margin:1rem 0;font-family:'Courier New',Consolas,monospace;font-size:12px;color:#F5EDD4;direction:ltr;text-align:left;overflow-x:auto;line-height:1.7;}
+.code-block .comment{color:#6A9955;}
+.code-block .keyword{color:#569CD6;}
+.code-block .string{color:#CE9178;}
+.code-block .number{color:#B5CEA8;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الثالث — متقدم · الوحدة ٣ من ٨</div>
+  <div class="doc-title">بروتوكولات SunSpec Modbus — التحدث مع الإنفرتر</div>
+  <div class="doc-title-en">SunSpec Modbus Protocols — Speaking to the Inverter</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">يشترط إتمام المستوى الثاني</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم بروتوكول Modbus وسبب هيمنته على صناعة الطاقة الشمسية منذ عقود</li>
+    <li>معرفة الفرق بين Modbus RTU وModbus TCP واستخدامات كل منهما</li>
+    <li>فهم كيف وحّد SunSpec عناوين الـRegisters عبر مختلف الشركات المصنّعة</li>
+    <li>قراءة بيانات إنفرتر حقيقي عبر Modbus TCP باستخدام Python</li>
+    <li>إرسال أوامر تحكم للإنفرتر عبر SunSpec Model 123</li>
+    <li>بناء نظام مراقبة بسيط يجمع البيانات ويحفظها تلقائياً</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">ما هو Modbus ولماذا هو لغة الطاقة الشمسية</div>
+  <p>في عام 1979، طوّرت شركة Modicon بروتوكول اتصالات بسيطاً للتحكم في أجهزتها الصناعية. لم يكن أحد يتوقع أن هذا البروتوكول سيستمر لأكثر من <strong>40 سنة</strong> ليصبح اللغة المشتركة لملايين الأجهزة الصناعية حول العالم — بما فيها الإنفرترات الشمسية.</p>
+  <p><strong>لماذا صمد Modbus كل هذه السنوات؟</strong></p>
+  <ul class="content-list">
+    <li><strong>البساطة:</strong> المفهوم الأساسي بسيط جداً — هناك Master يسأل وSlave يُجيب. لا تعقيد في المصافحة أو الجلسات</li>
+    <li><strong>الموثوقية:</strong> بروتوكول خفيف الوزن يعمل على أي شبكة بدون أعباء إضافية</li>
+    <li><strong>الانتشار الواسع:</strong> تقريباً كل إنفرتر شمسي في السوق يدعم Modbus — هذا يعني أدوات وكتب ومطورين كثيرون</li>
+    <li><strong>المعيار المفتوح:</strong> لا رسوم ترخيص ولا ملكية خاصة — أي شركة يمكنها تنفيذه</li>
+  </ul>
+
+  <p><strong>نسختان رئيسيتان تحتاج معرفتهما:</strong></p>
+  <div class="inv-grid">
+    <div class="inv-card ic-grid" style="grid-column: span 1;">
+      <div class="inv-card-title">Modbus RTU</div>
+      <div class="inv-card-en">RS-485 Serial</div>
+      <div class="inv-card-val">عبر سلك RS-485<br>للتوصيل المباشر<br>مسافات طويلة (1.2 كم)<br>أجهزة متعددة على نفس الخط<br><br><strong style="color:#185FA5;">شائع في العدادات القديمة</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid" style="grid-column: span 1;">
+      <div class="inv-card-title">Modbus TCP</div>
+      <div class="inv-card-en">Ethernet / WiFi</div>
+      <div class="inv-card-val">عبر شبكة Ethernet أو WiFi<br>Port 502 القياسي<br>الأسرع والأسهل اليوم<br>يعمل مع أي شبكة IP<br><br><strong style="color:#085041;">الأكثر شيوعاً الآن ✓</strong></div>
+    </div>
+    <div class="inv-card ic-off" style="grid-column: span 1;">
+      <div class="inv-card-title">Register</div>
+      <div class="inv-card-en">وحدة البيانات</div>
+      <div class="inv-card-val">كل قيمة في عنوان محدد<br>كل Register = 16 bit<br>القراءة: Read Holding<br>الكتابة: Write Single/Multiple<br><br><strong style="color:#BA7517;">المفهوم الأساسي</strong></div>
+    </div>
+  </div>
+
+  <p><strong>كيف يعمل Modbus TCP بشكل مبسط:</strong></p>
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">دورة طلب-استجابة في Modbus TCP</div>
+    <svg width="100%" viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <rect x="20" y="15" width="150" height="60" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="95" y="41" text-anchor="middle" font-size="12" fill="#0C447C" font-family="Arial" font-weight="500">حاسوب / Droplet</text>
+      <text x="95" y="57" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">Master يسأل</text>
+      <line x1="170" y1="38" x2="330" y2="38" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <text x="250" y="32" text-anchor="middle" font-size="9" fill="#BA7517" font-family="Arial">اقرأ Register 40069</text>
+      <line x1="330" y1="58" x2="170" y2="58" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="250" y="73" text-anchor="middle" font-size="9" fill="#085041" font-family="Arial">القيمة = 4500</text>
+      <rect x="330" y="15" width="150" height="60" rx="6" fill="#1C1A14" stroke="#EF9F27" stroke-width="1"/>
+      <text x="405" y="41" text-anchor="middle" font-size="12" fill="#EF9F27" font-family="Arial" font-weight="500">الإنفرتر</text>
+      <text x="405" y="57" text-anchor="middle" font-size="10" fill="rgba(245,237,212,.5)" font-family="Arial">Slave يُجيب</text>
+      <rect x="500" y="20" width="160" height="50" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="580" y="40" text-anchor="middle" font-size="11" fill="#633806" font-family="Arial" font-weight="500">Port 502</text>
+      <text x="580" y="55" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">المنفذ القياسي لـModbus TCP</text>
+    </svg>
+  </div>
+
+  <div class="key-box">
+    <div class="key-title">🔑 SunSpec Alliance — من أسّسها ولماذا</div>
+    <p>في أوائل 2000s، أدركت شركات الطاقة الشمسية الكبرى (Fronius، SMA، SunPower، وغيرها) أن كل شركة تستخدم عناوين Modbus مختلفة — مما يعني أن كل تطبيق مراقبة يحتاج كوداً خاصاً لكل إنفرتر. SunSpec Alliance أسّست معيار موحّد يجعل Register 40069 تعني نفس الشيء في أي إنفرتر معتمد — AC Power الإجمالي. هذا التوحيد غيّر الصناعة.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">SunSpec — التوحيد الذي غيّر الصناعة</div>
+  <p>قبل SunSpec، كان المطوّر الذي يريد بناء نظام مراقبة لمزيج من الإنفرترات يواجه كابوساً. <strong>Fronius</strong> يضع AC Power في عنوان مختلف عن <strong>SMA</strong> الذي يضعه في عنوان مختلف عن <strong>Sungrow</strong>. كل شركة لها Register Map خاصة بها وتوثيق مختلف.</p>
+  <p><strong>بعد SunSpec:</strong> عنوان <strong>40002</strong> دائماً هو نقطة البداية — يحمل <strong>توقيع SunSpec</strong> الذي يؤكد أن الجهاز متوافق مع المعيار، ثم تأتي المودلات بترتيب قياسي.</p>
+
+  <div class="key-box">
+    <div class="key-title">🔑 التوقيع الذهبي — 53756e53</div>
+    <p>عند أول قراءة من الإنفرتر على عنوان 40002، إذا حصلت على القيمة <strong>0x53756e53</strong> — هذا يعني "SunS" بالـHex (S=53, u=75, n=6e, S=53). هذا التوقيع يؤكد أن الجهاز يدعم SunSpec ويمكنك الوثوق بعناوينه القياسية.</p>
+  </div>
+
+  <p><strong>المودلات القياسية في SunSpec — ما تحتاج معرفته:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>رقم المودل</th><th>الاسم</th><th>محتواه</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Model 1</strong></td><td>Common</td><td>معلومات الجهاز — اسم الشركة، الموديل، الرقم التسلسلي، نسخة Firmware</td></tr>
+      <tr><td><strong>Model 101/103</strong></td><td>Inverter</td><td>البيانات التشغيلية — جهد DC، تيار DC، AC Power، تردد، درجة حرارة، الحالة</td></tr>
+      <tr><td><strong>Model 120</strong></td><td>Nameplate</td><td>القدرة الاسمية للإنفرتر (Watt) وحدود التشغيل</td></tr>
+      <tr><td><strong>Model 123</strong></td><td>Immediate Control</td><td>أوامر التحكم الفوري — تحديد الإنتاج، Power Factor، Reactive Power</td></tr>
+      <tr><td><strong>Model 160</strong></td><td>Multiple MPPT</td><td>بيانات كل سلسلة (String) بشكل منفصل — مفيد لتشخيص أداء كل String</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>بنية SunSpec في الذاكرة — كيف تقرأها بالترتيب:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">خريطة الذاكرة — SunSpec Memory Map</div>
+    <div class="spec-row"><span class="spec-key">عنوان 40001</span><span class="spec-val">0x5375 (جزء أول من "SunS")</span></div>
+    <div class="spec-row"><span class="spec-key">عنوان 40002</span><span class="spec-val">0x6e53 (جزء ثاني — اكتمل التوقيع)</span></div>
+    <div class="spec-row"><span class="spec-key">عنوان 40003</span><span class="spec-val">Model ID = 1 (بداية Common Model)</span></div>
+    <div class="spec-row"><span class="spec-key">عناوين 40004–40069</span><span class="spec-val">بيانات Common Model (اسم الشركة، الموديل، السيريال...)</span></div>
+    <div class="spec-row"><span class="spec-key">عنوان 40070</span><span class="spec-val">Model ID = 101 أو 103 (بداية Inverter Model)</span></div>
+    <div class="spec-row"><span class="spec-key">عناوين 40071+</span><span class="spec-val">بيانات الإنفرتر التشغيلية</span></div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 Fronius — المرجع الذهبي لتطوير SunSpec</div>
+    <p>Fronius يُعدّ الأفضل في تنفيذ SunSpec من بين جميع الشركات المصنّعة. توثيقه دقيق، تنفيذه كامل، والـRegisters دائماً في مكانها الصحيح. عند تطوير أي أداة Modbus، ابدأ باختبارها على Fronius كمرجع — إذا عملت معه ستعمل مع باقي الإنفرترات بشكل أكثر موثوقية.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">قراءة بيانات الإنفرتر عبر Modbus TCP — عملياً</div>
+  <p><strong>ما تحتاجه للبدء:</strong></p>
+  <ul class="content-list">
+    <li><strong>حاسوب أو جهاز Raspberry Pi</strong> على نفس الشبكة المحلية للإنفرتر</li>
+    <li><strong>IP الإنفرتر</strong> — يمكن الحصول عليه من واجهة الإنفرتر أو من جهاز التوجيه</li>
+    <li><strong>Port 502</strong> مفتوح — المنفذ القياسي لـModbus TCP</li>
+    <li><strong>Python 3</strong> مع مكتبة pymodbus: <code style="background:#f0ede5;padding:2px 6px;border-radius:3px;font-size:11px;direction:ltr;display:inline-block;">pip install pymodbus</code></li>
+  </ul>
+
+  <p><strong>العناوين الأساسية في SunSpec Model 101:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>العنوان (Register)</th><th>القيمة</th><th>الوحدة</th></tr></thead>
+    <tbody>
+      <tr><td><strong>40069</strong></td><td>AC Power الإجمالي</td><td>Watt × SF</td></tr>
+      <tr><td><strong>40072</strong></td><td>AC Frequency (تردد)</td><td>Hz × SF</td></tr>
+      <tr><td><strong>40073</strong></td><td>AC Energy الكلية (طاقة منتجة)</td><td>Wh × SF</td></tr>
+      <tr><td><strong>40078</strong></td><td>DC Voltage (جهد الألواح)</td><td>Volt × SF</td></tr>
+      <tr><td><strong>40080</strong></td><td>DC Current (تيار الألواح)</td><td>Ampere × SF</td></tr>
+      <tr><td><strong>40094</strong></td><td>درجة حرارة الإنفرتر</td><td>°C × SF</td></tr>
+      <tr><td><strong>40107</strong></td><td>حالة الإنفرتر (Operating State)</td><td>كود رقمي</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>مثال Python — قراءة AC Power من الإنفرتر:</strong></p>
+  <div class="code-block"><span class="keyword">from</span> pymodbus.client <span class="keyword">import</span> ModbusTcpClient
+
+<span class="comment"># الاتصال بالإنفرتر</span>
+client = ModbusTcpClient(<span class="string">'192.168.1.100'</span>, port=<span class="number">502</span>)
+client.connect()
+
+<span class="comment"># قراءة 4 Registers ابتداءً من عنوان 40069</span>
+<span class="comment"># slave=1 هو Unit ID القياسي لـSunSpec</span>
+result = client.read_holding_registers(<span class="number">40069</span>, <span class="number">4</span>, slave=<span class="number">1</span>)
+
+<span class="keyword">if not</span> result.isError():
+    print(<span class="string">"AC Power (raw):"</span>, result.registers[<span class="number">0</span>])
+    print(<span class="string">"AC Frequency (raw):"</span>, result.registers[<span class="number">2</span>])
+<span class="keyword">else</span>:
+    print(<span class="string">"خطأ في القراءة:"</span>, result)
+
+client.close()</div>
+
+  <div class="note-box">
+    <div class="note-title">📌 لماذا تظهر أرقام كبيرة غريبة؟</div>
+    <p>القيمة الخام من Register قد تكون مثلاً <strong>4500</strong> لكن AC Power الفعلي هو <strong>450.0 Watt</strong>. هذا بسبب Scale Factor — الـRegisters تحفظ أعداداً صحيحة فقط، فيُضرب العدد في 10^SF للحصول على القيمة الحقيقية. سنشرح Scale Factors بالتفصيل في الدرس الخامس.</p>
+  </div>
+
+  <p><strong>أدوات بديلة لمن لا يريد كتابة كود:</strong></p>
+  <ul class="content-list">
+    <li><strong>Modpoll:</strong> أداة سطر أوامر (Command Line) — سريعة للتشخيص المباشر</li>
+    <li><strong>ModScan:</strong> واجهة رسومية لـWindows — مفيدة للاستكشاف الأولي وفهم البيانات</li>
+    <li><strong>Modscan32 / QModMaster:</strong> أدوات مفتوحة المصدر بواجهات رسومية متقدمة</li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 تحقق من Port 502 قبل الكود</div>
+    <p>قبل كتابة أي كود، تحقق أن Port 502 مفتوح على الإنفرتر. من Linux/Mac: <code style="background:rgba(55,138,221,.15);padding:2px 6px;border-radius:3px;font-size:11px;direction:ltr;display:inline-block;">timeout 2 bash -c "echo &gt; /dev/tcp/192.168.1.100/502" &amp;&amp; echo OPEN</code> — ملاحظة: بعض الإنفرترات تغلق الاتصال الفارغ فوراً (مثل Fronius Datamanager) لكن هذا طبيعي ولا يعني الإغلاق.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">التحكم في الإنفرتر عبر SunSpec</div>
+  <p>حتى الآن تعلمنا <strong>قراءة</strong> البيانات من الإنفرتر. في هذا الدرس نتعلم <strong>الكتابة</strong> — إرسال أوامر تحكم للإنفرتر عبر SunSpec Model 123.</p>
+
+  <p><strong>SunSpec Model 123 — أوامر التحكم الفوري:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الحقل</th><th>الوظيفة</th><th>مثال</th></tr></thead>
+    <tbody>
+      <tr><td><strong>WMaxLimPct</strong></td><td>تحديد الإنتاج كنسبة مئوية من القدرة القصوى</td><td>50 = الإنفرتر ينتج 50% فقط</td></tr>
+      <tr><td><strong>OutPFSet</strong></td><td>ضبط Power Factor</td><td>-0.95 = تصحيح Power Factor</td></tr>
+      <tr><td><strong>VArPct</strong></td><td>ضبط Reactive Power كنسبة مئوية</td><td>30 = 30% Reactive Power</td></tr>
+      <tr><td><strong>Conn</strong></td><td>الاتصال/الفصل</td><td>0 = افصل، 1 = اتصل</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>دورة التحكم الصحيحة — أربع خطوات:</strong></p>
+  <ul class="content-list">
+    <li><strong>اقرأ الحالة الحالية:</strong> قبل أي أمر، اقرأ القيم الحالية وتأكد من حالة الإنفرتر (Model 101)</li>
+    <li><strong>احسب القيمة المطلوبة:</strong> بناءً على متطلبات الشبكة أو السياسة المطلوبة</li>
+    <li><strong>اكتب الأمر:</strong> اكتب القيمة في Register المناسب في Model 123</li>
+    <li><strong>تحقق من التنفيذ:</strong> اقرأ مرة أخرى بعد ثوانٍ للتأكد أن الإنفرتر نفّذ الأمر</li>
+  </ul>
+
+  <p><strong>مثال عملي — DRED عبر Modbus (تحديد الإنتاج إلى 50%):</strong></p>
+  <div class="code-block"><span class="keyword">from</span> pymodbus.client <span class="keyword">import</span> ModbusTcpClient
+
+client = ModbusTcpClient(<span class="string">'192.168.1.100'</span>, port=<span class="number">502</span>)
+client.connect()
+
+<span class="comment"># WMaxLimPct = 5000 (يمثل 50.00% — Scale Factor = -2)</span>
+<span class="comment"># WMaxLimPct_Ena = 1 (تفعيل الأمر)</span>
+client.write_register(<span class="number">40232</span>, <span class="number">5000</span>, slave=<span class="number">1</span>)  <span class="comment"># 50%</span>
+client.write_register(<span class="number">40236</span>, <span class="number">1</span>, slave=<span class="number">1</span>)     <span class="comment"># تفعيل</span>
+
+print(<span class="string">"تم إرسال أمر تحديد الإنتاج إلى 50%"</span>)
+client.close()</div>
+
+  <p><strong>Watchdog Timer — الحماية الذكية في الإنفرتر:</strong></p>
+  <p>معظم الإنفرترات الحديثة تُطبّق <strong>Watchdog Timer</strong> — مؤقت حراسة يراقب استمرار أوامر التحكم. إذا توقفت الأوامر لمدة معينة (عادةً 30-60 ثانية)، يعود الإنفرتر تلقائياً إلى قيمه الافتراضية (إنتاج كامل 100%). هذه ميزة أمان — تمنع بقاء الإنفرتر في وضع مقيّد إلى الأبد إذا انقطع نظام التحكم.</p>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠ تحذير — أوامر التحكم ليست للتجربة العشوائية</div>
+    <p>أوامر التحكم الخاطئة (مثل فصل إنفرتر مفاجئ أو ضبط Power Factor خاطئ) قد تُضر بالشبكة، تُتلف المعدات، أو تُعرّض البطاريات للضرر. <strong>دائماً اختبر في بيئة محاكاة أو على إنفرتر معزول</strong> قبل التطبيق في موقع حقيقي. في السودان — أي تدخل على شبكة حية يجب أن يكون بموافقة الكهربائي المسؤول.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">بناء نظام مراقبة بسيط بـPython وSunSpec</div>
+  <p>الآن نجمع كل ما تعلمناه في مشروع عملي — سكريبت Python يقرأ بيانات الإنفرتر كل دقيقة، يُطبّق Scale Factors، ويحفظ البيانات في ملف CSV يمكنك فتحه بـExcel لاحقاً.</p>
+
+  <p><strong>فهم Scale Factors — الخطوة الأهم:</strong></p>
+  <p>SunSpec يحفظ الأرقام كأعداد صحيحة (16-bit integers) لتوفير الذاكرة. لكن القيم الفعلية قد تكون كسرية (مثل 49.98 Hz). الحل: كل مجموعة قيم لها <strong>Scale Factor (SF)</strong> مخزّن في Register مجاور.</p>
+  <ul class="content-list">
+    <li><strong>القيمة الحقيقية = القيمة الخام × 10^SF</strong></li>
+    <li>مثال: AC Power خام = 45000، SF = -1 → القيمة الحقيقية = 45000 × 10^(-1) = <strong>4500.0 Watt</strong></li>
+    <li>مثال: Frequency خام = 4998، SF = -2 → القيمة الحقيقية = 4998 × 10^(-2) = <strong>49.98 Hz</strong></li>
+    <li>Scale Factor يكون عادةً -1، -2، أو -3 — وأحياناً 0 (لا تغيير)</li>
+  </ul>
+
+  <p><strong>سكريبت المراقبة — الكامل:</strong></p>
+  <div class="code-block"><span class="keyword">import</span> csv, time
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+<span class="keyword">from</span> pymodbus.client <span class="keyword">import</span> ModbusTcpClient
+
+INVERTER_IP = <span class="string">'192.168.1.100'</span>
+OUTPUT_FILE = <span class="string">'inverter_log.csv'</span>
+INTERVAL    = <span class="number">60</span>  <span class="comment"># ثانية</span>
+
+<span class="keyword">def</span> read_inverter():
+    client = ModbusTcpClient(INVERTER_IP, port=<span class="number">502</span>)
+    <span class="keyword">if not</span> client.connect():
+        <span class="keyword">return None</span>
+    <span class="keyword">try</span>:
+        <span class="comment"># قراءة AC Power وSF (40069 + 40075 للـSF)</span>
+        r = client.read_holding_registers(<span class="number">40069</span>, <span class="number">10</span>, slave=<span class="number">1</span>)
+        <span class="keyword">if</span> r.isError(): <span class="keyword">return None</span>
+        regs = r.registers
+        sf_power = regs[<span class="number">6</span>]   <span class="comment"># Scale Factor للطاقة</span>
+        <span class="keyword">if</span> sf_power > <span class="number">32767</span>: sf_power -= <span class="number">65536</span>  <span class="comment"># تحويل لعدد موقّع</span>
+        ac_power = regs[<span class="number">0</span>] * (<span class="number">10</span> ** sf_power)
+        <span class="keyword">return</span> {
+            <span class="string">'timestamp'</span>: datetime.now().strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>),
+            <span class="string">'ac_power_w'</span>: round(ac_power, <span class="number">2</span>),
+        }
+    <span class="keyword">finally</span>:
+        client.close()
+
+<span class="comment"># كتابة رأس الملف</span>
+<span class="keyword">with</span> open(OUTPUT_FILE, <span class="string">'w'</span>, newline=<span class="string">''</span>) <span class="keyword">as</span> f:
+    csv.DictWriter(f, fieldnames=[<span class="string">'timestamp'</span>,<span class="string">'ac_power_w'</span>]).writeheader()
+
+<span class="keyword">while True</span>:
+    data = read_inverter()
+    <span class="keyword">if</span> data:
+        <span class="keyword">with</span> open(OUTPUT_FILE, <span class="string">'a'</span>, newline=<span class="string">''</span>) <span class="keyword">as</span> f:
+            csv.DictWriter(f, fieldnames=data.keys()).writerow(data)
+        print(data[<span class="string">'timestamp'</span>], <span class="string">'|'</span>, data[<span class="string">'ac_power_w'</span>], <span class="string">'W'</span>)
+    time.sleep(INTERVAL)</div>
+
+  <p><strong>التوسع التدريجي للمشروع:</strong></p>
+  <ul class="content-list">
+    <li><strong>عرض البيانات بيانياً:</strong> استخدم مكتبة <code style="background:#f0ede5;padding:2px 5px;border-radius:3px;font-size:11px;direction:ltr;display:inline-block;">matplotlib</code> لرسم منحنى الإنتاج اليومي من ملف CSV</li>
+    <li><strong>قاعدة بيانات:</strong> بدلاً من CSV، استخدم SQLite لتخزين أكثر كفاءة وإمكانية الاستعلام</li>
+    <li><strong>تنبيهات فورية:</strong> إضافة إشعارات عبر WhatsApp API إذا انخفض الإنتاج فجأة أو انقطع الإنفرتر</li>
+    <li><strong>لوحة تحكم ويب:</strong> مكتبة Streamlit أو Flask تحوّل السكريبت لتطبيق ويب بسيط</li>
+    <li><strong>متعدد الإنفرترات:</strong> حلقة تكرار على قائمة IPs لمراقبة موقع بإنفرترات متعددة</li>
+  </ul>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 هذا هو ما تفعله منصات مثل SwitchDin وSolarEdge Monitoring</div>
+    <p>المنصات التجارية الكبرى تبني فوق نفس المفهوم — Modbus TCP + SunSpec + قاعدة بيانات. الفرق هو الحجم (آلاف الإنفرترات)، الموثوقية (إعادة المحاولة، الأخطاء، الشبكات غير المستقرة)، والواجهات المتقدمة. لكن الأساس التقني هو ما تعلمته في هذه الوحدة بالضبط.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — بروتوكولات SunSpec Modbus</div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">١. ما المنفذ القياسي لـModbus TCP؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>80</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>443</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>502</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>8080</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما معنى القيمة <span style="direction:ltr;display:inline-block;font-family:monospace;">53756e53</span> في أول قراءة من الإنفرتر؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>رقم تسلسلي للجهاز</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>توقيع SunSpec — يؤكد أن الجهاز يدعم بروتوكول SunSpec</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>إصدار Firmware</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>كود خطأ</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. في SunSpec Model 101، ما الذي يقيسه Register 40069؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>درجة حرارة الإنفرتر</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>AC Power الإجمالي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>DC Voltage</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>Serial Number</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما وظيفة Scale Factor في SunSpec؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>تحديد عدد الـRegisters المقروءة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>ضرب القيمة الخام فيه للحصول على القيمة الحقيقية — لأن الـRegisters تحفظ أعداداً صحيحة فقط</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تحديد سرعة الاتصال</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>إعداد أمان الشبكة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. لماذا يُعاد الإنفرتر لوضعه الطبيعي تلقائياً عند توقف أوامر التحكم؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>بسبب خلل في البرنامج</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>Watchdog Timer يُعيد الإنفرتر للقيم الافتراضية عند انقطاع الأوامر — يمنع الإنفرتر من البقاء في وضع خاطئ إلى الأبد</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>ارتفاع درجة الحرارة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>انتهاء جلسة Modbus</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ١٩ — بروتوكولات SunSpec Modbus</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>
