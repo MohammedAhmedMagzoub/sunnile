@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٤ — حساب حجم النظام</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الأول — مبتدئ · الوحدة ٤ من ٨</div>
+  <div class="doc-title">حساب حجم النظام — من الاستهلاك إلى النظام المثالي</div>
+  <div class="doc-title-en">System Sizing — From Load Calculation to the Perfect System</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">مبتدئ — يشترط إتمام الوحدة ٣</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم لماذا الخطأ في حساب حجم النظام يكلّف المال — في الاتجاهين</li>
+    <li>حساب الحمل اليومي لأي منزل أو منشأة بالكيلوواط-ساعة</li>
+    <li>تحديد قدرة الألواح الشمسية المطلوبة باستخدام PSH ومعامل الخسارة</li>
+    <li>حساب سعة البطاريات المناسبة بناءً على الحمل الليلي وأيام الاستقلالية</li>
+    <li>تجميع حساب شامل لمنزل سوداني نموذجي خطوة بخطوة</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">لماذا حساب الحجم ضروري — تكاليف الخطأ</div>
+  <p>قبل شراء أي لوح أو بطارية، يجب أن تعرف بالضبط ماذا تحتاج. حساب حجم النظام هو الخطوة الأساسية التي يقفز عنها كثير من المركّبين — فيدفع العميل الثمن في النهاية.</p>
+  <p><strong>الخطأ في الحجم يكلّف في الاتجاهين:</strong></p>
+  <div class="inv-grid">
+    <div class="inv-card ic-off">
+      <div class="inv-card-title">نظام صغير جداً</div>
+      <div class="inv-card-en">Undersized System</div>
+      <div class="inv-card-val">لا يغطي الاحتياج اليومي<br>البطاريات تنفد قبل الفجر<br>العميل يشتكي ويطالب بإرجاع المال<br><br><strong style="color:#BA7517;">خسارة مال + سمعة</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid">
+      <div class="inv-card-title">نظام مناسب</div>
+      <div class="inv-card-en">Right-sized System</div>
+      <div class="inv-card-val">يغطي الاحتياج الفعلي<br>لا طاقة مهدورة<br>العميل راضٍ والنظام مربح<br><br><strong style="color:#085041;">النتيجة المثلى ✓</strong></div>
+    </div>
+    <div class="inv-card ic-grid">
+      <div class="inv-card-title">نظام كبير جداً</div>
+      <div class="inv-card-en">Oversized System</div>
+      <div class="inv-card-val">تكلفة زائدة بلا فائدة<br>عائد الاستثمار يتأخر<br>العميل يشعر بأنه دفع أكثر مما يحتاج<br><br><strong style="color:#185FA5;">هدر مال العميل</strong></div>
+    </div>
+  </div>
+  <p><strong>خطوات الحساب الثلاث — الإطار العام:</strong></p>
+  <ul class="content-list">
+    <li><strong>الخطوة الأولى — حساب الحمل اليومي:</strong> جمع استهلاك كل الأجهزة خلال اليوم بالكيلوواط-ساعة (kWh/day)</li>
+    <li><strong>الخطوة الثانية — اختيار قدرة الألواح:</strong> بناءً على الحمل وساعات الشمس في المنطقة</li>
+    <li><strong>الخطوة الثالثة — تحديد سعة البطاريات:</strong> بناءً على الحمل الليلي وعدد أيام الاستقلالية المطلوبة</li>
+  </ul>
+  <div class="sys-diagram">
+    <div class="sys-diagram-title">مسار الحساب من الاستهلاك إلى النظام</div>
+    <svg width="100%" viewBox="0 0 680 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <rect x="10" y="18" width="140" height="54" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+      <text x="80" y="40" text-anchor="middle" font-size="11" fill="#633806" font-family="Arial" font-weight="500">قائمة الأجهزة</text>
+      <text x="80" y="57" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">القدرة × الساعات</text>
+      <text x="80" y="68" text-anchor="middle" font-size="9" fill="#BA7517" font-family="Arial">→ kWh/day</text>
+      <line x1="150" y1="45" x2="183" y2="45" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <rect x="183" y="18" width="140" height="54" rx="6" fill="#1C1A14" stroke="#EF9F27" stroke-width="1"/>
+      <text x="253" y="40" text-anchor="middle" font-size="11" fill="#EF9F27" font-family="Arial" font-weight="500">قدرة الألواح</text>
+      <text x="253" y="57" text-anchor="middle" font-size="10" fill="rgba(245,237,212,.5)" font-family="Arial">kWh ÷ PSH ÷ 0.75</text>
+      <text x="253" y="68" text-anchor="middle" font-size="9" fill="rgba(245,237,212,.35)" font-family="Arial">→ kWp</text>
+      <line x1="323" y1="45" x2="356" y2="45" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <rect x="356" y="18" width="140" height="54" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="426" y="40" text-anchor="middle" font-size="11" fill="#0C447C" font-family="Arial" font-weight="500">الإنفرتر</text>
+      <text x="426" y="57" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">قدرة مناسبة</text>
+      <text x="426" y="68" text-anchor="middle" font-size="9" fill="#185FA5" font-family="Arial">→ kW</text>
+      <line x1="496" y1="45" x2="529" y2="45" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arr4)"/>
+      <rect x="529" y="18" width="140" height="54" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+      <text x="599" y="40" text-anchor="middle" font-size="11" fill="#085041" font-family="Arial" font-weight="500">سعة البطاريات</text>
+      <text x="599" y="57" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">Wh ÷ V ÷ DoD</text>
+      <text x="599" y="68" text-anchor="middle" font-size="9" fill="#085041" font-family="Arial">→ Ah</text>
+    </svg>
+  </div>
+  <p><strong>مثال على الفرق بين منزلين:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الوضع</th><th>منزل بدون حساب</th><th>منزل محسوب بدقة</th></tr></thead>
+    <tbody>
+      <tr><td>الألواح المركّبة</td><td>4 ألواح 400W = 1.6 kWp (تخمين)</td><td>6 ألواح 400W = 2.4 kWp (محسوبة)</td></tr>
+      <tr><td>البطاريات</td><td>بطارية 100Ah (أرخص متاح)</td><td>بطارية 200Ah 48V ليثيوم</td></tr>
+      <tr><td>النتيجة</td><td>الكهرباء تنقطع الساعة 2 فجراً</td><td>الكهرباء مستمرة طوال الليل</td></tr>
+      <tr><td>رضا العميل</td><td>شكاوى مستمرة — رجوع للمركّب</td><td>عميل راضٍ يوصي أصدقاءه</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">حساب الحمل اليومي بالكيلوواط-ساعة</div>
+  <p>الحمل اليومي هو مجموع الطاقة التي يستهلكها المنزل أو المنشأة في يوم واحد. هو نقطة البداية لكل حساب.</p>
+  <p><strong>الصيغة الأساسية لكل جهاز:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">صيغة الحمل اليومي</div>
+    <div class="spec-row"><span class="spec-key">قدرة الجهاز (Watt) × ساعات الاستخدام يومياً</span><span class="spec-val">= Wh/day</span></div>
+    <div class="spec-row"><span class="spec-key">مجموع كل الأجهزة ÷ 1000</span><span class="spec-val">= kWh/day</span></div>
+  </div>
+  <p><strong>جدول الأجهزة الشائعة في المنازل السودانية:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الجهاز</th><th>القدرة (W)</th><th>ساعات الاستخدام</th><th>الاستهلاك اليومي (Wh)</th></tr></thead>
+    <tbody>
+      <tr><td>مكيّف هواء 1.5 طن</td><td>1500</td><td>8 ساعات</td><td>12,000</td></tr>
+      <tr><td>ثلاجة متوسطة</td><td>150</td><td>24 ساعة (دورات)</td><td>3,600</td></tr>
+      <tr><td>إضاءة LED (6 لمبات)</td><td>40</td><td>6 ساعات</td><td>240</td></tr>
+      <tr><td>تلفزيون 43 بوصة</td><td>100</td><td>5 ساعات</td><td>500</td></tr>
+      <tr><td>غسالة ملابس</td><td>500</td><td>1 ساعة</td><td>500</td></tr>
+      <tr><td>مروحة سقف</td><td>75</td><td>8 ساعات</td><td>600</td></tr>
+      <tr><td>مضخة مياه (0.5 HP)</td><td>375</td><td>2 ساعة</td><td>750</td></tr>
+      <tr><td>شاحن هاتف (3 هواتف)</td><td>30</td><td>4 ساعات</td><td>120</td></tr>
+    </tbody>
+  </table>
+  <p><strong>مثال عملي — منزل متوسط في الخرطوم:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الجهاز</th><th>Wh/day</th></tr></thead>
+    <tbody>
+      <tr><td>مكيّف (1500W × 6h)</td><td>9,000</td></tr>
+      <tr><td>ثلاجة (150W × 24h)</td><td>3,600</td></tr>
+      <tr><td>إضاءة LED (40W × 5h)</td><td>200</td></tr>
+      <tr><td>تلفزيون (100W × 4h)</td><td>400</td></tr>
+      <tr><td>غسالة (500W × 1h)</td><td>500</td></tr>
+      <tr><td>مروحتان (150W × 8h)</td><td>1,200</td></tr>
+      <tr><td>شواحن + متنوعات</td><td>300</td></tr>
+      <tr><td><strong>المجموع الكلي</strong></td><td><strong>15,200 Wh = 15.2 kWh/day</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="note-box">
+    <div class="note-title">📌 استهلاك AC vs DC وكفاءة الإنفرتر</div>
+    <p>أجهزتنا المنزلية تعمل على AC. الطاقة تمر عبر الإنفرتر قبل وصولها للأجهزة. الإنفرتر كفاءته حوالي 97% — أي لكل 100 Wh تحتاجه الأجهزة، يجب أن يوفر النظام 103 Wh من الألواح. هذا الفرق الصغير مضمّن تلقائياً في معامل الخسارة الذي سنستخدمه في الدرس التالي.</p>
+  </div>
+  <div class="warn-box">
+    <div class="warn-title">⚠ لا تنسَ الأحمال الكامنة (Standby)</div>
+    <p>كثير من الأجهزة الحديثة تستهلك طاقة حتى وهي في وضع الاستعداد — أجهزة الاستقبال، راوتر الإنترنت، أجهزة التلفاز الذكية. أضف 200-400 Wh إضافية لأي منزل به عدة أجهزة إلكترونية لضمان دقة الحساب.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">حساب قدرة الألواح الشمسية المطلوبة</div>
+  <p>بعد معرفة الحمل اليومي، نحسب عدد الألواح الشمسية اللازمة لتغطية هذا الاستهلاك. المفتاح هنا هو فهم ساعات الذروة الشمسية (PSH) ومعامل الخسارة.</p>
+  <div class="spec-box">
+    <div class="spec-title">صيغة قدرة الألواح المطلوبة</div>
+    <div class="spec-row">
+      <span class="spec-key">قدرة الألواح (kWp)</span>
+      <span class="spec-val">= الحمل اليومي (kWh) ÷ PSH ÷ معامل الخسارة</span>
+    </div>
+  </div>
+  <p><strong>ما هو PSH — ساعات الذروة الشمسية؟</strong></p>
+  <p>PSH هو عدد الساعات التي تكون فيها الشمس بأقصى طاقتها (1000 W/m²) بشكل مكافئ. مثلاً، PSH = 6.2 يعني أن الشمس في الخرطوم تعطي ما يعادل 6.2 ساعة من الإشعاع الكامل يومياً في المتوسط السنوي.</p>
+  <table class="content-table">
+    <thead><tr><th>المنطقة</th><th>PSH اليومي (متوسط سنوي)</th><th>ملاحظة</th></tr></thead>
+    <tbody>
+      <tr><td>الخرطوم وأم درمان</td><td>6.2 ساعة</td><td>من أعلى قيم PSH في العالم</td></tr>
+      <tr><td>بورتسودان وشرق السودان</td><td>5.8 ساعة</td><td>رطوبة أعلى تقلل قليلاً</td></tr>
+      <tr><td>جوبا وجنوب السودان</td><td>5.0 ساعة</td><td>غيوم موسمية أكثر</td></tr>
+      <tr><td>دارفور وكردفان</td><td>6.0 ساعة</td><td>مناخ جاف — إشعاع عالٍ</td></tr>
+    </tbody>
+  </table>
+  <p><strong>معامل الخسارة — لماذا 0.75؟</strong></p>
+  <p>الألواح لا تعمل بكفاءتها النظرية الكاملة في الواقع. معامل الخسارة 0.75 يعوّض عن:</p>
+  <ul class="content-list">
+    <li><strong>خسارة الحرارة:</strong> الألواح الشمسية تفقد كفاءتها مع ارتفاع درجة الحرارة — في السودان هذه خسارة مهمة جداً</li>
+    <li><strong>الغبار والأوساخ:</strong> طبقة رقيقة من الغبار تقلل الإنتاج 5-15%</li>
+    <li><strong>خسائر الكابلات:</strong> مقاومة الأسلاك تؤدي لفقد جزء من الطاقة</li>
+    <li><strong>خسائر الإنفرتر:</strong> كفاءة الإنفرتر 97% — 3% خسارة</li>
+    <li><strong>عدم تطابق الألواح (Mismatch):</strong> ألواح في نفس السلسلة نادراً ما تكون متطابقة تماماً</li>
+  </ul>
+  <div class="spec-box">
+    <div class="spec-title">مثال — منزل في الخرطوم، حمل = 8 kWh/day</div>
+    <div class="spec-row"><span class="spec-key">الحمل اليومي</span><span class="spec-val">8 kWh</span></div>
+    <div class="spec-row"><span class="spec-key">PSH الخرطوم</span><span class="spec-val">6.2 ساعة</span></div>
+    <div class="spec-row"><span class="spec-key">معامل الخسارة</span><span class="spec-val">0.75</span></div>
+    <div class="spec-row"><span class="spec-key">الحساب: 8 ÷ 6.2 ÷ 0.75</span><span class="spec-val">= 1.72 kWp</span></div>
+    <div class="spec-row"><span class="spec-key">الاختيار النهائي</span><span class="spec-val">2 kWp (قرّب للأعلى دائماً)</span></div>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">💡 دائماً قرّب للأعلى عند اختيار الألواح</div>
+    <p>إذا خرج الحساب 1.72 kWp — اختر 2 kWp. لا تختر ألواحاً بقدرة أقل من نتيجة الحساب أبداً. قدرة أعلى قليلاً تعوّض أيام الغيوم والغبار الشديد، وتطيل عمر البطاريات لأنها تُشحن أسرع وأفضل.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">حساب سعة البطاريات المطلوبة</div>
+  <p>البطارية هي الذاكرة التي تخزن الطاقة المنتجة نهاراً للاستخدام ليلاً أو أيام الغيوم. اختيار السعة الصحيحة يحدد هل سيبقى المنزل مضاءً حتى الصباح أم لا.</p>
+  <div class="spec-box">
+    <div class="spec-title">صيغة سعة البطارية المطلوبة</div>
+    <div class="spec-row">
+      <span class="spec-key">سعة البطارية (Ah)</span>
+      <span class="spec-val">= الحمل المطلوب من البطارية (Wh) ÷ جهد البطارية (V) ÷ DoD</span>
+    </div>
+  </div>
+  <p><strong>ما هو DoD — عمق التفريغ؟</strong></p>
+  <p>DoD هو النسبة القصوى التي يمكن تفريغ البطارية إليها دون الإضرار بعمرها. تفريغ البطارية أكثر من DoD الموصى به يضر بها ويقصّر عمرها بشكل كبير.</p>
+  <table class="content-table">
+    <thead><tr><th>نوع البطارية</th><th>DoD الموصى به</th><th>العمر التقديري</th><th>التوصية</th></tr></thead>
+    <tbody>
+      <tr><td>ليثيوم أيون (LiFePO4)</td><td>80%</td><td>3000-6000 دورة</td><td>الأفضل للسودان — تتحمل الحرارة</td></tr>
+      <tr><td>رصاص-حمض (Lead-Acid)</td><td>50%</td><td>500-1200 دورة</td><td>اقتصادية لكن تحتاج صيانة</td></tr>
+      <tr><td>جيل AGM/Gel</td><td>50-60%</td><td>800-1500 دورة</td><td>أفضل من رصاص عادي، لا صيانة</td></tr>
+    </tbody>
+  </table>
+  <p><strong>أيام الاستقلالية — كم يوماً بدون شمس؟</strong></p>
+  <p>أيام الاستقلالية هي عدد الأيام التي يستطيع فيها النظام تشغيل الأحمال من البطاريات فقط دون إنتاج شمسي. في السودان، يوم أو يومان كافٍ لغالبية المواقع نظراً للإشعاع العالي ونُدرة الغيوم المستمرة.</p>
+  <div class="spec-box">
+    <div class="spec-title">مثال — حمل ليلي 3 kWh، يومان استقلالية، بطارية 48V ليثيوم</div>
+    <div class="spec-row"><span class="spec-key">الحمل الليلي</span><span class="spec-val">3 kWh = 3000 Wh</span></div>
+    <div class="spec-row"><span class="spec-key">أيام الاستقلالية</span><span class="spec-val">2 يوم</span></div>
+    <div class="spec-row"><span class="spec-key">الطاقة المطلوبة من البطارية</span><span class="spec-val">3000 × 2 = 6000 Wh</span></div>
+    <div class="spec-row"><span class="spec-key">جهد البطارية</span><span class="spec-val">48 V</span></div>
+    <div class="spec-row"><span class="spec-key">DoD الليثيوم</span><span class="spec-val">0.8</span></div>
+    <div class="spec-row"><span class="spec-key">الحساب: 6000 ÷ 48 ÷ 0.8</span><span class="spec-val">= 156 Ah</span></div>
+    <div class="spec-row"><span class="spec-key">الاختيار النهائي</span><span class="spec-val">بطارية 200 Ah 48V (قرّب للأعلى)</span></div>
+  </div>
+  <div class="key-box">
+    <div class="key-title">🔑 السعة الاسمية مقابل السعة الفعلية</div>
+    <p>بطارية 200 Ah مكتوب عليها 200 Ah — لكن هذا عند التفريغ البطيء (C20 أو C10). عند تفريغ سريع (أحمال عالية) تكون السعة الفعلية أقل. دائماً اختر بطارية بسعة أعلى قليلاً من الحساب النظري، وتأكد أن معدل التفريغ المناسب مذكور في datasheet البطارية.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">تجميع الحساب — مثال شامل لمنزل سوداني</div>
+  <p>نطبّق الآن كل ما تعلمناه في مثال متكامل لمنزل حقيقي في الخرطوم.</p>
+  <p><strong>البيانات الأساسية:</strong></p>
+  <ul class="content-list">
+    <li>منزل متوسط في الخرطوم — أسرة من 5 أشخاص</li>
+    <li>انقطاع الكهرباء المعتاد: 8 ساعات ليلاً</li>
+    <li>PSH الخرطوم: 6.2 ساعة/يوم</li>
+    <li>جهد النظام المختار: 48V</li>
+    <li>نوع البطارية: ليثيوم LiFePO4 (DoD = 80%)</li>
+  </ul>
+
+  <p><strong>الخطوة الأولى — حساب الحمل اليومي الكلي:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>الجهاز</th><th>القدرة (W)</th><th>الساعات</th><th>Wh/day</th></tr></thead>
+    <tbody>
+      <tr><td>مكيّف 1.5 طن</td><td>1500</td><td>7h</td><td>10,500</td></tr>
+      <tr><td>ثلاجة + فريزر</td><td>180</td><td>24h</td><td>4,320</td></tr>
+      <tr><td>إضاءة LED (8 نقاط)</td><td>60</td><td>6h</td><td>360</td></tr>
+      <tr><td>تلفزيون</td><td>120</td><td>5h</td><td>600</td></tr>
+      <tr><td>مروحتان</td><td>150</td><td>10h</td><td>1,500</td></tr>
+      <tr><td>غسالة (3 أيام/أسبوع ÷ 7)</td><td>500</td><td>0.43h</td><td>215</td></tr>
+      <tr><td>شواحن + راوتر + standby</td><td>—</td><td>—</td><td>400</td></tr>
+      <tr><td><strong>المجموع الكلي</strong></td><td></td><td></td><td><strong>17,895 → نستخدم 10 kWh كتقدير عملي للمرحلة</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <div class="note-title">📌 تبسيط للمثال</div>
+    <p>المنزل الأعلى استهلاكه ~18 kWh/day مع تشغيل المكيف الكامل. في كثير من المشاريع يختار العميل تشغيل المكيف على الشبكة عند توفرها فقط، فيصبح الحمل المطلوب من الشمس حوالي 10 kWh/day. سنكمل المثال بـ 10 kWh لوضوح الحساب.</p>
+  </div>
+
+  <p><strong>الخطوة الثانية — قدرة الألواح الشمسية:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">حساب الألواح</div>
+    <div class="spec-row"><span class="spec-key">الحمل اليومي</span><span class="spec-val">10 kWh</span></div>
+    <div class="spec-row"><span class="spec-key">PSH الخرطوم</span><span class="spec-val">6.2</span></div>
+    <div class="spec-row"><span class="spec-key">معامل الخسارة</span><span class="spec-val">0.75</span></div>
+    <div class="spec-row"><span class="spec-key">10 ÷ 6.2 ÷ 0.75</span><span class="spec-val">= 2.15 kWp</span></div>
+    <div class="spec-row"><span class="spec-key">الاختيار — قرّب للأعلى</span><span class="spec-val">2.4 kWp = 8 ألواح 300W</span></div>
+  </div>
+
+  <p><strong>الخطوة الثالثة — الإنفرتر:</strong></p>
+  <p>قدرة الأحمال المتزامنة المتوقعة: مكيف 1500W + ثلاجة 180W + تلفزيون 120W + إضاءة 60W + مروحة 75W = 1935W ≈ 2 kW. نختار إنفرتر هجين <strong>3 kW</strong> ليعطي هامشاً مريحاً مع قدرة PV مدخل تقبل 2.4 kWp.</p>
+
+  <p><strong>الخطوة الرابعة — سعة البطاريات:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">حساب البطاريات</div>
+    <div class="spec-row"><span class="spec-key">الحمل الليلي (8 ساعات انقطاع)</span><span class="spec-val">4 kWh = 4000 Wh</span></div>
+    <div class="spec-row"><span class="spec-key">أيام الاستقلالية</span><span class="spec-val">1.5 يوم</span></div>
+    <div class="spec-row"><span class="spec-key">الطاقة المطلوبة من البطارية</span><span class="spec-val">4000 × 1.5 = 6000 Wh</span></div>
+    <div class="spec-row"><span class="spec-key">جهد البطارية</span><span class="spec-val">48 V</span></div>
+    <div class="spec-row"><span class="spec-key">DoD الليثيوم</span><span class="spec-val">0.8</span></div>
+    <div class="spec-row"><span class="spec-key">6000 ÷ 48 ÷ 0.8</span><span class="spec-val">= 156 Ah</span></div>
+    <div class="spec-row"><span class="spec-key">الاختيار النهائي</span><span class="spec-val">بطارية ليثيوم 200 Ah 48V</span></div>
+  </div>
+
+  <p><strong>جدول ملخص النظام النهائي:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>المكوّن</th><th>المواصفة المختارة</th><th>الكمية</th></tr></thead>
+    <tbody>
+      <tr><td>الألواح الشمسية</td><td>300W Mono PERC — معتمدة شمس النيل</td><td>8 ألواح = 2.4 kWp</td></tr>
+      <tr><td>الإنفرتر الهجين</td><td>3 kW 48V — معتمد شمس النيل</td><td>1 وحدة</td></tr>
+      <tr><td>بطارية ليثيوم</td><td>LiFePO4 200 Ah 48V</td><td>1 وحدة (أو 4 بطارية 12V على التوالي)</td></tr>
+      <tr><td>وحدة التوزيع DC</td><td>فيوز + قاطع 63A DC</td><td>1 لوحة</td></tr>
+      <tr><td>كابلات DC</td><td>6mm² أو 10mm² بحسب المسافة</td><td>حسب الموقع</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <div class="note-title">📌 هذا حساب تقديري — الحاسبة أدق</div>
+    <p>الحسابات اليدوية هي نقطة بداية ممتازة وتعطيك فهماً حقيقياً للنظام. لكن للحصول على نتيجة أدق تأخذ في الاعتبار الموسمية وزوايا الألواح وأنواع الكابلات التفصيلية، استخدم حاسبة التصميم على موقع شمس النيل — إنها مبنية على نفس هذه المعادلات لكن بمتغيرات أكثر.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — حساب حجم النظام</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما الصيغة الصحيحة لحساب الحمل اليومي لجهاز كهربائي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>قدرة الجهاز (W) + ساعات الاستخدام</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>قدرة الجهاز (W) × ساعات الاستخدام = Wh</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>قدرة الجهاز ÷ ساعات الاستخدام</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>ساعات الاستخدام فقط</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما معنى PSH في حساب الألواح الشمسية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>قدرة الألواح الإجمالية</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>عدد ساعات الذروة الشمسية يومياً — المدة التي تكون فيها الشمس بأقصى طاقتها</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>نسبة خسارة الحرارة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>ساعات عمل الإنفرتر</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٣. ما قيمة PSH التقريبية في الخرطوم؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>3.5</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>4.8</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>6.2</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>8.0</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. لماذا نضرب في معامل الخسارة 0.75 عند حساب قدرة الألواح؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأن الألواح غالية</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لتعويض خسائر الحرارة والغبار والكابلات والإنفرتر التي تقلل الإنتاج الفعلي</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>معامل تجاري فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا فائدة منه</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. منزل استهلاكه اليومي 6 kWh وPSH=6 ومعامل الخسارة 0.75. كم kWp من الألواح يحتاج؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>1 kWp</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>1.33 kWp</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>4.5 kWp</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>0.75 kWp</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٤ — حساب حجم النظام</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

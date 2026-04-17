@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٨ — الفحص والاختبار</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الأول — مبتدئ · الوحدة ٨ من ٨</div>
+  <div class="doc-title">الفحص والاختبار — إتقان التسليم المهني</div>
+  <div class="doc-title-en">Inspection &amp; Testing — The Art of Professional Commissioning</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">مبتدئ — الوحدة الختامية للمستوى الأول</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم لماذا الفحص قبل التشغيل ضروري وليس اختيارياً</li>
+    <li>إجراء الفحص المرئي والكهربائي بالمولتيميتر بشكل صحيح وآمن</li>
+    <li>تنفيذ اختبار مقاومة العزل وقراءة نتائجه</li>
+    <li>تشغيل النظام للمرة الأولى خطوة بخطوة دون مخاطر</li>
+    <li>تسليم النظام للعميل بشكل احترافي مع كافة الوثائق اللازمة</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">لماذا الفحص والاختبار ضروريان قبل التشغيل</div>
+  <p><strong>70% من أعطال الأنظمة الشمسية في السنة الأولى</strong> تنشأ من أخطاء تركيب يمكن اكتشافها قبل التشغيل. فحص دقيق يستغرق ساعة واحدة يمكن أن يوفر على الفني والعميل أسابيع من المشاكل والتكاليف.</p>
+  <p><strong>الفحص يحمي أربعة أطراف في آنٍ واحد:</strong></p>
+  <ul class="content-list">
+    <li><strong>العميل:</strong> يضمن حصوله على نظام يعمل بكامل طاقته منذ اليوم الأول — وليس نظاماً يخذله في الأسابيع الأولى</li>
+    <li><strong>الفني:</strong> يقيه من العودة للموقع مراراً، ومن المسؤولية القانونية عن أضرار ناجمة عن توصيل خاطئ</li>
+    <li><strong>المعدات:</strong> الإنفرتر والبطاريات والألواح كلها حساسة للقطبية الخاطئة والجهد الزائد — خطأ واحد يحرقها</li>
+    <li><strong>أمان الشبكة:</strong> إنفرتر موصول بشكل خاطئ يمكن أن يضخ كهرباء في خط مُفترض فصله — خطر على أرواح عمال الصيانة</li>
+  </ul>
+  <p><strong>مبدأ "فحص ثم شغّل":</strong> لا تعطِ أي إنفرتر كهرباء قبل التحقق من كل توصيل. هذا المبدأ ليس مجرد نصيحة — هو حماية للجميع.</p>
+  <div class="key-box">
+    <div class="key-title">🔑 الفني المعتمد من شمس النيل</div>
+    <p>الفني المعتمد من شمس النيل لا يسلّم نظاماً بدون وثيقة فحص مكتملة موقّعة. التوقيع على وثيقة الفحص هو إعلان مهني بأن النظام سليم وجاهز للتشغيل — وهو يحمي الفني قانونياً ويُثبت احترافيته للعميل.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">فحوصات ما قبل التشغيل — المرئية والكهربائية</div>
+  <p>قبل أن تمس أي مفتاح أو توصيل كهربائي، ابدأ بالفحص المرئي الشامل. كثير من الأخطاء واضحة للعين ولا تحتاج أدوات.</p>
+  <p><strong>الفحص المرئي — ما تبحث عنه:</strong></p>
+  <ul class="content-list">
+    <li><strong>تثبيت الألواح:</strong> كل لوح مثبت في هيكله بشكل محكم — لا يتحرك عند الضغط الخفيف، ولا يوجد كسر في الإطار أو الزجاج</li>
+    <li><strong>اتجاه كابلات MC4:</strong> الطرف الموجب (+) متصل بالموجب، والسالب (-) بالسالب — في كل مكان على طول السلسلة</li>
+    <li><strong>حالة الكابلات:</strong> لا توجد كابلات مكشوفة أو مقشورة، ولا انثناءات حادة قد تتسبب في تلف العزل</li>
+    <li><strong>تركيب الإنفرتر:</strong> مثبت على سطح صلب، منتصب، ومحاط بمساحة هواء كافية للتبريد — لا يوجد ما يعيق فتحات التهوية</li>
+    <li><strong>إحكام التوصيلات:</strong> جميع مقابس MC4 مستقرة ومقفلة، وغطاء لوحة الأسلاك مغلق</li>
+  </ul>
+  <p><strong>الفحص الكهربائي البسيط بالمولتيميتر — قبل توصيل الإنفرتر:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>القياس</th><th>القيمة المتوقعة</th><th>ماذا يعني الانحراف؟</th></tr></thead>
+    <tbody>
+      <tr><td>Voc لكل سلسلة ألواح</td><td>مطابق للمواصفات ± 5%</td><td>لوح معطوب أو توصيل مفتوح — راجع السلسلة لوحاً لوحاً</td></tr>
+      <tr><td>قطبية كل سلسلة</td><td>+ موجب، - سالب</td><td>انعكاس كامل للقطبية — صحّح قبل المتابعة أبداً</td></tr>
+      <tr><td>Isc بملقط أمبير DC</td><td>مطابق للمواصفات ± 10%</td><td>لوح ضعيف أو ظل غير مقصود على جزء من السلسلة</td></tr>
+      <tr><td>عدم وجود جهد بين + أو - والأرض</td><td>صفر أو قريب من الصفر</td><td>عطل في العزل أو توصيل خاطئ بالأرض</td></tr>
+    </tbody>
+  </table>
+  <div class="warn-box">
+    <div class="warn-title">⚠ تحذير مهم جداً — المولتيميتر العادي</div>
+    <p>لا تقِس تيار DC مباشرة بالمولتيميتر العادي في وضع Ampere. تيار DC من ألواح شمسية عالٍ جداً — سيتلف الجهاز فوراً ويخلق دائرة قصر خطرة. استخدم دائماً <strong>ملقط أمبير DC (DC Clamp Meter)</strong> لقياس Isc.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">اختبار مقاومة العزل — Insulation Resistance Test</div>
+  <p>اختبار مقاومة العزل هو <strong>الفحص الكهربائي الأعمق</strong> قبل التشغيل. يكشف عن عزل تالف في الكابلات أو توصيلات خاطئة لا تظهر بالعين المجردة ولا بالمولتيميتر العادي.</p>
+  <p><strong>ما هو الاختبار:</strong> قياس مقاومة العزل بين الموصل الحامل للجهد (سلسلة الألواح) والأرض (الهيكل المعدني أو التأريض). مقاومة عالية = عزل جيد. مقاومة منخفضة = عزل تالف أو توصيل خاطئ.</p>
+  <p><strong>الأداة المطلوبة:</strong> Megger أو Earth Insulation Tester يعمل على 500V DC — ليس المولتيميتر العادي الذي لا يعطي قراءة دقيقة لمقاومة العزل.</p>
+  <p><strong>القيمة المقبولة: ≥ 1 MΩ (ميجا أوم)</strong> — أي قيمة أقل من 1 ميجا أوم تعني عزل تالف أو توصيل خاطئ ويجب التحقيق فيه قبل التشغيل.</p>
+  <p><strong>كيف تُجري الاختبار — خطوة بخطوة:</strong></p>
+  <ul class="content-list">
+    <li><strong>الخطوة 1:</strong> افصل الإنفرتر من السلسلة تماماً (أغلق قاطع DC) وافصل البطاريات إن وجدت</li>
+    <li><strong>الخطوة 2:</strong> قصّر طرفي السلسلة معاً — وصّل + و- بسلك موصل مؤقت. هذا يجعل السلسلة كلها كموصل واحد</li>
+    <li><strong>الخطوة 3:</strong> وصّل Megger بين الكابل المقصور (+ و- معاً) وسلك التأريض أو الهيكل المعدني للهيكل الحامل للألواح</li>
+    <li><strong>الخطوة 4:</strong> طبّق 500V DC لمدة 60 ثانية واقرأ النتيجة</li>
+  </ul>
+  <p><strong>مثال على نتيجة خاطئة:</strong> قراءة 4 أوم (أو حتى بضعة كيلو أوم) تعني احتمال وجود كابل تالف يلامس الهيكل المعدني، أو مقبس MC4 مكسور يسمح بتسرب التيار. أعد فحص الموصلات والكابلات طولاً بطول حتى تجد المشكلة.</p>
+  <div class="tip-box">
+    <div class="tip-title">💡 متى تجري اختبار العزل؟</div>
+    <p>افحص العزل قبل كل تشغيل أول في أي موقع جديد، وبعد أي تدخل في الكابلات أو التوصيلات، وكذلك ضمن الصيانة الدورية السنوية. في بيئة السودان الحارة والغبارية، تتدهور جودة العزل مع الوقت أسرع من المناطق المعتدلة.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">اختبار التشغيل الأول — خطوة خطوة</div>
+  <p>بعد اجتياز جميع فحوصات ما قبل التشغيل، جاء وقت التشغيل الفعلي. <strong>لا تُشغّل كل شيء دفعة واحدة</strong> — اتبع هذه الخطوات بالترتيب لضمان تشغيل آمن وناجح.</p>
+  <p><strong>الخطوة 1 — DC فقط أولاً:</strong> شغّل الإنفرتر على DC فقط دون الاتصال بالشبكة أو الأحمال. راقب شاشة الإنفرتر — يجب أن تضيء وتعرض قيماً بدون رسائل خطأ.</p>
+  <p><strong>الخطوة 2 — التحقق من Vdc:</strong> تحقق من قيمة جهد DC المعروض على شاشة الإنفرتر. يجب أن تتطابق مع القيمة التي قستها بالمولتيميتر على سلسلة الألواح قبل التوصيل.</p>
+  <p><strong>الخطوة 3 — الاتصال بالشبكة أو وضع off-grid:</strong> اسمح للإنفرتر بالاتصال بالشبكة (أغلق قاطع AC) أو بدء وضع التشغيل المستقل. الإنفرتر سيمر بمرحلة مزامنة قصيرة قبل بدء ضخ الطاقة.</p>
+  <p><strong>الخطوة 4 — مراقبة Pac والكفاءة:</strong> راقب قيمة الطاقة AC المنتجة (Pac) وكفاءة التشغيل على شاشة الإنفرتر أو التطبيق المرتبط. القيم يجب أن تكون منطقية بالنسبة لشدة الإشعاع الشمسي الحالي.</p>
+  <p><strong>الخطوة 5 — القياس عند لوحة التوزيع:</strong> قِس الجهد والتيار عند لوحة التوزيع بالمولتيميتر. الجهد يجب أن يكون 230V ± 10% والتيار منطقياً بحسب الأحمال المتصلة.</p>
+  <p><strong>الخطوة 6 — اختبار Anti-islanding:</strong> افصل الشبكة الكهربائية (افتح القاطع الرئيسي من الشبكة) — يجب أن يتوقف الإنفرتر عن الضخ خلال <strong>ثانيتين كحد أقصى</strong>. هذا يؤكد أن حماية الجزيرة تعمل بشكل صحيح.</p>
+  <table class="content-table">
+    <thead><tr><th>المعلمة</th><th>القراءة المتوقعة في تشغيل سليم</th></tr></thead>
+    <tbody>
+      <tr><td>Vdc عند مدخل الإنفرتر</td><td>مطابق لـ Voc السلسلة ± 5%</td></tr>
+      <tr><td>جهد AC عند الخرج</td><td>220 – 240V</td></tr>
+      <tr><td>التردد</td><td>49.5 – 50.5 Hz</td></tr>
+      <tr><td>Pac عند ذروة الإشعاع</td><td>قريب من القدرة الاسمية للإنفرتر</td></tr>
+      <tr><td>درجة حرارة الإنفرتر</td><td>دافئ لكن ليس ساخناً جداً — لا دخان ولا رائحة</td></tr>
+      <tr><td>وقت إيقاف عند فصل الشبكة</td><td>أقل من ثانيتين</td></tr>
+    </tbody>
+  </table>
+  <div class="warn-box">
+    <div class="warn-title">⚠ أوقف التشغيل فوراً إذا</div>
+    <p>سمعت صوتاً غير عادي (طرق، صفير، فرقعة) من الإنفرتر أو الكابلات — أو رأيت دخاناً أو شممت رائحة حرق — أو رأيت رسالة خطأ على الشاشة. <strong>أوقف كل شيء فوراً، افصل DC ثم AC</strong>، وراجع التوصيلات قبل أي محاولة ثانية.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">التسليم للعميل — الوثائق وشرح النظام</div>
+  <p>التسليم المهني هو ما يميز الفني المعتمد عن غيره. <strong>النظام لا يكتمل بالتشغيل فقط</strong> — يكتمل عندما يفهم العميل كيف يستخدمه ويملك جميع وثائقه.</p>
+  <p><strong>حزمة التسليم الكاملة — ما يجب تسليمه:</strong></p>
+  <ul class="content-list">
+    <li><strong>قائمة تحقق موقّعة:</strong> وثيقة تثبت أن جميع فحوصات ما قبل التشغيل أُجريت وأن النظام اجتازها</li>
+    <li><strong>ورقة مواصفات النظام:</strong> تتضمن قدرة الألواح بالكيلوواط، حجم البطارية بالكيلوواط/ساعة، نوع وموديل الإنفرتر، وتاريخ التركيب</li>
+    <li><strong>دليل تشغيل مبسط للعميل:</strong> شرح بسيط لكيفية قراءة بيانات النظام، وماذا يعني كل مؤشر على الشاشة</li>
+    <li><strong>وثائق الضمان:</strong> الألواح الشمسية عادةً 25 سنة، الإنفرتر من 5 إلى 10 سنوات، البطارية حسب الشركة المصنعة</li>
+    <li><strong>بيانات الاتصال للصيانة:</strong> رقم هاتفك وطريقة الوصول إليك للصيانة الدورية والطوارئ</li>
+  </ul>
+  <p><strong>ماذا تشرح للعميل وجهاً لوجه:</strong></p>
+  <ul class="content-list">
+    <li><strong>قراءة الإنتاج:</strong> كيف يقرأ إنتاج النظام اليومي والشهري من التطبيق أو شاشة الإنفرتر</li>
+    <li><strong>علامات المشكلة:</strong> ما هي المؤشرات التي يجب أن يُبلغك بها — ضوء أحمر، رسالة خطأ، انخفاض ملحوظ في الإنتاج</li>
+    <li><strong>قاعدة ذهبية:</strong> لا تعبث بالتوصيلات أو القواطع — عند أي مشكلة اتصل بالفني أولاً</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 العميل الراضي هو أفضل إعلان لك</div>
+    <p>معظم التركيبات الجديدة تأتي عن طريق التوصية من عميل سابق راضٍ. الوقت الذي تقضيه في شرح النظام للعميل وتسليمه وثائقه الكاملة هو استثمار في مشاريعك القادمة — وليس وقتاً مهدوراً.</p>
+  </div>
+  <p><strong>قائمة تحقق التسليم الكاملة — اطبعها لكل مشروع:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>البند</th><th>الحالة</th></tr></thead>
+    <tbody>
+      <tr><td>جميع فحوصات ما قبل التشغيل مكتملة وموثقة</td><td>☐ مكتمل &nbsp; ☐ ملاحظات: ____________</td></tr>
+      <tr><td>اختبار مقاومة العزل ≥ 1 MΩ</td><td>☐ اجتاز — القراءة: ______ MΩ</td></tr>
+      <tr><td>التشغيل الأول ناجح بدون أخطاء</td><td>☐ ناجح &nbsp; ☐ تم حل المشكلة: ____________</td></tr>
+      <tr><td>اختبار Anti-islanding — توقف خلال ثانيتين</td><td>☐ اجتاز &nbsp; ☐ لم يجتز — راجع الإنفرتر</td></tr>
+      <tr><td>ورقة مواصفات النظام سُلّمت للعميل</td><td>☐ سُلّمت</td></tr>
+      <tr><td>دليل التشغيل المبسط سُلّم للعميل</td><td>☐ سُلّم</td></tr>
+      <tr><td>وثائق الضمان سُلّمت للعميل</td><td>☐ سُلّمت</td></tr>
+      <tr><td>شرح النظام وجهاً لوجه تم</td><td>☐ تم — توقيع العميل: ____________</td></tr>
+      <tr><td>بيانات الاتصال للصيانة سُلّمت</td><td>☐ سُلّمت</td></tr>
+      <tr><td>تاريخ التركيب والتسليم مسجّل</td><td>☐ مسجّل — التاريخ: ____________</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — الفحص والاختبار</div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">١. ما القيمة الدنيا المقبولة لمقاومة العزل في اختبار Insulation Resistance؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>100 أوم</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>10 كيلو أوم</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>1 ميجا أوم</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>10 ميجا أوم</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. لماذا لا يجوز قياس تيار DC مباشرة بالمولتيميتر العادي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>المولتيميتر لا يقيس DC أصلاً</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>المولتيميتر العادي لا يتحمل تيار DC العالي من الألواح — يتلف الجهاز ويخلق دائرة قصر خطرة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>القياس غير دقيق فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا مانع في الحقيقة</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. كيف تختبر حماية Anti-islanding في الإنفرتر؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>قِس الجهد بالمولتيميتر</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>افصل الشبكة الكهربائية — يجب أن يتوقف الإنفرتر خلال ثانيتين</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>أوقف الإنفرتر من الزر</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الاختبار يتم آلياً عند التشغيل الأول دائماً</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما الوثائق الأساسية التي يجب تسليمها للعميل عند إتمام التركيب؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>فاتورة الدفع فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>قائمة تحقق موقّعة + مواصفات النظام + شرح التشغيل + ضمانات المكونات</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>صور الموقع فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا توجد وثائق إلزامية</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. ما أول خطوة عند تشغيل إنفرتر لأول مرة؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>توصيل AC مع الشبكة مباشرة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تشغيل الإنفرتر على DC فقط أولاً ومراقبة الشاشة قبل السماح بالاتصال بالشبكة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تشغيل كامل النظام مرة واحدة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الاتصال بالشركة المصنعة</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٨ — الفحص والاختبار</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

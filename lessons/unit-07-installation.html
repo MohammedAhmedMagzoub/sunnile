@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٧ — التركيب الميداني</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الأول — مبتدئ · الوحدة ٧ من ٨</div>
+  <div class="doc-title">التركيب الميداني — من التقييم إلى الإنجاز</div>
+  <div class="doc-title-en">Field Installation — From Site Assessment to Completion</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">مبتدئ</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>تقييم الموقع قبل التركيب — السطح والظل والاتجاه ومسار الكابلات</li>
+    <li>حساب زاوية الميل والاتجاه الأمثل لمناطق السودان المختلفة</li>
+    <li>اختيار نوع هيكل التركيب المناسب وتثبيته بشكل صحيح وآمن</li>
+    <li>تنفيذ خطوات التركيب بالترتيب الصحيح من البداية حتى التوصيل الكامل</li>
+    <li>تطبيق قواعد السلامة التي لا تُكسر عند العمل على الأسطح وبالكهرباء</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">تقييم الموقع قبل التركيب — ما تبحث عنه</div>
+  <p>قبل أن تحمل أي أداة أو لوح، الفني المحترف يبدأ بـ<strong>تقييم الموقع</strong>. هذه الخطوة توفر عليك مشاكل كبيرة وأخطاء مكلفة — وهي شرط في معايير شمس النيل لكل تركيب.</p>
+  <p><strong>سلامة السطح أولاً:</strong></p>
+  <ul class="content-list">
+    <li><strong>تحمّل الحمل الإضافي:</strong> السطح يجب أن يتحمل وزن الألواح والهيكل الفلزي وكذلك وزن الفني أثناء العمل. الألواح الشمسية تضيف ما بين 15 إلى 25 كيلوغراماً لكل متر مربع — تحقق من حالة السقف البيتوني أو الحديدي قبل المتابعة</li>
+    <li><strong>وجود تسريبات أو صدأ:</strong> أي تشقق أو صدأ في الهيكل الحالي للسطح يجب إصلاحه قبل التركيب — الألواح الشمسية تدوم 25 سنة وتغطي السطح وتجعل الإصلاح أصعب لاحقاً</li>
+  </ul>
+  <p><strong>التظليل — عدوّ الإنتاج:</strong></p>
+  <ul class="content-list">
+    <li>افحص الظلال في <strong>أوقات مختلفة من اليوم</strong> — صباح ومنتصف نهار وعصر — لأن الظل يتحرك مع الشمس</li>
+    <li>تذكر <strong>المواسم</strong> — شجرة تبدو بعيدة في الصيف قد تظلل الألواح في الشتاء حين تكون الشمس بزاوية أخفض</li>
+    <li>انتبه لمصادر الظل: أشجار، مبانٍ مجاورة، خزانات علوية، صواري هوائية، وحتى نتوءات السطح ذاته</li>
+    <li>الظل على لوح واحد فقط قد يقلل إنتاج سلسلة كاملة من الألواح — تأثيره غير متناسب</li>
+  </ul>
+  <p><strong>الاتجاه والميل — الأساس الجغرافي:</strong></p>
+  <ul class="content-list">
+    <li>في نصف الكرة الجنوبي الوجه الشمالي هو الأمثل — لكن في السودان الوضع مختلف</li>
+  </ul>
+  <div class="note-box">
+    <div class="note-title">📌 السودان في نصف الكرة الشمالي</div>
+    <p>السودان يقع كلياً في <strong>نصف الكرة الشمالي</strong> — لذلك <strong>الوجه الجنوبي هو الأمثل</strong> لتعظيم الإنتاج السنوي. الشمس تمر جنوب السمت في رحلتها اليومية، والألواح المتجهة جنوباً تواجهها بشكل مثالي.</p>
+  </div>
+  <p><strong>مسار الكابلات — خطط مسبقاً:</strong></p>
+  <ul class="content-list">
+    <li>قبل التركيب، حدد مسار الكابلات من السطح حتى الإنفرتر — من أي فتحة ستمر؟ كيف ستُثبت على الجدار؟</li>
+    <li>الكابلات التي تمر في الشمس المباشرة تتدهور بسرعة — خطط لمسارات مظللة أو استخدم أنابيب واقية UV-resistant</li>
+    <li>قياس المسافة مهم: كلما طالت الكابلات، زاد الفقد في الجهد — احسب قطر الكابل المطلوب على هذا الأساس</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ لا تبدأ التركيب بدون تقييم مكتوب</div>
+    <p>تقييم الموقع يجب أن يكون <strong>مكتوباً وموثقاً</strong> — صور + ملاحظات + رسم تخطيطي. هذا يحميك قانونياً ويضمن اتساق العمل بين الفنيين في المشاريع الكبيرة.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">زاوية الميل والاتجاه — الحسابات العملية</div>
+  <p>زاوية الميل واتجاه الألواح يؤثران مباشرة على كمية الطاقة المنتجة سنوياً. الفهم الصحيح لهذه الحسابات يجعلك فنياً متميزاً يقدم قيمة حقيقية للعميل.</p>
+  <p><strong>زاوية الميل المثلى — القاعدة الأساسية:</strong></p>
+  <ul class="content-list">
+    <li><strong>القاعدة العامة:</strong> زاوية الميل المثلى تساوي خط العرض الجغرافي للموقع ± 10 درجات حسب الموسم</li>
+    <li><strong>للإنتاج الأعظمي على مدار السنة:</strong> استخدم خط العرض مباشرة كزاوية ميل</li>
+    <li><strong>لتفضيل فصل الشتاء:</strong> أضف 10 درجات — الشمس تكون أخفض في السماء ويحتاج الناس للطاقة أكثر في الشتاء</li>
+    <li><strong>لتفضيل فصل الصيف:</strong> اطرح 10 درجات — الشمس أعلى والإشعاع أكثر</li>
+  </ul>
+  <p><strong>المناطق السودانية الرئيسية:</strong></p>
+  <table class="content-table">
+    <thead><tr><th>المدينة</th><th>خط العرض (تقريبي)</th><th>الميل الأمثل السنوي</th><th>النطاق الموسمي</th></tr></thead>
+    <tbody>
+      <tr><td>الخرطوم</td><td>15°</td><td>15°</td><td>15–25° (شتاء) / 5–15° (صيف)</td></tr>
+      <tr><td>بورتسودان</td><td>19°</td><td>19°</td><td>19–29° (شتاء) / 9–19° (صيف)</td></tr>
+      <tr><td>وادي حلفا (أقصى الشمال)</td><td>22°</td><td>22°</td><td>22–32° (شتاء) / 12–22° (صيف)</td></tr>
+      <tr><td>جوبا (أقصى الجنوب)</td><td>5°</td><td>5°</td><td>0–10° — قريب من الأفقي</td></tr>
+      <tr><td>كسلا</td><td>15°</td><td>15°</td><td>15–25° (شتاء) / 5–15° (صيف)</td></tr>
+    </tbody>
+  </table>
+  <p><strong>أثر الميل على الإنتاج:</strong></p>
+  <ul class="content-list">
+    <li>الانتقال من <strong>0° (أفقي تام) إلى 20°</strong> يرفع الإنتاج السنوي بنسبة 8–12% في خطوط عرض السودان</li>
+    <li>الانتقال من <strong>20° إلى 40°</strong> يضيف 3–5% إضافية — فائدة أقل لكن مع زيادة صعوبة التركيب</li>
+    <li>الزوايا فوق 45° تبدأ في إيذاء الإنتاج السنوي الإجمالي في خطوط العرض السودانية</li>
+  </ul>
+  <p><strong>أثر الانحراف عن الجنوب:</strong></p>
+  <ul class="content-list">
+    <li><strong>انحراف 30° شرقاً أو غرباً:</strong> يقلل الإنتاج السنوي بنحو 5% — مقبول تماماً</li>
+    <li><strong>انحراف 90° (شرق أو غرب كامل):</strong> يقلل الإنتاج بنسبة 20–30% — خسارة كبيرة يجب أخذها في الحسبان</li>
+    <li><strong>اتجاه الشمال الكامل:</strong> الأسوأ — يمكن أن يقلل الإنتاج بنسبة 40% أو أكثر</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 إذا لم يتوفر الوجه الجنوبي</div>
+    <p>إذا كان السطح لا يتيح الوجه الجنوبي، <strong>الشرق أو الغرب مقبولان</strong> مع زيادة عدد الألواح بنسبة 15–20% للتعويض عن الخسارة في الإنتاج. هذا أفضل من رفض المشروع أو تركيب الألواح في اتجاه الشمال.</p>
+  </div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">هياكل التركيب — الأنواع والتثبيت الصحيح</div>
+  <p>الهيكل هو ما يمسك الألواح في مكانها لـ25 سنة في ظل حرارة شديدة ورياح ورمال. اختيار النوع الصحيح وتثبيته بشكل سليم بالغ الأهمية.</p>
+  <p><strong>أنواع الهياكل الثلاثة الرئيسية:</strong></p>
+  <div class="inv-grid">
+    <div class="inv-card ic-grid">
+      <div class="inv-card-title">سطح مسطح</div>
+      <div class="inv-card-en">Flat Roof Mount</div>
+      <div class="inv-card-val">رفعة بزاوية محددة<br>قواعد خرسانية أو أثقال<br>الأكثر شيوعاً في السودان<br><br><strong style="color:#185FA5;">للمنازل والمباني التجارية</strong></div>
+    </div>
+    <div class="inv-card ic-hybrid">
+      <div class="inv-card-title">سطح منحدر</div>
+      <div class="inv-card-en">Pitched Roof Mount</div>
+      <div class="inv-card-val">مثبتات على الحوامل<br>أو ثقب السطح مع ختم<br>الزاوية غالباً جاهزة<br><br><strong style="color:#085041;">للفيلات والمنازل المائلة</strong></div>
+    </div>
+    <div class="inv-card ic-off">
+      <div class="inv-card-title">تركيب أرضي</div>
+      <div class="inv-card-en">Ground Mount</div>
+      <div class="inv-card-val">خوازيق في التربة<br>مرونة كاملة في الزاوية<br>أسهل للصيانة<br><br><strong style="color:#BA7517;">للمزارع والمناطق الريفية</strong></div>
+    </div>
+  </div>
+  <p><strong>المواد — أيها تختار؟</strong></p>
+  <ul class="content-list">
+    <li><strong>ألومنيوم مؤكسد (Anodized Aluminum):</strong> الاختيار الأفضل في معظم الحالات — خفيف، لا يصدأ، يتحمل الحرارة الشديدة، ومقاوم للتآكل الجوي. ضروري بشكل خاص في <strong>بورتسودان والمناطق الساحلية</strong> حيث يسبب الهواء المالح تآكل الفولاذ سريعاً</li>
+    <li><strong>فولاذ مجلفن (Galvanized Steel):</strong> أقوى وأرخص، لكن يصدأ في البيئات الساحلية والرطبة. مقبول في المناطق الجافة الداخلية مثل الخرطوم وشمال السودان</li>
+    <li><strong>فولاذ مطلي بمسحوق (Powder-coated Steel):</strong> مقبول إذا كانت جودة الطلاء عالية — تحقق من سماكة الطبقة</li>
+  </ul>
+  <p><strong>التثبيت الإنشائي — حسب نوع السطح:</strong></p>
+  <ul class="content-list">
+    <li><strong>سطح مسطح — قواعد خرسانية أو ثقل بالكتل:</strong> الهيكل يُثبت على قواعد خرسانية مسبوكة في الموقع أو كتل خرسانية جاهزة كثقل. هذه الطريقة لا تخترق السطح وتحافظ على العازلية المائية</li>
+    <li><strong>سطح منحدر — مثبتات لاقطة:</strong> تُثبت على حوامل السقف من الداخل دون ثقب السطح — الأنظف والأفضل عند الإمكان</li>
+    <li><strong>سطح منحدر — مثبتات ثاقبة:</strong> تثقب السطح وتثبت مباشرة في الهيكل الإنشائي — يجب ختم كل ثقب بـ<strong>سيليكون خاص بالأسطح</strong> لمنع تسرب المياه</li>
+  </ul>
+  <p><strong>مسافة التهوية — قاعدة 20 سم:</strong></p>
+  <ul class="content-list">
+    <li>يجب ترك مسافة لا تقل عن <strong>20 سم بين الألواح الشمسية والسطح</strong></li>
+    <li>هذه المسافة تتيح تدفق الهواء الذي يُبرد الألواح — الألواح الساخنة تنتج طاقة أقل</li>
+    <li>في السودان حيث تصل درجات الحرارة لـ50 درجة أو أكثر، التهوية الجيدة قد ترفع الإنتاج 5–8%</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 قاعدة ختم كل مثبت</div>
+    <p>كل مثبت يُثبت بالسطح بطريقة الثقب يجب أن يُختم بـ<strong>سيليكون خاص بالأسطح</strong> — ليس أي سيليكون عادي. السيليكون المقاوم للأشعة فوق البنفسجية والحرارة يدوم سنوات، بينما السيليكون العادي يتشقق ويتهشم خلال سنة أو اثنتين في شمس السودان.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">خطوات التركيب المتسلسلة — من البداية للنهاية</div>
+  <p>الترتيب الصحيح لخطوات التركيب ليس مجرد تنظيم — هو مسألة <strong>سلامة وجودة عمل</strong>. الفني الذي يتبع هذا الترتيب يحمي نفسه ويحمي عميله ويضمن نظاماً يعمل من اليوم الأول.</p>
+
+  <p><strong>الخطوة 1 — تركيب الهيكل وإرسائه:</strong></p>
+  <ul class="content-list">
+    <li>ابدأ بتركيب القواعد والهيكل الكامل قبل لمس أي لوح أو كابل</li>
+    <li>تحقق من الاستواء (Leveling) في كل الاتجاهات — الهيكل المائل يولد ضغطاً غير متساوٍ على الألواح</li>
+    <li>تحقق من صلابة كل وصلة ومثبت — لا تترك أي مسمار أو براغي مرخية</li>
+  </ul>
+
+  <p><strong>الخطوة 2 — مد الكابلات في أنابيب واقية:</strong></p>
+  <ul class="content-list">
+    <li>مد الكابلات في مساراتها المحددة <strong>قبل تركيب الألواح</strong> — بعد وضع الألواح يصعب الوصول</li>
+    <li>استخدم أنابيب أو مسارات واقية مقاومة للأشعة فوق البنفسجية لحماية الكابلات من أشعة الشمس</li>
+    <li>ثبّت الكابلات بشكل آمن — الكابلات المتدلية تتآكل بسبب الاحتكاك والريح</li>
+  </ul>
+
+  <p><strong>الخطوة 3 — تركيب الألواح وتثبيت موصلات MC4:</strong></p>
+  <ul class="content-list">
+    <li>ضع الألواح على الهيكل وثبّتها بالمثبتات المخصصة — لا تستخدم مسامير عادية</li>
+    <li>وصّل موصلات MC4 بين الألواح حسب خريطة الدائرة (سلاسل التوالي والتوازي)</li>
+    <li><strong>لا تربط كابل MC4 بالإنفرتر قبل اكتمال التوصيل بين جميع الألواح</strong></li>
+  </ul>
+
+  <p><strong>الخطوة 4 — تركيب الإنفرتر في مكانه:</strong></p>
+  <ul class="content-list">
+    <li>الإنفرتر يُركب في مكان <strong>مظلل ومهوى بعيد عن أشعة الشمس المباشرة</strong> — الحرارة الزائدة تُفعّل الحماية الحرارية وتوقف الإنتاج</li>
+    <li>المناطق المناسبة: داخل المبنى قرب لوحة التوزيع، أو في مخزن مهوى، أو تحت مظلة على الجدار الخارجي</li>
+    <li>تأكد من سهولة الوصول للقراءة والصيانة المستقبلية</li>
+  </ul>
+
+  <p><strong>الخطوة 5 — توصيل DC (الألواح إلى الإنفرتر):</strong></p>
+  <ul class="content-list">
+    <li>وصّل كابلات DC من الألواح لمدخل DC في الإنفرتر — <strong>الإنفرتر في وضع إيقاف تام</strong></li>
+    <li>تحقق من القطبية (+ و−) قبل الوصل — عكس القطبية قد يتلف الإنفرتر فوراً</li>
+    <li>قِس جهد الدائرة المفتوحة Voc بالمقياس قبل الوصل للتأكد أنه ضمن نطاق الإنفرتر</li>
+  </ul>
+
+  <p><strong>الخطوة 6 — توصيل البطاريات (للأنظمة الهجينة):</strong></p>
+  <ul class="content-list">
+    <li>وصّل البطاريات لمنفذ البطارية في الإنفرتر — <strong>البطارية في وضع الفصل الكامل</strong></li>
+    <li>تحقق من القطبية والجهد قبل الوصل</li>
+    <li>للبطاريات الليثيوم: تأكد من التوافق بين البطارية والإنفرتر — ليست كل الأنواع متوافقة</li>
+  </ul>
+
+  <p><strong>الخطوة 7 — توصيل AC (الإنفرتر إلى لوحة التوزيع):</strong></p>
+  <ul class="content-list">
+    <li>وصّل كابل AC من الإنفرتر للوحة التوزيع — <strong>الكهرباء الرئيسية مقطوعة كلياً</strong></li>
+    <li>استخدم قاطع دائرة (Circuit Breaker) مناسب في اللوحة</li>
+    <li>الكابلات AC يجب أن تكون من النوع المعتمد للاستخدام الكهربائي الثابت</li>
+  </ul>
+
+  <p><strong>الخطوة 8 — التأريض:</strong></p>
+  <ul class="content-list">
+    <li>أرّض هيكل الألواح الفلزي بكابل تأريض موصل لنظام التأريض الرئيسي للمبنى</li>
+    <li>أرّض هيكل الإنفرتر كذلك</li>
+    <li>التأريض يحمي من الصعق الكهربائي في حالة حدوث عطل في العزل</li>
+  </ul>
+
+  <div class="warn-box">
+    <div class="warn-title">⚠ الألواح دائماً تحت الجهد عند وجود ضوء</div>
+    <p>الألواح الشمسية تولد جهداً كهربائياً فور وقوع الضوء عليها — ولا توجد طريقة لإيقافها إلا بتغطيتها. <strong>لا تتوصل أبداً مع أي كابل DC من الألواح دون معرفة دقيقة بما تفعله.</strong> التوصيل الصحيح يعني الإنفرتر مغلق طوال مرحلة التوصيل.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">السلامة في الموقع — قواعد لا تُكسر</div>
+  <p>السلامة ليست اختيارية ولا تفاوضية. كل قاعدة في هذا الدرس موجودة لأن شخصاً ما دفع ثمنها. الفني المعتمد من شمس النيل يطبّق هذه القواعد في كل موقع، دون استثناء.</p>
+  <p><strong>العمل على الأسطح — الحزام أولاً:</strong></p>
+  <ul class="content-list">
+    <li><strong>حزام أمان (Safety Harness) إلزامي</strong> عند العمل على أي سطح بارتفاع أكثر من <strong>1.5 متر</strong> — هذا معيار شمس النيل وليس مجرد توصية</li>
+    <li>الحزام يجب أن يكون متصلاً بنقطة تثبيت آمنة في البنية الإنشائية — ليس بالهيكل الشمسي الذي قد لا يكون ثابتاً بعد</li>
+    <li>اتعب الخوذ الواقية عند وجود خطر سقوط مواد من أعلى أو الاصطدام بالهيكل</li>
+  </ul>
+  <p><strong>الأدوات العازلة — لا بديل:</strong></p>
+  <ul class="content-list">
+    <li>استخدم فقط <strong>أدوات ذات مقابض معزولة كهربائياً</strong> عند التعامل مع الكهرباء — هذا يعني مفكات ومفاتيح ربط معتمدة للاستخدام الكهربائي</li>
+    <li>لا تستخدم أدوات معدنية عارية قرب أي كابل أو طرف كهربائي مكشوف</li>
+    <li>افحص عزل الأدوات قبل كل استخدام — التشقق أو التآكل يلغي الحماية</li>
+  </ul>
+  <p><strong>الجهد الخطر — اعرف الحد:</strong></p>
+  <ul class="content-list">
+    <li><strong>أي جهد أعلى من 50V DC أو 25V AC يُعتبر خطراً</strong> ويمكنه أن يسبب صعقة قاتلة</li>
+    <li>الألواح الشمسية تولد جهوداً من 18V للوح الصغير حتى 600V أو أكثر في سلسلة كاملة — كلها في نطاق الخطر</li>
+    <li>الكهرباء المنزلية AC 230V قاتلة — لا تعمل بها إلا بعد التأكد من قطعها من اللوحة الرئيسية</li>
+  </ul>
+  <p><strong>قاعدة الشريك — لا عمل منفرداً:</strong></p>
+  <ul class="content-list">
+    <li><strong>لا تعمل وحدك على السطح أو عند التعامل بالكهرباء</strong> — يجب أن يكون معك شريك للطوارئ في الموقع دائماً</li>
+    <li>الشريك لا يحتاج أن يكون فنياً — دوره المراقبة والاستجابة الفورية عند أي حادثة</li>
+    <li>الشريك يجب أن يعرف كيف يطلب الإسعاف وكيف يقطع الكهرباء عن الموقع</li>
+  </ul>
+  <p><strong>خطة الطوارئ — قبل البدء:</strong></p>
+  <ul class="content-list">
+    <li>قبل بدء أي عمل، تعرف مسبقاً موقع <strong>لوحة الطوارئ الرئيسية للمبنى</strong> وكيفية قطع الكهرباء عنه بشكل كامل</li>
+    <li>حدد مسبقاً <strong>مخرج الإخلاء الآمن</strong> من السطح — خاصة إذا كانت السلالم الوحيدة تمر بقرب الأجزاء الكهربائية</li>
+    <li>أخبر شخصاً خارج الموقع بمكان عملك والوقت المتوقع للانتهاء</li>
+  </ul>
+  <p><strong>معدات الإسعاف الأولي — حاضرة دائماً:</strong></p>
+  <ul class="content-list">
+    <li><strong>صندوق إسعاف أولي كامل</strong> يجب أن يكون في الموقع طوال فترة العمل — ليس في السيارة أو في المنزل</li>
+    <li><strong>رقم الإسعاف 999</strong> محفوظ ومتاح — وتأكد من وجود إشارة شبكة كافية في الموقع أو وجود هاتف ثابت قريب</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ التيار المستمر DC أخطر مما تظن</div>
+    <p>كثير من الناس يعتقدون أن AC أخطر من DC — لكن الحقيقة أن <strong>DC عند نفس الجهد يُسبب أضراراً أعمق</strong>. DC لا "يُقذف" بك مثل AC — بل يُمسك بجسمك ويواصل التدفق، مما يُسبب <strong>حرقاً داخلياً عميقاً وتلفاً في الأنسجة</strong> قد لا يظهر على السطح فوراً. لا تستهن أبداً بكابل DC مكشوف حتى لو كان الجهد يبدو "منخفضاً".</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — التركيب الميداني</div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">١. ما الاتجاه الأمثل لتركيب الألواح الشمسية في الخرطوم؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الشمال</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>الشرق</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الجنوب</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الغرب</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. ما زاوية الميل المثلى للألواح في الخرطوم (خط عرض 15°)؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>0° (أفقي)</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>15–25°</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>45°</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>90° (عمودي)</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. لماذا يجب ترك مسافة 20cm بين الألواح والسطح؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لمرور الكابلات فقط</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>للسماح بتهوية الألواح وتبريدها، مما يرفع كفاءتها في الجو الساخن</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لتسهيل الصيانة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>متطلب جمالي</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٤. متى يجب لبس حزام الأمان عند العمل على السطح؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>فقط عند العمل على الألواح مباشرة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>عند ارتفاع > 3 متر</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>عند ارتفاع > 1.5 متر</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الحزام اختياري — قرار الفني</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٥. ما الترتيب الصحيح لتوصيل مكونات النظام الهجين؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>AC أولاً ثم DC ثم البطاريات</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>البطاريات أولاً ثم AC ثم DC</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>DC (ألواح) ثم البطاريات ثم AC — والإنفرتر مغلق طوال التوصيل</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>يمكن التوصيل بأي ترتيب</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٧ — التركيب الميداني</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>

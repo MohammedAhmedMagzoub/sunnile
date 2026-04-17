@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٦ — الكابلات والتوصيلات</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .key-box   { background: #EEEDFE !important; border-color: #AFA9EC !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .inv-grid { page-break-inside: avoid; }
+  .ic-grid   { border-top: 2px solid #378ADD !important; }
+  .ic-hybrid { border-top: 2px solid #1D9E75 !important; }
+  .ic-off    { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;--purple:#534AB7;--purple-l:#EEEDFE;--purple-d:#26215C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Arial',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;max-width:800px;margin:0 auto;padding:2rem;}
+
+.doc-header{background:var(--dark);color:#F5EDD4;border-radius:10px;padding:2rem;margin-bottom:2rem;}
+.doc-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.doc-logo-name{font-size:18px;font-weight:500;}
+.doc-logo-ar{font-size:12px;color:var(--sun);}
+.doc-module-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--sun);margin-bottom:.5rem;}
+.doc-title{font-size:1.6rem;font-weight:500;margin-bottom:.25rem;}
+.doc-title-en{font-size:.85rem;color:rgba(245,237,212,.45);margin-bottom:1rem;}
+.doc-meta{display:flex;gap:1rem;flex-wrap:wrap;}
+.doc-meta-item{font-size:11px;background:rgba(255,255,255,.08);border-radius:4px;padding:4px 10px;color:rgba(245,237,212,.7);}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--nile);font-size:13px;text-decoration:none;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--nile-d);}
+
+.print-btn{background:var(--sun);color:var(--dark);border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;}
+.print-btn:hover{background:var(--sun-d);color:#fff;}
+
+.objectives{background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;}
+.obj-title{font-size:13px;font-weight:500;color:var(--green-d);margin-bottom:.75rem;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.obj-list li{font-size:13px;color:var(--green-d);display:flex;align-items:flex-start;gap:8px;}
+.obj-list li::before{content:'✓';font-weight:500;flex-shrink:0;margin-top:1px;}
+
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.section-num{font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--hint);margin-bottom:.25rem;}
+.section-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.section p{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:.75rem;}
+.section p:last-child{margin-bottom:0;}
+.section strong{color:var(--text);}
+
+.warn-box{background:var(--red-l);border:0.5px solid #F09595;border-radius:6px;padding:1rem;margin:1rem 0;}
+.warn-title{font-size:12px;font-weight:500;color:var(--red);margin-bottom:.4rem;}
+.warn-box p{font-size:12px;color:#791F1F;margin:0;}
+
+.note-box{background:var(--sun-l);border:0.5px solid var(--sun);border-radius:6px;padding:1rem;margin:1rem 0;}
+.note-title{font-size:12px;font-weight:500;color:var(--sun-d);margin-bottom:.4rem;}
+.note-box p{font-size:12px;color:var(--sun-d);margin:0;}
+
+.tip-box{background:var(--nile-l);border:0.5px solid #85B7EB;border-radius:6px;padding:1rem;margin:1rem 0;}
+.tip-title{font-size:12px;font-weight:500;color:var(--nile-d);margin-bottom:.4rem;}
+.tip-box p{font-size:12px;color:var(--nile-d);margin:0;}
+
+.key-box{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:6px;padding:1rem;margin:1rem 0;}
+.key-title{font-size:12px;font-weight:500;color:var(--purple-d);margin-bottom:.4rem;}
+.key-box p{font-size:12px;color:var(--purple-d);margin:0;}
+
+.content-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0;}
+.content-list li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.7;}
+.content-list li::before{content:'◆';font-size:8px;color:var(--sun);flex-shrink:0;margin-top:5px;}
+
+.content-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12px;}
+.content-table th{background:var(--dark);color:rgba(245,237,212,.8);padding:8px 12px;text-align:right;font-size:11px;font-weight:500;}
+.content-table td{padding:8px 12px;border-bottom:0.5px solid var(--border);color:var(--muted);}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:nth-child(even) td{background:var(--bg);}
+
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1rem 0;}
+.inv-card{border:0.5px solid var(--border);border-radius:6px;padding:.85rem;text-align:center;}
+.inv-card-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:.3rem;}
+.inv-card-en{font-size:10px;color:var(--hint);margin-bottom:.5rem;}
+.inv-card-val{font-size:11px;color:var(--muted);line-height:1.7;}
+.ic-grid{border-top:2px solid var(--nile);}
+.ic-hybrid{border-top:2px solid var(--green);}
+.ic-off{border-top:2px solid var(--sun);}
+
+.sys-diagram{background:var(--bg);border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;}
+.sys-diagram-title{font-size:11px;color:var(--hint);text-align:center;margin-bottom:.75rem;}
+
+.spec-box{background:#f0ede5;border:0.5px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0;font-size:12px;}
+.spec-row{display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:0.5px solid var(--border);}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);}
+.spec-val{font-weight:500;color:var(--text);direction:ltr;}
+.spec-title{font-size:11px;font-weight:500;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem;}
+
+.approved-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);border:0.5px solid #5DCAA5;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:var(--green-d);}
+.rejected-badge{display:inline-flex;align-items:center;gap:5px;background:var(--red-l);border:0.5px solid #F09595;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:500;color:#791F1F;}
+
+/* QUIZ */
+.quiz-section{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;}
+.quiz-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:0.5px solid var(--border);}
+.quiz-q{margin-bottom:1.5rem;}
+.quiz-q-text{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.75rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.5rem;}
+.quiz-option{font-size:13px;color:var(--muted);padding:.65rem 1rem;border-radius:7px;border:1.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;user-select:none;background:var(--bg);}
+.quiz-option:hover{border-color:var(--nile);color:var(--text);background:var(--nile-l);}
+.quiz-option.selected{border-color:var(--nile);background:var(--nile-l);color:var(--nile-d);font-weight:500;}
+.quiz-option.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);font-weight:500;cursor:default;}
+.quiz-option.wrong{border-color:var(--red);background:var(--red-l);color:#791F1F;cursor:default;}
+.quiz-option.show-correct{border-color:var(--green);background:var(--green-l);color:var(--green-d);cursor:default;}
+.quiz-option.locked{cursor:default;}
+.quiz-circle{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.quiz-submit{background:var(--dark);color:#F5EDD4;border:none;padding:11px 28px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.5rem;transition:opacity .2s;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:default;}
+.quiz-result{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;font-size:13px;font-weight:500;display:none;}
+.quiz-result.pass{background:var(--green-l);color:var(--green-d);border:1px solid #5DCAA5;}
+.quiz-result.fail{background:var(--sun-l);color:var(--sun-d);border:1px solid var(--sun);}
+.quiz-retry{background:transparent;border:1.5px solid var(--nile);color:var(--nile);padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:.75rem;display:inline-block;}
+.quiz-retry:hover{background:var(--nile-l);}
+
+.doc-footer{border-top:0.5px solid var(--border);padding-top:1rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.doc-footer p{font-size:10px;color:var(--hint);}
+.nile-bar{height:4px;background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517);border-radius:2px;margin-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الأول — مبتدئ · الوحدة ٦ من ٨</div>
+  <div class="doc-title">الكابلات والتوصيلات — السلامة والكفاءة الكهربائية</div>
+  <div class="doc-title-en">Cables &amp; Connections — Electrical Safety and Efficiency</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">مبتدئ</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم لماذا الكابل الخاطئ يعني خسارة طاقة يومية أو خطر حريق</li>
+    <li>التمييز بين أنواع الكابلات المستخدمة في النظام الشمسي وخصائص كل نوع</li>
+    <li>حساب مقطع الكابل الصحيح باستخدام قانون هبوط الجهد</li>
+    <li>تركيب موصلات MC4 بالطريقة الصحيحة وتجنب الأخطاء الشائعة</li>
+    <li>تنفيذ التأريض الصحيح وحماية النظام من الصواعق في السودان</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">لماذا الكابلات مهمة — الخسائر والمخاطر</div>
+  <p>يظن كثير من المبتدئين أن الكابلات مجرد أسلاك توصيل بسيطة — لكن الحقيقة أنها مكوّن حرج يؤثر مباشرة على <strong>سلامة النظام وكفاءته اليومية</strong>. الكابل الصحيح يعني أقل خسائر وأمان تام. الكابل الخاطئ يعني حريق محتمل أو خسارة طاقة تتراكم كل يوم طوال عمر النظام.</p>
+  <p><strong>ما هي خسائر الكابلات؟</strong></p>
+  <p>عندما يمر تيار كهربائي عبر كابل، جزء من الطاقة يتحول لحرارة بسبب مقاومة الكابل — هذه هي <strong>خسائر الكابل</strong>. المعايير الدولية وشمس النيل تحدد الحدود المقبولة:</p>
+  <ul class="content-list">
+    <li><strong>خسائر كابلات DC</strong> (بين الألواح والإنفرتر) يجب أن لا تتجاوز <strong>2%</strong> من الطاقة المنتجة</li>
+    <li><strong>خسائر كابلات AC</strong> (بين الإنفرتر ولوحة التوزيع) يجب أن لا تتجاوز <strong>1%</strong></li>
+    <li>مثال: نظام 5 kW — 2% خسارة DC = 100 واط ضائع كل ساعة إنتاج × 6 ساعات يومياً = 219 كيلوواط ساعة سنوياً مهدرة</li>
+  </ul>
+  <p><strong>السودان والحرارة — عامل لا يُتجاهل:</strong></p>
+  <p>في السودان، درجات الحرارة تتجاوز 45°C بانتظام. الحرارة العالية تزيد المقاومة الكهربائية للكابل — مما يرفع الخسائر فوق الحدود المحسوبة في درجات الحرارة الطبيعية. لذلك <strong>يجب اختيار كابل بمقطع أكبر من الحد الأدنى النظري</strong> تعويضاً لتأثير الحرارة.</p>
+  <div class="warn-box">
+    <div class="warn-title">⚠ سلسلة الكارثة — الكابل الصغير</div>
+    <p><strong>الكابل الصغير يسخن ← يتلف العزل تدريجياً ← قصر كهربائي ← حريق.</strong> هذه ليست مبالغة — حرائق المنازل بسبب كابلات شمسية غير مناسبة حوادث موثقة عالمياً. لا تختصر في مقطع الكابل أبداً.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">أنواع الكابلات في النظام الشمسي</div>
+  <p>كل جزء من النظام الشمسي يستخدم نوع كابل مختلف مصمم للظروف والمتطلبات الخاصة بذلك الجزء. استخدام الكابل الخاطئ في المكان الخاطئ هو خطأ فني شائع يجب تجنبه.</p>
+  <p><strong>١. كابل PV DC — بين الألواح والإنفرتر:</strong></p>
+  <ul class="content-list">
+    <li>مقطع <strong>4 mm²</strong> أو <strong>6 mm²</strong> نحاس — هذا الحد الأدنى وفق معايير شمس النيل</li>
+    <li><strong>مقاوم للأشعة فوق البنفسجية (UV-resistant)</strong> — ضروري جداً في السودان حيث الشمس حارقة طوال العام</li>
+    <li>مزدوج العزل (double insulated) — طبقتا عزل لحماية إضافية من الاحتكاك والتآكل</li>
+    <li>لون أحمر للقطب الموجب (+) ولون أسود أو أبيض للقطب السالب (−)</li>
+    <li>مصنوع وفق معيار TÜV أو IEC 62930 للكابلات الشمسية</li>
+  </ul>
+  <p><strong>٢. كابل AC — بين الإنفرتر ولوحة التوزيع:</strong></p>
+  <ul class="content-list">
+    <li>عادة كابل <strong>3-core أو 4-core</strong> من نوع NYY أو YMM</li>
+    <li>حجم المقطع يُحسب بناءً على تيار الإنفرتر والمسافة — انظر الدرس الثالث</li>
+    <li>لا يُشترط UV-resistant لأنه غالباً مدفون أو في قنوات داخلية</li>
+  </ul>
+  <p><strong>٣. كابل البطاريات:</strong></p>
+  <ul class="content-list">
+    <li>مقطع <strong>35 mm²</strong> أو أكبر — البطاريات تعطي تيارات عالية جداً (100A وأكثر)</li>
+    <li>يجب أن يكون <strong>قصيراً قدر الإمكان</strong> لتقليل المقاومة والخسائر — مثالياً أقل من متر</li>
+    <li>نحاسي نقي، مرن (stranded) وليس صلباً لسهولة التركيب</li>
+  </ul>
+  <table class="content-table">
+    <thead><tr><th>نوع الكابل</th><th>المقطع الشائع</th><th>المكان المناسب</th></tr></thead>
+    <tbody>
+      <tr><td>PV DC (شمسي)</td><td>4 mm² أو 6 mm²</td><td>بين الألواح والإنفرتر — في الهواء الطلق</td></tr>
+      <tr><td>AC (كهرباء منزلية)</td><td>يُحسب حسب التيار</td><td>بين الإنفرتر ولوحة التوزيع</td></tr>
+      <tr><td>كابل بطاريات</td><td>35 mm² فأكثر</td><td>بين الإنفرتر وبنك البطاريات</td></tr>
+      <tr><td>كابل تأريض</td><td>6 mm² أو 10 mm²</td><td>توصيل الهياكل المعدنية بقضيب الأرض</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">حساب مقطع الكابل وهبوط الجهد</div>
+  <p>اختيار مقطع الكابل ليس تخميناً — هو حساب هندسي بسيط يعتمد على <strong>قانون أوم</strong> وشرط هبوط الجهد المسموح. كل فني معتمد من شمس النيل يجب أن يتقن هذا الحساب.</p>
+  <p><strong>القوانين الأساسية:</strong></p>
+  <div class="spec-box">
+    <div class="spec-title">معادلات حساب مقطع الكابل</div>
+    <div class="spec-row"><span class="spec-key">قانون أوم</span><span class="spec-val">V = I × R</span></div>
+    <div class="spec-row"><span class="spec-key">مقاومة الكابل</span><span class="spec-val">R = ρ × L / A</span></div>
+    <div class="spec-row"><span class="spec-key">مقاومية النحاس (ρ)</span><span class="spec-val">0.0178 Ω.mm²/m</span></div>
+    <div class="spec-row"><span class="spec-key">هبوط الجهد DC المسموح</span><span class="spec-val">≤ 2%</span></div>
+    <div class="spec-row"><span class="spec-key">هبوط الجهد AC المسموح</span><span class="spec-val">≤ 1%</span></div>
+    <div class="spec-row"><span class="spec-key">L في المعادلة</span><span class="spec-val">المسافة × 2 (ذهاباً وإياباً)</span></div>
+  </div>
+  <p><strong>مثال عملي — حساب كابل DC لسلسلة ألواح:</strong></p>
+  <ul class="content-list">
+    <li>سلسلة ألواح تعطي تيار <strong>10A</strong>، جهد السلسلة <strong>250V DC</strong>، المسافة من الألواح للإنفرتر <strong>20 متر</strong></li>
+    <li>أقصى هبوط جهد مسموح: 250V × 2% = <strong>5V</strong></li>
+    <li>أقصى مقاومة مسموحة: R = 5V ÷ 10A = <strong>0.5 Ω</strong></li>
+    <li>المساحة المطلوبة: A = ρ × L × 2 ÷ R = 0.0178 × 20 × 2 ÷ 0.5 = <strong>1.42 mm²</strong></li>
+    <li>النتيجة النظرية 1.42 mm² — لكن معيار PV يحدد الحد الأدنى بـ <strong>4 mm²</strong> فنختار 4 mm²</li>
+  </ul>
+  <table class="content-table">
+    <thead><tr><th>التيار (A)</th><th>المسافة (م)</th><th>مقطع DC موصى به</th><th>ملاحظة</th></tr></thead>
+    <tbody>
+      <tr><td>10A</td><td>حتى 30م</td><td>4 mm²</td><td>الحد الأدنى لـ PV</td></tr>
+      <tr><td>10A</td><td>30 – 50م</td><td>6 mm²</td><td>مسافة طويلة</td></tr>
+      <tr><td>15A</td><td>حتى 20م</td><td>4 mm²</td><td>تيار أعلى، مسافة قصيرة</td></tr>
+      <tr><td>15A</td><td>20 – 40م</td><td>6 mm²</td><td>ارفع درجة</td></tr>
+      <tr><td>20A</td><td>حتى 15م</td><td>6 mm²</td><td>تيار مرتفع</td></tr>
+      <tr><td>20A</td><td>15 – 30م</td><td>10 mm²</td><td>مسافة + تيار</td></tr>
+    </tbody>
+  </table>
+  <div class="tip-box">
+    <div class="tip-title">💡 قاعدة السودان — ارفع درجة واحدة دائماً</div>
+    <p>في السودان، بسبب الحرارة الشديدة التي ترفع مقاومة الكابل عن القيمة النظرية، ننصح دائماً بالانتقال للمقطع الأعلى مباشرة. حسابك يعطي 4 mm²؟ اختر 6 mm². يعطي 6 mm²؟ اختر 10 mm². هذا يحمي النظام ويقلل الخسائر الحرارية على المدى الطويل.</p>
+  </div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">موصلات MC4 — التركيب الصحيح والأخطاء الشائعة</div>
+  <p>موصل <strong>MC4</strong> هو الموصل القياسي العالمي لكابلات PV DC. اسمه مشتق من Multi-Contact 4mm — وهو المصنّع الأصلي السويسري. اليوم يستخدمه كل مصنّع ألواح شمسية تقريباً.</p>
+  <p><strong>أجزاء موصل MC4:</strong></p>
+  <ul class="content-list">
+    <li><strong>المقبس الذكر (Male)</strong> — الجزء البارز الذي يدخل في الأنثى</li>
+    <li><strong>المقبس الأنثى (Female)</strong> — الجزء الذي يستقبل الذكر ويغلق عليه</li>
+    <li><strong>غلاف الضغط (Compression cap)</strong> — يُضغط على الكابل لتثبيته وإحكام الختم</li>
+    <li><strong>خاتم الختم (Seal ring)</strong> — يمنع دخول الماء والغبار — درجة حماية IP67</li>
+    <li><strong>التلامس المعدني (Contact pin)</strong> — الجزء النحاسي الداخلي الذي يُضغط على الكابل بالكلابة</li>
+  </ul>
+  <p><strong>خطوات التركيب الصحيحة خطوة بخطوة:</strong></p>
+  <ul class="content-list">
+    <li><strong>الخطوة 1:</strong> مرّر غلاف الضغط على الكابل قبل أي شيء آخر — كثيرون ينسون هذه الخطوة ويضطرون لفك كل شيء</li>
+    <li><strong>الخطوة 2:</strong> جرّد الكابل بطول <strong>12-14 mm</strong> بدقة — أقل منه والتلامس ضعيف، أكثر منه وسلوك الأسلاك معرّضة</li>
+    <li><strong>الخطوة 3:</strong> أدخل الأسلاك النحاسية في التلامس المعدني — تأكد أن كل الأسلاك داخل التلامس ولا يوجد سلك خارجه</li>
+    <li><strong>الخطوة 4:</strong> اضغط التلامس المعدني بـ<strong>الكلابة المخصصة لـ MC4</strong> — لا تستخدم كلابة عادية أبداً</li>
+    <li><strong>الخطوة 5:</strong> أدخل التلامس المضغوط في الغلاف البلاستيكي حتى تسمع صوت تثبيت</li>
+    <li><strong>الخطوة 6:</strong> اربط غلاف الضغط بإحكام على الكابل</li>
+    <li><strong>الخطوة 7:</strong> ادفع الذكر في الأنثى حتى تسمع صوت قفل واضح — ثم اشدّ برفق للتأكد من التثبيت</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ الخطأ الأكثر خطورة — خلط علامات MC4 المختلفة</div>
+    <p><strong>موصلات MC4 من علامات تجارية مختلفة لا يجوز خلطها تحت أي ظرف.</strong> قد تبدو متوافقة شكلياً لكنها تختلف في أبعاد التلامس الداخلية — النتيجة: تلامس جزئي → مقاومة عالية → حرارة → تأريض زائف → حريق. دائماً استخدم موصلاً ذكراً وأنثى من نفس العلامة التجارية ونفس الجيل.</p>
+  </div>
+  <p><strong>الأخطاء الشائعة في الميدان:</strong></p>
+  <ul class="content-list">
+    <li>لف الكابلات بشريط كهربائي بدلاً من استخدام MC4 أصلي — غير مقبول إطلاقاً</li>
+    <li>استخدام موصل تالف أو به كسر في الغلاف — يجب الاستبدال فوراً</li>
+    <li>مقطع كابل خاطئ لا يتناسب مع حجم التلامس المعدني</li>
+    <li>الضغط بكلابة عادية — يُشوّه التلامس ويضعف التوصيل</li>
+    <li>عدم سماع صوت القفل عند الوصل — الموصل غير مكتمل الإغلاق</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 اختبار الموصل قبل الإغلاق</div>
+    <p>بعد ضغط التلامس المعدني وقبل إغلاق الغلاف البلاستيكي، اشدّ الكابل برفق — لا يجب أن يخرج من التلامس. إذا خرج، أعد الضغط بالكلابة المناسبة. عند وصل الذكر بالأنثى يجب أن تسمع صوت "كليك" واضح — هذا يؤكد أن الموصل مقفل بأمان.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">التأريض والحماية من الصاعقة — السودان الخاص</div>
+  <p>التأريض والحماية من الصواعق ليست اختيارية — هي <strong>متطلب سلامة أساسي</strong> في كل نظام شمسي. في السودان، أهمية هاتين الخطوتين مضاعفة بسبب ظروف المناخ المحلي.</p>
+  <p><strong>التأريض (Earthing) — ما هو ولماذا نحتاجه؟</strong></p>
+  <p>التأريض هو توصيل كل الأجزاء المعدنية في النظام (هياكل الألواح، إطار الإنفرتر، صندوق التوصيلات) بطرف أرضي موصل للأرض مباشرة. المقاومة المطلوبة: <strong>≤ 10 أوم</strong>.</p>
+  <ul class="content-list">
+    <li><strong>حماية من الصعق الكهربائي:</strong> في حالة خطأ في العزل أو تماس، التيار يجد طريقاً آمناً للأرض بدلاً من أن يمر في جسم الإنسان</li>
+    <li><strong>حماية الإنفرتر من الضربات الكهروستاتيكية:</strong> الشحنات الساكنة المتراكمة على الهياكل تُصرف آمناً للأرض</li>
+    <li><strong>استقرار الجهد:</strong> يوفر مرجعاً ثابتاً للجهد في النظام</li>
+  </ul>
+  <p><strong>خطوات تنفيذ التأريض الصحيح:</strong></p>
+  <ul class="content-list">
+    <li>احفر وادرس <strong>قضيب أرضي (Earth Rod)</strong> نحاسي أو مجلفن على عمق <strong>≥ 2 متر</strong> — كلما كان أعمق كلما قلّت المقاومة</li>
+    <li>وصّل القضيب الأرضي بكابل <strong>أخضر-أصفر</strong> بمقطع 6 mm² أو 10 mm² للإنفرتر وهياكل الألواح</li>
+    <li>تأكد من إحكام جميع الوصلات الأرضية — مقاومة التأريض يجب أن تُقاس بجهاز Earth Tester وتكون ≤ 10 Ω</li>
+    <li>في التربة الجافة (شائعة في السودان) قد تحتاج لري التربة حول القضيب أو استخدام مادة Bentonite لخفض المقاومة</li>
+  </ul>
+  <p><strong>الصواعق في السودان — خطر حقيقي:</strong></p>
+  <p>السودان يشهد موسم أمطار نشطاً من <strong>يوليو إلى سبتمبر</strong> مصحوباً بعواصف رعدية وصواعق متكررة، خاصة في منطقة الساحل والوسط. الصاعقة التي تضرب قريباً من النظام تولد نبضة كهرومغناطيسية تدمر الإنفرتر والمعدات الإلكترونية فوراً إذا لم يكن هناك حماية.</p>
+  <p><strong>مانعات الصواعق (SPD — Surge Protection Device):</strong></p>
+  <ul class="content-list">
+    <li><strong>SPD على جانب DC</strong> — يُركّب عند مدخل الإنفرتر أو في صندوق الدمج (combiner box)، يحمي من نبضات الجهد العالي من جهة الألواح</li>
+    <li><strong>SPD على جانب AC</strong> — يُركّب عند لوحة التوزيع، يحمي من الصواعق القادمة من الشبكة الكهربائية</li>
+    <li>النوع الموصى به: Class II SPD على الجانبين كحد أدنى — Class I+II إذا كان الموقع مكشوفاً أو في منطقة عالية الخطورة</li>
+  </ul>
+  <div class="key-box">
+    <div class="key-title">🔑 قاعدة لا استثناء منها</div>
+    <p><strong>نظام بدون تأريض صحيح = مخاطرة بالأرواح والمعدات.</strong> لا يجوز تسليم أي نظام شمسي للعميل قبل التحقق من صحة التأريض بالقياس الفعلي. SPD ليس ترفاً — هو بوليصة تأمين للإنفرتر الذي يكلف آلاف الدولارات. لا تتجاوز هاتين الخطوتين أبداً.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — الكابلات والتوصيلات</div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">١. ما الحد الأقصى المسموح لهبوط الجهد في كابلات DC للألواح الشمسية؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>5%</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>10%</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>2%</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>0.5%</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. لماذا يجب أن تكون كابلات PV مقاومة للأشعة فوق البنفسجية (UV-resistant)؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لجعلها أكثر مرونة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأن الكابلات مثبتة في الهواء الطلق تحت الشمس المباشرة — الأشعة فوق البنفسجية تحطم العزل العادي بالتدريج</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لتقليل المقاومة</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لتمييزها بصرياً فقط</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٣. ما الخطأ الكبير عند استخدام موصلات MC4 من علامتين تجاريتين مختلفتين؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>مجرد مشكلة تركيب بسيطة</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>تسبب تأريض زائف وارتفاع حرارة قد يؤدي لحريق</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>مشكلة ضمان فقط</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لا مشكلة إذا كان القطر متطابقاً</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٤. ما مقطع الكابل الأدنى المسموح به لكابلات PV DC وفق معايير شمس النيل؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>1.5 mm²</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>2.5 mm²</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>4 mm²</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>10 mm²</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. ما الغرض من مانعة الصواعق SPD في النظام الشمسي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>زيادة إنتاج الكهرباء</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>حماية الإنفرتر والأجهزة من الضربات الكهرومغناطيسية والصواعق</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تنظيم الجهد الخارج</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الفصل التلقائي عند الانقطاع</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٦ — الكابلات والتوصيلات</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  };
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) { selected.classList.add('correct'); selected.querySelector('.quiz-circle').textContent = '✓'; score++; }
+      else { selected.classList.add('wrong'); selected.querySelector('.quiz-circle').textContent = '✗'; }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      const labels = ['أ','ب','ج','د'];
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>
