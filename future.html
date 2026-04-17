@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>مستقبل الطاقة الشمسية — شمس النيل</title>
+<meta name="description" content="شمس النيل — مستقبل الطاقة الشمسية في السودان">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --amber:#EF9F27;--amber-dark:#BA7517;
+  --amber-bg:rgba(239,159,39,0.10);--amber-bdr:rgba(239,159,39,0.28);
+  --blue:#378ADD;--blue-dark:#185FA5;--blue-l:#B5D4F4;
+  --blue-bg:rgba(55,138,221,0.10);--blue-bdr:rgba(55,138,221,0.28);
+  --dark:#1C1A14;--dark2:#252218;--dark3:#2E2A1E;--dark4:#3A3528;
+  --text:#F5F0E8;--text-muted:#A89F8C;--text-dim:#6B6456;--border:#3A3528;
+  --green:#27C93F;--green-bg:rgba(39,201,63,0.08);
+  --red:#E24B4A;--red-bg:rgba(226,75,74,0.08);
+}
+
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);direction:rtl;min-height:100vh;line-height:1.8;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* ── NAV ── */
+.site-nav{background:var(--dark2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--amber),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1C1A14;}
+.logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.logo-ar{font-size:16px;font-weight:700;color:var(--amber);}
+.logo-en{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.nav-links{display:flex;gap:4px;list-style:none;direction:rtl;}
+.nav-links li a{display:block;padding:14px 10px;font-size:12px;color:var(--text-muted);text-decoration:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.nav-links li a:hover,.nav-links li a.active{color:var(--amber);border-bottom-color:var(--amber);}
+@media(max-width:768px){.nav-links li a{padding:14px 7px;font-size:11px;}.logo-ar{font-size:14px;}}
+
+/* ── SHARED ── */
+.container{max-width:860px;margin:0 auto;padding:0 24px;}
+section{padding:60px 0;border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+
+.sec-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-bdr);padding:4px 12px;border-radius:20px;margin-bottom:10px;}
+.sec-title{font-size:clamp(20px,3.5vw,28px);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.sec-body{font-size:15px;color:var(--text-muted);line-height:1.85;margin-bottom:28px;}
+
+/* ── HERO ── */
+.hero{padding:80px 24px 60px;max-width:820px;margin:0 auto;text-align:center;position:relative;}
+.hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(239,159,39,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber-bg);border:1px solid var(--amber-bdr);color:var(--amber);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.hero h1{font-size:clamp(26px,5vw,42px);font-weight:900;color:var(--text);line-height:1.35;margin-bottom:20px;}
+.hero h1 span{color:var(--amber);}
+.hero-quote{font-size:15px;line-height:2;color:var(--text);font-style:italic;background:var(--blue-bg);border-right:3px solid var(--blue);padding:20px 24px;border-radius:0 8px 8px 0;text-align:right;margin:32px auto;max-width:680px;}
+.hero-quote cite{display:block;font-size:12px;color:var(--text-muted);margin-top:8px;font-style:normal;}
+
+/* ── STATS ── */
+.stat-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+.stat-box{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:border-color .2s;}
+.stat-box:hover{border-color:var(--amber-bdr);}
+.stat-box .num{font-size:28px;font-weight:900;color:var(--amber);display:block;margin-bottom:4px;}
+.stat-box .lbl{font-size:12px;color:var(--text-muted);line-height:1.5;}
+
+/* ── STORIES ── */
+.stories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:24px;}
+.story-card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s,box-shadow .2s;}
+.story-card:hover{border-color:var(--amber-bdr);box-shadow:0 4px 20px rgba(239,159,39,0.06);}
+.story-flag{font-size:28px;margin-bottom:10px;display:block;}
+.story-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.story-stat{font-size:20px;font-weight:900;color:var(--amber);margin-bottom:6px;}
+.story-body{font-size:12px;color:var(--text-muted);line-height:1.7;}
+
+/* ── VPP SECTION ── */
+.vpp-section{background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 0;position:relative;overflow:hidden;}
+.vpp-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 20% 50%,rgba(239,159,39,0.05) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 80% 50%,rgba(55,138,221,0.04) 0%,transparent 70%);pointer-events:none;}
+.vpp-inner{max-width:860px;margin:0 auto;padding:0 24px;position:relative;}
+
+.vpp-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber-bg);border:1px solid var(--amber-bdr);color:var(--amber);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+.vpp-title{font-size:clamp(22px,4vw,34px);font-weight:900;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.vpp-sub{font-size:15px;color:var(--text-muted);line-height:1.85;margin-bottom:32px;max-width:680px;}
+
+/* slider controls */
+.ctrl-row{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;}
+.ctrl-lbl{font-size:13px;color:var(--text-muted);min-width:140px;white-space:nowrap;}
+.ctrl-row input[type=range]{flex:1;min-width:120px;-webkit-appearance:none;height:4px;background:var(--dark4);border-radius:2px;outline:none;}
+.ctrl-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;}
+.ctrl-val{font-size:16px;font-weight:700;color:var(--amber);min-width:100px;text-align:left;}
+
+/* surplus callout */
+.surplus-note{display:flex;align-items:flex-start;gap:12px;background:var(--blue-bg);border:1px solid var(--blue-bdr);border-radius:10px;padding:14px 16px;margin-bottom:24px;}
+.surplus-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.surplus-text{font-size:13px;color:var(--text-muted);line-height:1.7;}
+.surplus-text strong{color:var(--blue-l);}
+
+/* diagram card */
+.diagram-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:24px 20px;margin-bottom:24px;}
+.vpp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;}
+.vstat{background:var(--dark4);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;}
+.vstat .vnum{font-size:18px;font-weight:700;color:var(--amber);display:block;}
+.vstat .vlbl{font-size:11px;color:var(--text-dim);display:block;margin-top:2px;}
+
+/* challenges */
+.ch-title{font-size:20px;font-weight:700;color:var(--text);margin:32px 0 8px;padding-top:28px;border-top:1px solid var(--border);}
+.ch-intro{font-size:14px;color:var(--text-muted);margin-bottom:20px;line-height:1.7;}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:12px;}
+.ch-card{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s,background .2s;}
+.ch-card:hover{background:var(--dark3);border-color:var(--amber-bdr);}
+.ch-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px;}
+.ch-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.ch-desc{font-size:12px;color:var(--text-muted);line-height:1.65;}
+.ch-en{font-size:11px;color:var(--text-dim);margin-top:5px;direction:ltr;display:block;}
+
+.vpp-conclusion{margin-top:24px;padding:18px 20px;background:var(--amber-bg);border:1px solid var(--amber-bdr);border-radius:12px;}
+.vpp-conclusion p{font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:6px;}
+.vpp-conclusion .en{font-size:12px;color:var(--text-dim);direction:ltr;display:block;}
+
+/* ── ACTION PLAN ── */
+.steps{margin-top:28px;display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:20px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--border);}
+.step:last-child{border-bottom:none;}
+.step-num{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--amber-bg);border:1px solid var(--amber-bdr);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--amber);}
+.step-body{flex:1;}
+.step-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.step-text{font-size:14px;color:var(--text-muted);line-height:1.75;}
+
+/* ── CITATIONS ── */
+.cite-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:20px;}
+.cite-item{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:12px;line-height:1.6;color:var(--text-muted);}
+.cite-item strong{color:var(--text);display:block;margin-bottom:2px;}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
+.footer-logo{font-size:22px;font-weight:900;color:var(--amber);margin-bottom:8px;}
+.footer-text{font-size:12px;color:var(--text-dim);line-height:1.7;}
+
+/* ── ANIMATIONS ── */
+@keyframes flowDash{to{stroke-dashoffset:-20;}}
+@keyframes pulseGlow{0%,100%{opacity:0.4}50%{opacity:1}}
+.flow-anim{animation:flowDash 1.4s linear infinite;}
+.flow-slow{animation:flowDash 2.0s linear infinite;}
+.glow-anim{animation:pulseGlow 2.2s ease-in-out infinite;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .stat-trio,.vpp-stats{grid-template-columns:1fr 1fr;}
+  .stories-grid{grid-template-columns:1fr;}
+  .hero{padding:50px 16px 40px;}
+  .step{flex-direction:column;gap:10px;}
+}
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">☀</div>
+    <div class="logo-text"><span class="logo-ar">شمس النيل</span><span class="logo-en">SunNile</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="calculator.html">الحاسبة</a></li>
+    <li><a href="inverters.html">الإنفرترات</a></li>
+    <li><a href="standards.html">المعايير</a></li>
+    <li><a href="future.html" class="active">مستقبل الطاقة</a></li>
+    <li><a href="policy.html">السياسات</a></li>
+    <li><a href="institute.html">المعهد</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero container">
+  <div class="hero-badge">🌍 رؤية طويلة المدى</div>
+  <h1>مستقبل <span>الطاقة الشمسية</span><br>في السودان</h1>
+  <blockquote class="hero-quote">
+    شمس النيل وُلدت من شوق — شوق رأيت فيه وطناً يغرق في الظلام بينما تشرق عليه الشمس ٣٦٥ يوماً في السنة.
+    الله أعطانا كل شيء. بقي فقط أن نُعطي أنفسنا فرصة.
+    <cite>— محمد أحمد مجذوب البشير، مؤسس شمس النيل</cite>
+  </blockquote>
+</div>
+
+<!-- WHY NOW -->
+<section>
+  <div class="container">
+    <div class="sec-label">⚡ لماذا الآن؟</div>
+    <h2 class="sec-title">السودان على أعتاب تحوّل طاقوي</h2>
+    <p class="sec-body">
+      يعاني السودان من انقطاعات كهربائية تمتد أحياناً لـ 18 ساعة يومياً، بينما يملك من موارد الطاقة الشمسية ما يكفي لتغطية الاحتياجات ثلاثة أضعاف.
+      وثّق الباحثون هذه الفرصة بوضوح — والتحوّل العالمي في تكاليف الطاقة الشمسية يجعل التحرك اليوم ضرورة وليس خياراً.
+    </p>
+    <div class="stat-trio">
+      <div class="stat-box">
+        <span class="num">6.2</span>
+        <span class="lbl">ساعة إشعاع شمسي يومي<br>في وسط السودان (PSH)</span>
+      </div>
+      <div class="stat-box">
+        <span class="num">70%</span>
+        <span class="lbl">انخفاض تكلفة الألواح الشمسية<br>خلال العقد الماضي</span>
+      </div>
+      <div class="stat-box">
+        <span class="num">9 سنوات</span>
+        <span class="lbl">فترة الاسترداد مع تعريفة تغذية<br>(Ahmed et al. 2022)</span>
+      </div>
+    </div>
+    <p class="sec-body" style="margin-bottom:0;">
+      يُقدّر صندوق النقد الدولي والبنك الدولي أن إلغاء دعم الوقود وإعادة توجيهه نحو الطاقة المتجددة سيخفّض العجز المالي ويرفع مستوى الخدمات العامة للمواطنين. الطاقة الشمسية السطحية هي الطريق الأقل تكلفة والأسرع نشراً.
+    </p>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section>
+  <div class="container">
+    <div class="sec-label">🌐 تجارب عالمية</div>
+    <h2 class="sec-title">دول نجحت — ونحن نستطيع</h2>
+    <p class="sec-body">هذه ليست نظرية — هي نتائج موثّقة من دول واجهت تحديات مشابهة لتحديات السودان.</p>
+    <div class="stories-grid">
+      <div class="story-card">
+        <span class="story-flag">🇦🇺</span>
+        <div class="story-title">أستراليا — VPP وطني</div>
+        <div class="story-stat">50,000 منزل</div>
+        <p class="story-body">بنت أستراليا أكبر محطة طاقة افتراضية في العالم عبر ربط منازل بطاريات Tesla Powerwall ببعضها. النموذج أثبت أن الطاقة الموزّعة قابلة للإدارة على نطاق واسع.</p>
+      </div>
+      <div class="story-card">
+        <span class="story-flag">🇩🇪</span>
+        <div class="story-title">ألمانيا — تعريفة التغذية</div>
+        <div class="story-stat">35% طاقة متجددة</div>
+        <p class="story-body">قانون الطاقة المتجددة (EEG) ضمن تعريفة ثابتة لكل كيلوواط يُغذَّى للشبكة. النتيجة: انتشار واسع جداً في غضون 15 عاماً.</p>
+      </div>
+      <div class="story-card">
+        <span class="story-flag">🇯🇴</span>
+        <div class="story-title">الأردن — القياس الصافي</div>
+        <div class="story-stat">100,000 نظام</div>
+        <p class="story-body">طبّق الأردن نظام القياس الصافي (Net Metering) — يُسجَّل الفائض رصيداً في الفاتورة. النتيجة: ارتفاع مفاجئ في تركيبات الطاقة الشمسية السطحية.</p>
+      </div>
+      <div class="story-card">
+        <span class="story-flag">🇮🇳</span>
+        <div class="story-title">الهند — التوسّع السريع</div>
+        <div class="story-stat">70 GW مستهدف</div>
+        <p class="story-body">خفّضت الهند بيروقراطية الترخيص وفتحت التمويل الأخضر. ارتفع تركيب الطاقة الشمسية السطحية أضعافاً متعددة خلال سنوات قليلة.</p>
+      </div>
+      <div class="story-card">
+        <span class="story-flag">🇧🇩</span>
+        <div class="story-title">بنغلاديش — أنظمة منزلية</div>
+        <div class="story-stat">6 مليون نظام</div>
+        <p class="story-body">وثّقت Hellqvist & Heubaum 2023 كيف نشرت بنغلاديش 6 ملايين نظام شمسي منزلي عبر التمويل الميسّر وبناء سلاسل توريد محلية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VPP SECTION -->
+<section class="vpp-section">
+  <div class="vpp-inner">
+
+    <div class="vpp-badge">⚡ المحطة الافتراضية — VPP</div>
+    <h2 class="vpp-title">فرصة السودان:<br>شبكة من الأسطح</h2>
+    <p class="vpp-sub">
+      تخيّل ألف منزل يملك كل منهم ألواحاً شمسية على سطحه. كل منزل يستخدم طاقته الشمسية أولاً — وعندما تزيد الطاقة المولّدة عن احتياج المنزل، نأخذ هذا الفائض فقط ونجمعه مع فوائض المنازل الأخرى. يتحوّل هذا المجموع إلى قوة حقيقية تُغذّي الشبكة الوطنية.
+    </p>
+
+    <div class="surplus-note">
+      <div class="surplus-icon">💡</div>
+      <div class="surplus-text">
+        <strong>مبدأ أساسي: نأخذ الفائض فقط</strong><br>
+        المنزل يستهلك طاقته الشمسية أولاً لتغطية احتياجاته (الإضاءة، المكيف، الأجهزة).
+        فقط ما يتبقّى بعد تغطية الحِمل — الفائض — يُرسَل إلى الشبكة عبر نظام VPP.
+        صاحب المنزل لا يخسر شيئاً؛ بل يربح من بيع الفائض.
+        <br><span style="font-size:11px;color:var(--text-dim);direction:ltr;display:inline-block;margin-top:4px;">Your load is served first. Only the surplus — power your home doesn't need — flows to the grid.</span>
+      </div>
+    </div>
+
+    <div class="ctrl-row">
+      <span class="ctrl-lbl">عدد المنازل المتصلة</span>
+      <input type="range" min="10" max="5000" value="500" step="10" id="hSlider" oninput="updateVPP(this.value)">
+      <span class="ctrl-val" id="hVal">500 منزل</span>
+    </div>
+    <div class="ctrl-row" style="margin-bottom:0;">
+      <span class="ctrl-lbl">نسبة الفائض المُصدَّر</span>
+      <input type="range" min="10" max="80" value="40" step="5" id="sSlider" oninput="updateVPP(document.getElementById('hSlider').value)">
+      <span class="ctrl-val" id="sVal">40% فائض</span>
+    </div>
+
+    <div class="diagram-card">
+      <svg width="100%" viewBox="0 0 680 290" style="overflow:visible;">
+        <defs>
+          <marker id="arrW" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- HOUSE 1 (large) -->
+        <g>
+          <rect x="488" y="80" width="60" height="48" rx="5" fill="none" stroke="rgba(245,240,232,0.2)" stroke-width="0.5"/>
+          <polygon points="518,60 488,82 548,82" fill="none" stroke="#EF9F27" stroke-width="1.3"/>
+          <line x1="496" y1="70" x2="540" y2="70" stroke="#378ADD" stroke-width="1.1" opacity="0.8"/>
+          <line x1="496" y1="75" x2="540" y2="75" stroke="#378ADD" stroke-width="1.1" opacity="0.8"/>
+          <line x1="518" y1="62" x2="518" y2="80" stroke="#378ADD" stroke-width="0.8" opacity="0.5"/>
+          <rect x="508" y="106" width="10" height="13" rx="1" fill="none" stroke="rgba(245,240,232,0.2)" stroke-width="0.5"/>
+          <rect x="494" y="88" width="28" height="9" rx="2" fill="rgba(55,138,221,0.2)" stroke="rgba(55,138,221,0.3)" stroke-width="0.5"/>
+          <text font-family="Cairo,sans-serif" font-size="7" fill="rgba(181,212,244,0.8)" text-anchor="middle" x="508" y="95">الحِمل</text>
+        </g>
+
+        <!-- House 2 -->
+        <g>
+          <rect x="568" y="94" width="50" height="42" rx="4" fill="none" stroke="rgba(245,240,232,0.15)" stroke-width="0.5"/>
+          <polygon points="593,78 568,96 618,96" fill="none" stroke="#EF9F27" stroke-width="1.1"/>
+          <line x1="576" y1="86" x2="610" y2="86" stroke="#378ADD" stroke-width="1" opacity="0.7"/>
+          <line x1="576" y1="91" x2="610" y2="91" stroke="#378ADD" stroke-width="1" opacity="0.7"/>
+        </g>
+
+        <!-- House 3 -->
+        <g>
+          <rect x="568" y="162" width="50" height="42" rx="4" fill="none" stroke="rgba(245,240,232,0.15)" stroke-width="0.5"/>
+          <polygon points="593,146 568,164 618,164" fill="none" stroke="#EF9F27" stroke-width="1.1"/>
+          <line x1="576" y1="154" x2="610" y2="154" stroke="#378ADD" stroke-width="1" opacity="0.7"/>
+          <line x1="576" y1="159" x2="610" y2="159" stroke="#378ADD" stroke-width="1" opacity="0.7"/>
+        </g>
+
+        <circle cx="640" cy="130" r="3" fill="rgba(245,240,232,0.2)"/>
+        <circle cx="650" cy="142" r="3" fill="rgba(245,240,232,0.2)"/>
+        <circle cx="638" cy="153" r="3" fill="rgba(245,240,232,0.2)"/>
+
+        <path class="flow-slow" d="M548 96 Q570 72 558 96" fill="none" stroke="#378ADD" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrW)" opacity="0.5"/>
+
+        <path class="flow-anim" d="M486 104 L418 145" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#arrW)" opacity="0.85"/>
+        <path class="flow-anim" d="M566 116 L420 140" fill="none" stroke="#EF9F27" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrW)" opacity="0.6" style="animation-delay:0.5s"/>
+        <path class="flow-anim" d="M566 184 L422 154" fill="none" stroke="#EF9F27" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrW)" opacity="0.6" style="animation-delay:0.9s"/>
+
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(239,159,39,0.6)" text-anchor="middle" x="460" y="112">الفائض فقط</text>
+
+        <!-- VPP Controller -->
+        <rect x="338" y="110" width="80" height="68" rx="10" fill="rgba(239,159,39,0.06)" stroke="#EF9F27" stroke-width="1.5"/>
+        <text font-family="Cairo,sans-serif" font-size="11" font-weight="700" fill="#EF9F27" text-anchor="middle" x="378" y="132">نظام التحكم</text>
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(245,240,232,0.4)" text-anchor="middle" x="378" y="148">VPP Controller</text>
+        <text class="glow-anim" font-family="Cairo,sans-serif" font-size="10" font-weight="700" fill="#EF9F27" text-anchor="middle" x="378" y="166" id="kwTxt">1,000 kW</text>
+
+        <path class="flow-anim" d="M336 144 L270 144" fill="none" stroke="#378ADD" stroke-width="2.5" stroke-dasharray="8 5" marker-end="url(#arrW)" style="animation-delay:0.3s"/>
+
+        <!-- GRID -->
+        <rect x="182" y="104" width="86" height="80" rx="12" fill="rgba(55,138,221,0.07)" stroke="#378ADD" stroke-width="1.5"/>
+        <line x1="198" y1="120" x2="198" y2="162" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <line x1="222" y1="120" x2="222" y2="162" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <line x1="246" y1="120" x2="246" y2="162" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <line x1="194" y1="128" x2="262" y2="128" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <line x1="194" y1="144" x2="262" y2="144" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <line x1="194" y1="160" x2="262" y2="160" stroke="#378ADD" stroke-width="1.3" opacity="0.5"/>
+        <text font-family="Cairo,sans-serif" font-size="10" font-weight="700" fill="#B5D4F4" text-anchor="middle" x="225" y="175">الشبكة الوطنية</text>
+
+        <path class="flow-slow" d="M180 144 L122 144" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrW)" opacity="0.55" style="animation-delay:0.7s"/>
+
+        <text font-family="Cairo,sans-serif" font-size="11" fill="rgba(245,240,232,0.45)" text-anchor="middle" x="86" y="138">المستهلكون</text>
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(245,240,232,0.25)" text-anchor="middle" x="86" y="151">Grid consumers</text>
+        <text font-family="Cairo,sans-serif" font-size="9.5" fill="rgba(245,240,232,0.3)" text-anchor="middle" x="520" y="220">الأسطح الشمسية</text>
+        <text font-family="Cairo,sans-serif" font-size="8.5" fill="rgba(245,240,232,0.2)" text-anchor="middle" x="520" y="232">Rooftop solar</text>
+
+        <line x1="340" y1="250" x2="360" y2="250" stroke="#EF9F27" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(245,240,232,0.45)" x="365" y="254">طاقة فائضة للشبكة</text>
+        <line x1="460" y1="250" x2="480" y2="250" stroke="#378ADD" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(245,240,232,0.45)" x="485" y="254">توزيع من الشبكة</text>
+        <line x1="340" y1="268" x2="360" y2="268" stroke="#378ADD" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.5"/>
+        <text font-family="Cairo,sans-serif" font-size="9" fill="rgba(245,240,232,0.35)" x="365" y="272">استهلاك ذاتي (الحِمل أولاً)</text>
+      </svg>
+
+      <div class="vpp-stats">
+        <div class="vstat">
+          <span class="vnum" id="vStatH">500</span>
+          <span class="vlbl">منزل متصل · Houses</span>
+        </div>
+        <div class="vstat">
+          <span class="vnum" id="vStatKW">1,000 kW</span>
+          <span class="vlbl">فائض مُجمَّع · Surplus</span>
+        </div>
+        <div class="vstat">
+          <span class="vnum" id="vStatS">2,800</span>
+          <span class="vlbl">منزل يستفيد · Served</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHALLENGES -->
+    <h3 class="ch-title">⚠️ لماذا هذا ليس سهلاً؟ — التحديات الحقيقية</h3>
+    <p class="ch-intro">الفكرة مقنعة — التنفيذ يحتاج حلولاً جادة لهذه العقبات:</p>
+
+    <div class="ch-grid">
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--amber-bg);">🏗️</div>
+        <p class="ch-name">ضعف البنية التحتية للشبكة</p>
+        <p class="ch-desc">الشبكة الكهربائية القائمة لم تُصمَّم لاستقبال طاقة متجددة متفرقة من آلاف المصادر الصغيرة. الأعمدة والمحولات تحتاج تحديثاً جوهرياً.</p>
+        <span class="ch-en">Aging grid not designed for distributed generation</span>
+      </div>
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--blue-bg);">🔌</div>
+        <p class="ch-name">غياب التوحيد القياسي</p>
+        <p class="ch-desc">لربط آلاف الإنفرترات يجب أن تتحدث نفس اللغة الرقمية. بدون معايير موحّدة (SunSpec Modbus, DRED) يصبح التحكم المركزي مستحيلاً.</p>
+        <span class="ch-en">Inverters must share a common protocol for VPP control</span>
+      </div>
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--red-bg);">☁️</div>
+        <p class="ch-name">تذبذب الإنتاج</p>
+        <p class="ch-desc">الغيوم والعواصف الرملية تسبب انقطاعات مفاجئة. الشبكة تحتاج أنظمة تخزين وتوقع لاستيعاب هذه التغيرات والحفاظ على الاستقرار.</p>
+        <span class="ch-en">Intermittency from dust storms disrupts grid stability</span>
+      </div>
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--green-bg);">📋</div>
+        <p class="ch-name">غياب الإطار التنظيمي</p>
+        <p class="ch-desc">لا يوجد قانون واضح لتعريفة التغذية العكسية (Feed-in Tariff) أو القياس الصافي. بدون حافز مالي لن يستثمر أصحاب المنازل في الأنظمة الكافية.</p>
+        <span class="ch-en">No feed-in tariff or net metering law exists yet</span>
+      </div>
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--amber-bg);">💰</div>
+        <p class="ch-name">التكلفة الأولية وغياب التمويل</p>
+        <p class="ch-desc">تركيب نظام شمسي مرتبط بالشبكة يكلف آلاف الدولارات. في غياب القروض الخضراء والتمويل الميسّر يظل الحل خارج متناول معظم الأسر.</p>
+        <span class="ch-en">No accessible green finance or soft loans in place</span>
+      </div>
+      <div class="ch-card">
+        <div class="ch-ico" style="background:var(--blue-bg);">🎓</div>
+        <p class="ch-name">شُح الكوادر الفنية المدرّبة</p>
+        <p class="ch-desc">ربط النظام بالشبكة وبرمجة الإنفرتر وإدارة VPP تتطلب فنيين متخصصين غير متوفرين بالأعداد الكافية حتى الآن.</p>
+        <span class="ch-en">Shortage of trained grid-tied & VPP technicians</span>
+      </div>
+    </div>
+
+    <div class="vpp-conclusion">
+      <p>
+        <strong style="color:var(--amber);">الرسالة الأساسية:</strong>
+        التحديات حقيقية — لكنها قابلة للحل. أستراليا بنت أكبر VPP في العالم بعد أن واجهت نفس هذه العقبات تماماً.
+        السودان يملك الشمس والإرادة والكوادر البشرية. ما ينقصنا هو المنظومة التشريعية والمعايير الموحّدة والتدريب الممنهج.
+      </p>
+      <span class="en">Challenges are real but solvable. Australia built the world's largest VPP facing the same obstacles. Sudan has the sun, the will, and the people. What's needed: policy, standards, and training.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACTION PLAN -->
+<section>
+  <div class="container">
+    <div class="sec-label">🗺️ خطة العمل</div>
+    <h2 class="sec-title">خمس خطوات لبناء شبكة VPP سودانية</h2>
+    <p class="sec-body">مبنية على دروس مستفادة من الأبحاث العلمية والتجارب الدولية الموثّقة.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">١</div>
+        <div class="step-body">
+          <div class="step-title">إصدار معايير فنية وطنية موحّدة</div>
+          <p class="step-text">تبنّي معايير IEC 62116 وAS 4777.2 وSunSpec Modbus كمعايير إلزامية لكل إنفرتر جديد يدخل السوق السوداني. تُنشئ شمس النيل إطار المعايير المرجعية لحين صدور لوائح رسمية.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">٢</div>
+        <div class="step-body">
+          <div class="step-title">تشريع نظام القياس الصافي وتعريفة التغذية</div>
+          <p class="step-text">خطوة واحدة من الحكومة تُحوّل معادلة الاستثمار الشمسي كلياً. الأردن فعلها — السودان يستطيع أن يحذو حذوه ويحقق نتائج مشابهة خلال 3 سنوات.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">٣</div>
+        <div class="step-body">
+          <div class="step-title">بناء سجل وطني للأنظمة الشمسية</div>
+          <p class="step-text">قاعدة بيانات تُسجَّل فيها كل أنظمة الألواح والإنفرترات والبطاريات المركّبة. هذه البيانات هي أساس أي نظام VPP مستقبلي ولا غنى عنها لإدارة الشبكة.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">٤</div>
+        <div class="step-body">
+          <div class="step-title">تأهيل فنيين معتمدين على نطاق وطني</div>
+          <p class="step-text">معهد شمس النيل يقدم 24 وحدة تدريبية لبناء جيل من الفنيين المؤهلين للتركيب الصحيح والربط الآمن بالشبكة. هذا الاستثمار البشري ضروري قبل كل شيء آخر.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">٥</div>
+        <div class="step-body">
+          <div class="step-title">إطلاق مشروع VPP تجريبي في الخرطوم</div>
+          <p class="step-text">ربط 500-1000 منزل في حي واحد كمشروع تجريبي يُثبت الجدوى ويبني الثقة. دراسة Ahmed et al. 2023 تُوضّح أن الخرطوم تملك الكثافة السكانية الكافية لهذا النموذج.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CITATIONS -->
+<section>
+  <div class="container">
+    <div class="sec-label">📚 المراجع العلمية</div>
+    <h2 class="sec-title">هذه الصفحة مبنية على بحث موثّق</h2>
+    <p class="sec-body">كل ادّعاء هنا مرتبط بمرجع علمي محكّم أو تقرير دولي معتمد.</p>
+    <div class="cite-grid">
+      <div class="cite-item"><strong>Ahmed et al. 2022 — Khartoum PV</strong>دراسة إمكانات الطاقة الشمسية السطحية في الخرطوم. فترة استرداد 18 سنة → 9 سنوات مع تعريفة تغذية.</div>
+      <div class="cite-item"><strong>Ahmed et al. 2023 — Oxford Energy Policy</strong>تحليل سياسات الطاقة الشمسية في السودان. الأكثر استشهاداً في الموضوع (15+ اقتباس).</div>
+      <div class="cite-item"><strong>Younis et al. 2025 — Elsevier</strong>السودان يحتاج إطاراً مؤسسياً أولاً؛ ضعف الحوكمة هو العائق الرئيسي لا التكنولوجيا.</div>
+      <div class="cite-item"><strong>Fadlallah &amp; Serradj 2020 — Solar Energy</strong>تحليل إمكانات الطاقة الشمسية في أفريقيا جنوب الصحراء. (82+ اقتباس)</div>
+      <div class="cite-item"><strong>Hellqvist &amp; Heubaum 2023 — Climate Policy</strong>نشر أنظمة SHS في بنغلاديش: 6 ملايين نظام عبر التمويل الميسّر. (40+ اقتباس)</div>
+      <div class="cite-item"><strong>AEMO — Australia VPP</strong>تقارير هيئة سوق الطاقة الأسترالية عن أداء محطات VPP الوطنية.</div>
+      <div class="cite-item"><strong>IMF &amp; World Bank — إصلاح دعم الوقود</strong>تقديرات التأثير المالي لإعادة توجيه الدعم نحو الطاقة المتجددة في دول الشرق الأوسط وأفريقيا.</div>
+      <div class="cite-item"><strong>Fraunhofer ISE 2023 — تكاليف الطاقة</strong>تتبّع انخفاض تكاليف الألواح الشمسية على مدى العقد الماضي (–90% منذ 2010).</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-logo">شمس النيل ☀</div>
+  <p class="footer-text">مبادرة مجانية غير ربحية لدعم الطاقة الشمسية في السودان<br>Sudan's Rooftop Solar Initiative | sunnile.org</p>
+</footer>
+
+<script>
+function updateVPP(h) {
+  h = parseInt(h);
+  var surplusPct = parseInt(document.getElementById('sSlider').value);
+  document.getElementById('hVal').textContent = h.toLocaleString('ar') + ' منزل';
+  document.getElementById('sVal').textContent = surplusPct + '% فائض';
+  var surplusKW = Math.round(h * 2.5 * (surplusPct / 100));
+  var served = Math.round(surplusKW * 2.8);
+  var kwStr = surplusKW >= 1000 ? (surplusKW / 1000).toFixed(1) + ' MW' : surplusKW + ' kW';
+  document.getElementById('vStatH').textContent = h.toLocaleString('ar');
+  document.getElementById('vStatKW').textContent = kwStr;
+  document.getElementById('vStatS').textContent = served.toLocaleString('ar');
+  document.getElementById('kwTxt').textContent = kwStr;
+}
+updateVPP(500);
+</script>
+
+</body>
+</html>

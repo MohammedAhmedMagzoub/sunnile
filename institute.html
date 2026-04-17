@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>معهد فنيي الطاقة الشمسية — شمس النيل</title>
+<meta name="description" content="شمس النيل — مبادرة الطاقة الشمسية السودانية المجانية">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --amber:#EF9F27;--amber-dark:#BA7517;
+  --blue:#378ADD;--blue-dark:#185FA5;
+  --dark:#1C1A14;--dark2:#252218;--dark3:#2E2A1E;--dark4:#3A3528;
+  --text:#F5F0E8;--text-muted:#A89F8C;--text-dim:#6B6456;--border:#3A3528;
+}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);direction:rtl;min-height:100vh;}
+.site-nav{background:var(--dark2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--amber),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1C1A14;}
+.logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.logo-ar{font-size:16px;font-weight:700;color:var(--amber);}
+.logo-en{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.nav-links{display:flex;gap:4px;list-style:none;direction:rtl;}
+.nav-links li a{display:block;padding:14px 10px;font-size:12px;color:var(--text-muted);text-decoration:none;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.nav-links li a:hover,.nav-links li a.active{color:var(--amber);border-bottom-color:var(--amber);}
+.page-header{text-align:center;padding:48px 24px 32px;}
+.page-header h1{font-size:32px;font-weight:700;margin-bottom:8px;}
+.page-header p{font-size:14px;color:var(--text-muted);}
+.section{padding:64px 24px;max-width:1100px;margin:0 auto;}
+.section-title{font-size:28px;font-weight:700;margin-bottom:8px;text-align:center;}
+.section-sub{font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:48px;}
+.site-footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
+.footer-logo{font-size:22px;font-weight:900;color:var(--amber);margin-bottom:8px;}
+.footer-text{font-size:12px;color:var(--text-dim);line-height:1.7;}
+.btn-primary{background:var(--amber);color:#1C1A14;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:#F5A832;}
+.btn-outline{background:transparent;color:var(--blue);border:1px solid var(--blue);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{background:rgba(55,138,221,0.1);}
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:28px;transition:border-color .2s;}
+.card:hover{border-color:var(--amber);}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;}
+.badge-amber{background:rgba(239,159,39,0.15);color:var(--amber);border:1px solid rgba(239,159,39,0.3);}
+.badge-blue{background:rgba(55,138,221,0.12);color:var(--blue);border:1px solid rgba(55,138,221,0.3);}
+.badge-green{background:rgba(39,201,63,0.1);color:#27C93F;border:1px solid rgba(39,201,63,0.25);}
+.badge-gray{background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
+@media(max-width:768px){.nav-links li a{padding:14px 7px;font-size:11px;}.logo-ar{font-size:14px;}}
+
+
+.inst-wrap{max-width:1000px;margin:0 auto;padding:0 24px 48px;}
+.level-tabs{display:flex;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:32px;}
+.level-tab{flex:1;padding:14px;background:var(--dark2);border:none;color:var(--text-muted);font-family:'Cairo',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-align:center;transition:all .2s;border-left:1px solid var(--border);}
+.level-tab:first-child{border-left:none;}
+.level-tab.active{background:var(--amber);color:#1C1A14;}
+.level-content{display:none;}
+.level-content.active{display:block;}
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.module-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s;}
+.module-card:hover{border-color:var(--amber);}
+.module-num{width:32px;height:32px;border-radius:8px;background:var(--dark4);color:var(--amber);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.module-title{font-size:13px;font-weight:700;line-height:1.4;margin-bottom:4px;}
+.module-sub{font-size:11px;color:var(--text-muted);}
+.pdf-badge{display:inline-block;margin-top:6px;padding:2px 8px;background:rgba(39,201,63,0.1);border:1px solid rgba(39,201,63,0.25);color:#27C93F;border-radius:10px;font-size:10px;font-weight:700;}
+.soon-badge{display:inline-block;margin-top:6px;padding:2px 8px;background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.2);color:var(--amber-dark);border-radius:10px;font-size:10px;}
+
+</style>
+</head>
+<body><nav class="site-nav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">☀</div>
+    <div class="logo-text"><span class="logo-ar">شمس النيل</span><span class="logo-en">SunNile</span></div>
+  </a>
+  <ul class="nav-links"><li><a href="index.html">الرئيسية</a></li>
+<li><a href="calculator.html">الحاسبة</a></li>
+<li><a href="inverters.html">الإنفرترات</a></li>
+<li><a href="standards.html">المعايير</a></li>
+<li><a href="future.html">مستقبل الطاقة</a></li>
+<li><a href="policy.html">السياسات</a></li>
+<li><a href="institute.html" class="active">المعهد</a></li>
+</ul>
+</nav>
+<div class="page-header">
+  <h1>🎓 معهد فنيي الطاقة الشمسية</h1>
+  <p>٢٤ وحدة تدريبية — ٣ مستويات — مجانية تماماً</p>
+</div>
+<div class="inst-wrap">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:36px;">
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٢٤</div><div style="font-size:12px;color:var(--text-muted)">وحدة تدريبية</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٣</div><div style="font-size:12px;color:var(--text-muted)">مستويات تدريبية</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:#27C93F">٣</div><div style="font-size:12px;color:var(--text-muted)">وحدات PDF متاحة الآن</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٠</div><div style="font-size:12px;color:var(--text-muted)">تكلفة — مجاني دائماً</div></div>
+  </div>
+
+  <div class="level-tabs">
+    <button class="level-tab active" onclick="showLevel('l1',this)">المستوى الأول: مبتدئ</button>
+    <button class="level-tab" onclick="showLevel('l2',this)">المستوى الثاني: متوسط</button>
+    <button class="level-tab" onclick="showLevel('l3',this)">المستوى الثالث: متقدم</button>
+  </div>
+
+  <div id="level-l1" class="level-content active">
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
+      <span style="background:rgba(55,138,221,0.12);color:var(--blue);border:1px solid rgba(55,138,221,0.3);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;">مبتدئ</span>
+      <span style="font-size:13px;color:var(--text-muted)">٨ وحدات | لا يشترط خبرة سابقة | ٣ وحدات PDF متاحة الآن</span>
+    </div>
+    <div class="modules-grid">
+      <a href="lessons/unit-01-electrical-safety.html" class="module-card" style="text-decoration:none;color:inherit;"><div class="module-num">١</div><div><div class="module-title">السلامة الكهربائية</div><div class="module-sub">الأساس المطلق لكل فني</div><span class="pdf-badge">✓ متاح — اضغط للفتح</span></div></a>
+      <a href="lessons/unit-02-solar-panels.html" class="module-card" style="text-decoration:none;color:inherit;"><div class="module-num">٢</div><div><div class="module-title">الألواح الشمسية</div><div class="module-sub">أنواعها وخصائصها واختيارها</div><span class="pdf-badge">✓ متاح — اضغط للفتح</span></div></a>
+      <a href="lessons/unit-03-inverter.html" class="module-card" style="text-decoration:none;color:inherit;"><div class="module-num">٣</div><div><div class="module-title">الإنفرتر</div><div class="module-sub">الأنواع والمواصفات والاختيار</div><span class="pdf-badge">✓ متاح — اضغط للفتح</span></div></a>
+      <div class="module-card" style="opacity:.6"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٤</div><div><div class="module-title">حساب حجم النظام</div><div class="module-sub">التصميم الأولي والحسابات</div><span class="soon-badge">قريباً</span></div></div>
+      <div class="module-card" style="opacity:.6"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٥</div><div><div class="module-title">البطاريات والتخزين</div><div class="module-sub">قيد الإعداد</div></div></div>
+      <div class="module-card" style="opacity:.6"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٦</div><div><div class="module-title">الكابلات والتوصيلات</div><div class="module-sub">قيد الإعداد</div></div></div>
+      <div class="module-card" style="opacity:.6"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٧</div><div><div class="module-title">التركيب الميداني</div><div class="module-sub">قيد الإعداد</div></div></div>
+      <div class="module-card" style="opacity:.6"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٨</div><div><div class="module-title">الفحص والاختبار</div><div class="module-sub">قيد الإعداد</div></div></div>
+    </div>
+  </div>
+
+  <div id="level-l2" class="level-content">
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
+      <span style="background:rgba(239,159,39,0.12);color:var(--amber);border:1px solid rgba(239,159,39,0.3);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;">متوسط</span>
+      <span style="font-size:13px;color:var(--text-muted)">٨ وحدات | يشترط إتمام المستوى الأول | قيد الإعداد</span>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٩</div><div><div class="module-title">تصميم الأنظمة المتقدمة</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٠</div><div><div class="module-title">أنظمة الشبكة المختلطة</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١١</div><div><div class="module-title">الصيانة والاستكشاف</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٢</div><div><div class="module-title">الإنفرترات المتقدمة</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٣</div><div><div class="module-title">التكامل مع الشبكة</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٤</div><div><div class="module-title">قراءة المخططات الكهربائية</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٥</div><div><div class="module-title">الأنظمة التجارية</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٦</div><div><div class="module-title">التوثيق والتسليم</div></div></div>
+    </div>
+    <div style="margin-top:20px;padding:16px;background:rgba(239,159,39,0.06);border-radius:8px;font-size:13px;color:var(--text-muted);text-align:center;">يُفتح بعد إتمام الوحدات الثماني للمستوى الأول</div>
+  </div>
+
+  <div id="level-l3" class="level-content">
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
+      <span style="background:rgba(39,201,63,0.08);color:#27C93F;border:1px solid rgba(39,201,63,0.25);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;">متقدم</span>
+      <span style="font-size:13px;color:var(--text-muted)">٨ وحدات | للفنيين الساعين للاعتماد المهني | قيد الإعداد</span>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٧</div><div><div class="module-title">DERMS والشبكات الذكية</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٨</div><div><div class="module-title">أنظمة VPP والتحكم الموزع</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">١٩</div><div><div class="module-title">بروتوكولات SunSpec Modbus</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٢٠</div><div><div class="module-title">مراقبة الأداء والتحليل</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٢١</div><div><div class="module-title">تصميم الأنظمة المجتمعية</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٢٢</div><div><div class="module-title">الاعتماد والترخيص المهني</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٢٣</div><div><div class="module-title">إدارة مشاريع الطاقة</div></div></div>
+      <div class="module-card" style="opacity:.5"><div class="module-num" style="background:var(--dark);color:var(--text-dim)">٢٤</div><div><div class="module-title">الريادة في قطاع الطاقة</div></div></div>
+    </div>
+  </div>
+</div>
+<script>
+function showLevel(id,btn){
+  document.querySelectorAll('.level-content').forEach(function(c){c.classList.remove('active');});
+  document.getElementById('level-'+id).classList.add('active');
+  document.querySelectorAll('.level-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+}
+</script>
+<footer class="site-footer">
+  <div class="footer-logo">شمس النيل ☀</div>
+  <p class="footer-text">مبادرة مجانية غير ربحية لدعم الطاقة الشمسية في السودان<br>Sudan's Rooftop Solar Initiative | sunnile.org</p>
+</footer>
+</body></html>

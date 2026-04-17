@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوحدة ٢ — الألواح الشمسية ومواصفاتها</title>
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .section, .quiz-section { border: 0.5px solid #ddd !important; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: .9rem; page-break-inside: avoid; }
+  .warn-box  { background: #FCEBEB !important; border-color: #F09595 !important; page-break-inside: avoid; }
+  .note-box  { background: #FAEEDA !important; border-color: #EF9F27 !important; page-break-inside: avoid; }
+  .tip-box   { background: #E6F1FB !important; border-color: #85B7EB !important; page-break-inside: avoid; }
+  .objectives { background: #E1F5EE !important; border-color: #5DCAA5 !important; page-break-inside: avoid; }
+  .content-table th { background: #1C1A14 !important; color: #F5EDD4 !important; }
+  .content-table tr:nth-child(even) td { background: #F7F4EE !important; }
+  .compare-grid { page-break-inside: avoid; }
+  .cc-mono { border-top: 2px solid #1D9E75 !important; }
+  .cc-poly { border-top: 2px solid #378ADD !important; }
+  .cc-thin { border-top: 2px solid #EF9F27 !important; }
+  .quiz-option { border: 0.5px solid #ccc !important; background: #fafafa !important; padding: .45rem .8rem; border-radius: 5px; cursor: default; }
+  .quiz-result, .quiz-retry { display: none !important; }
+  .page-break { page-break-before: always; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI','Arial',system-ui,sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.8; max-width:800px; margin:0 auto; padding:2rem; }
+
+.doc-header { background:var(--dark); color:#F5EDD4; border-radius:10px; padding:2rem; margin-bottom:2rem; }
+.doc-logo-row { display:flex; align-items:center; gap:10px; margin-bottom:1rem; }
+.doc-logo-name { font-size:18px; font-weight:500; }
+.doc-logo-ar { font-size:12px; color:var(--sun); }
+.doc-module-tag { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--sun); margin-bottom:.5rem; }
+.doc-title { font-size:1.6rem; font-weight:500; margin-bottom:.25rem; }
+.doc-title-en { font-size:.85rem; color:rgba(245,237,212,.45); margin-bottom:1rem; }
+.doc-meta { display:flex; gap:1rem; flex-wrap:wrap; }
+.doc-meta-item { font-size:11px; background:rgba(255,255,255,.08); border-radius:4px; padding:4px 10px; color:rgba(245,237,212,.7); }
+
+.back-link { display:inline-flex; align-items:center; gap:6px; color:var(--nile); font-size:13px; text-decoration:none; margin-bottom:1.5rem; }
+.back-link:hover { color:var(--nile-d); }
+
+.print-btn { background:var(--sun); color:var(--dark); border:none; padding:10px 24px; border-radius:6px; font-size:13px; font-weight:500; cursor:pointer; }
+.print-btn:hover { background:var(--sun-d); color:#fff; }
+
+.objectives { background:var(--green-l); border:0.5px solid #5DCAA5; border-radius:8px; padding:1.25rem; margin-bottom:1.5rem; }
+.obj-title { font-size:13px; font-weight:500; color:var(--green-d); margin-bottom:.75rem; }
+.obj-list { list-style:none; display:flex; flex-direction:column; gap:.4rem; }
+.obj-list li { font-size:13px; color:var(--green-d); display:flex; align-items:flex-start; gap:8px; }
+.obj-list li::before { content:'✓'; font-weight:500; flex-shrink:0; margin-top:1px; }
+
+.section { background:var(--card); border:0.5px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem; }
+.section-num { font-size:10px; font-weight:500; letter-spacing:1px; text-transform:uppercase; color:var(--hint); margin-bottom:.25rem; }
+.section-title { font-size:1rem; font-weight:500; color:var(--text); margin-bottom:1rem; padding-bottom:.5rem; border-bottom:0.5px solid var(--border); }
+.section p { font-size:13px; color:var(--muted); line-height:1.85; margin-bottom:.75rem; }
+.section p:last-child { margin-bottom:0; }
+.section strong { color:var(--text); }
+
+.warn-box { background:var(--red-l); border:0.5px solid #F09595; border-radius:6px; padding:1rem; margin:1rem 0; }
+.warn-title { font-size:12px; font-weight:500; color:var(--red); margin-bottom:.4rem; }
+.warn-box p { font-size:12px; color:#791F1F; margin:0; }
+
+.note-box { background:var(--sun-l); border:0.5px solid var(--sun); border-radius:6px; padding:1rem; margin:1rem 0; }
+.note-title { font-size:12px; font-weight:500; color:var(--sun-d); margin-bottom:.4rem; }
+.note-box p { font-size:12px; color:var(--sun-d); margin:0; }
+
+.tip-box { background:var(--nile-l); border:0.5px solid #85B7EB; border-radius:6px; padding:1rem; margin:1rem 0; }
+.tip-title { font-size:12px; font-weight:500; color:var(--nile-d); margin-bottom:.4rem; }
+.tip-box p { font-size:12px; color:var(--nile-d); margin:0; }
+
+.content-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; margin:.75rem 0; }
+.content-list li { font-size:13px; color:var(--muted); display:flex; align-items:flex-start; gap:8px; line-height:1.7; }
+.content-list li::before { content:'◆'; font-size:8px; color:var(--sun); flex-shrink:0; margin-top:5px; }
+
+.content-table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:12px; }
+.content-table th { background:var(--dark); color:rgba(245,237,212,.8); padding:8px 12px; text-align:right; font-size:11px; font-weight:500; }
+.content-table td { padding:8px 12px; border-bottom:0.5px solid var(--border); color:var(--muted); }
+.content-table tr:last-child td { border-bottom:none; }
+.content-table tr:nth-child(even) td { background:var(--bg); }
+
+.panel-diagram { background:var(--card); border:0.5px solid var(--border); border-radius:8px; padding:1.25rem; margin:1rem 0; text-align:center; }
+.panel-diagram-title { font-size:11px; color:var(--hint); margin-bottom:.75rem; }
+
+.compare-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem; margin:1rem 0; }
+.compare-card { border:0.5px solid var(--border); border-radius:6px; padding:.85rem; text-align:center; }
+.compare-card-title { font-size:12px; font-weight:500; color:var(--text); margin-bottom:.4rem; }
+.compare-card-sub { font-size:10px; color:var(--hint); margin-bottom:.5rem; }
+.compare-val { font-size:11px; color:var(--muted); line-height:1.6; }
+.cc-mono { border-top:2px solid var(--green); }
+.cc-poly { border-top:2px solid var(--nile); }
+.cc-thin { border-top:2px solid var(--sun); }
+
+.datasheet-box { background:#f0ede5; border:0.5px solid var(--border); border-radius:8px; padding:1.25rem; margin:1rem 0; font-size:12px; }
+.ds-row { display:flex; justify-content:space-between; padding:.3rem 0; border-bottom:0.5px solid var(--border); }
+.ds-row:last-child { border-bottom:none; }
+.ds-key { color:var(--muted); }
+.ds-val { font-weight:500; color:var(--text); direction:ltr; }
+.ds-title { font-size:11px; font-weight:500; color:var(--hint); text-transform:uppercase; letter-spacing:.5px; margin-bottom:.75rem; }
+
+/* QUIZ */
+.quiz-section { background:var(--card); border:0.5px solid var(--border); border-radius:8px; padding:1.5rem; margin-bottom:1.25rem; }
+.quiz-title { font-size:1rem; font-weight:500; color:var(--text); margin-bottom:1rem; padding-bottom:.5rem; border-bottom:0.5px solid var(--border); }
+.quiz-q { margin-bottom:1.5rem; }
+.quiz-q-text { font-size:13px; font-weight:500; color:var(--text); margin-bottom:.75rem; }
+.quiz-options { display:flex; flex-direction:column; gap:.5rem; }
+.quiz-option { font-size:13px; color:var(--muted); padding:.65rem 1rem; border-radius:7px; border:1.5px solid var(--border); display:flex; align-items:center; gap:10px; cursor:pointer; transition:all .15s; user-select:none; background:var(--bg); }
+.quiz-option:hover { border-color:var(--nile); color:var(--text); background:var(--nile-l); }
+.quiz-option.selected { border-color:var(--nile); background:var(--nile-l); color:var(--nile-d); font-weight:500; }
+.quiz-option.correct  { border-color:var(--green); background:var(--green-l); color:var(--green-d); font-weight:500; cursor:default; }
+.quiz-option.wrong    { border-color:var(--red);   background:var(--red-l);   color:#791F1F; cursor:default; }
+.quiz-option.show-correct { border-color:var(--green); background:var(--green-l); color:var(--green-d); cursor:default; }
+.quiz-option.locked   { cursor:default; }
+.quiz-circle { width:20px; height:20px; border-radius:50%; border:1.5px solid currentColor; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+.quiz-submit { background:var(--dark); color:#F5EDD4; border:none; padding:11px 28px; border-radius:7px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; margin-top:.5rem; transition:opacity .2s; }
+.quiz-submit:hover { opacity:.85; }
+.quiz-submit:disabled { opacity:.4; cursor:default; }
+.quiz-result { margin-top:1.25rem; padding:1rem 1.25rem; border-radius:8px; font-size:13px; font-weight:500; display:none; }
+.quiz-result.pass { background:var(--green-l); color:var(--green-d); border:1px solid #5DCAA5; }
+.quiz-result.fail { background:var(--sun-l);   color:var(--sun-d);   border:1px solid var(--sun); }
+.quiz-retry { background:transparent; border:1.5px solid var(--nile); color:var(--nile); padding:8px 20px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; margin-top:.75rem; display:inline-block; }
+.quiz-retry:hover { background:var(--nile-l); }
+
+.doc-footer { border-top:0.5px solid var(--border); padding-top:1rem; margin-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+.doc-footer p { font-size:10px; color:var(--hint); }
+.nile-bar { height:4px; background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517); border-radius:2px; margin-bottom:2rem; }
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="printDoc()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4 · هامش افتراضي</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="12" r="6.5" fill="#EF9F27"/>
+      <circle cx="16" cy="12" r="4" fill="#1C1A14"/>
+      <circle cx="16" cy="12" r="2.2" fill="#EF9F27"/>
+      <line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="27" y1="12" x2="29" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="5" y1="12" x2="3" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/>
+      <polygon points="9,22 16,16.5 23,22" fill="none" stroke="#EF9F27" stroke-width="1.1" stroke-linejoin="round"/>
+      <rect x="11.5" y="22" width="9" height="5.5" rx="0.8" fill="none" stroke="#EF9F27" stroke-width="1"/>
+      <path d="M3 29.5 Q7.5 27 12 29.5 Q16.5 32 21 29.5 Q25.5 27 29 29.5" fill="none" stroke="#378ADD" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="doc-logo-name">SunNile</div>
+      <div class="doc-logo-ar">شمس النيل · معهد فنيي الطاقة الشمسية</div>
+    </div>
+  </div>
+  <div class="doc-module-tag">المستوى الأول — مبتدئ · الوحدة ٢ من ٨</div>
+  <div class="doc-title">الألواح الشمسية ومواصفاتها</div>
+  <div class="doc-title-en">Solar Panels — Types, Specifications & How They Work</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">5 دروس</span>
+    <span class="doc-meta-item">مجاني بالكامل</span>
+    <span class="doc-meta-item">معايير شمس النيل</span>
+    <span class="doc-meta-item">مبتدئ — لا يشترط خلفية كهربائية</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">🎯 ماذا ستتعلم في هذه الوحدة؟</div>
+  <ul class="obj-list">
+    <li>فهم كيف يحوّل اللوح الشمسي ضوء الشمس إلى كهرباء</li>
+    <li>التمييز بين أنواع الألواح الشمسية الثلاثة الرئيسية</li>
+    <li>قراءة وفهم مواصفات اللوح الشمسي (datasheet) بثقة</li>
+    <li>معرفة كيف تؤثر الحرارة الشديدة في السودان على أداء الألواح</li>
+    <li>اختيار اللوح الشمسي المناسب لكل مشروع</li>
+  </ul>
+</div>
+
+<!-- LESSON 1 -->
+<div class="section">
+  <div class="section-num">الدرس الأول</div>
+  <div class="section-title">كيف يحوّل اللوح الشمسي ضوء الشمس إلى كهرباء؟</div>
+  <p>اللوح الشمسي يعمل بظاهرة تسمى <strong>التأثير الكهروضوئي (Photovoltaic Effect)</strong> — اكتشفها العالم الفرنسي إدموند بيكيريل عام 1839. والفكرة ببساطة: عندما يسقط الضوء على مادة شبه موصلة خاصة (في الغالب السيليكون)، يتحرر إلكترونات من ذراتها وينتج عن ذلك تيار كهربائي.</p>
+  <p><strong>الخلية الشمسية (Solar Cell) — اللبنة الأساسية:</strong></p>
+  <ul class="content-list">
+    <li>اللوح الشمسي مكوّن من مئات الخلايا الشمسية الصغيرة مرتبة معاً</li>
+    <li>كل خلية تنتج حوالي 0.5 فولت DC فقط — لذلك تُجمع معاً لرفع الجهد</li>
+    <li>الخلية مصنوعة من طبقتين من السيليكون: طبقة موجبة (P-type) وطبقة سالبة (N-type)</li>
+    <li>عند تقاطع الطبقتين يتكوّن "مجال كهربائي" يدفع الإلكترونات في اتجاه واحد — وهذا هو التيار الكهربائي</li>
+  </ul>
+  <div class="panel-diagram">
+    <div class="panel-diagram-title">تركيب اللوح الشمسي من الخارج للداخل</div>
+    <svg width="100%" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="20" width="520" height="22" rx="3" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+      <text x="300" y="35" text-anchor="middle" font-size="11" fill="#0C447C" font-family="Arial">زجاج مقوّى — يحمي الخلايا ويسمح بمرور الضوء</text>
+      <rect x="40" y="47" width="520" height="18" rx="2" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+      <text x="300" y="60" text-anchor="middle" font-size="10" fill="#5F5E5A" font-family="Arial">طبقة EVA — لاصق شفاف يثبت الخلايا</text>
+      <rect x="40" y="70" width="520" height="35" rx="2" fill="#2C2C2A" stroke="#1C1A14" stroke-width="0.5"/>
+      <text x="300" y="92" text-anchor="middle" font-size="12" fill="#EF9F27" font-family="Arial" font-weight="bold">خلايا السيليكون الشمسية — هنا تتحوّل الطاقة</text>
+      <rect x="40" y="110" width="520" height="18" rx="2" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+      <text x="300" y="123" text-anchor="middle" font-size="10" fill="#5F5E5A" font-family="Arial">طبقة EVA — لاصق شفاف ثانية</text>
+      <rect x="40" y="133" width="520" height="18" rx="2" fill="#D3D1C7" stroke="#888780" stroke-width="0.5"/>
+      <text x="300" y="146" text-anchor="middle" font-size="10" fill="#444441" font-family="Arial">غطاء خلفي — حماية من الرطوبة والحرارة</text>
+      <rect x="40" y="156" width="520" height="12" rx="2" fill="#444441" stroke="#2C2C2A" stroke-width="0.5"/>
+      <text x="300" y="166" text-anchor="middle" font-size="10" fill="#F1EFE8" font-family="Arial">إطار ألومنيوم — يحمل اللوح ويسهل التركيب</text>
+    </svg>
+  </div>
+  <div class="tip-box">
+    <div class="tip-title">💡 هل تعلم؟</div>
+    <p>اللوح الشمسي الواحد بقدرة 500 واط يحتوي على ما يقارب 144 خلية شمسية. كل خلية بحجم قبضة اليد تقريباً. معاً ينتجون ما يكفي لتشغيل مكيف هواء لمدة ساعة كاملة.</p>
+  </div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="section">
+  <div class="section-num">الدرس الثاني</div>
+  <div class="section-title">الفرق بين أنواع الألواح الشمسية الثلاثة</div>
+  <p>هناك ثلاثة أنواع رئيسية من الألواح الشمسية في السوق. كل نوع له مزاياه وعيوبه — والفني الجيد يعرف متى يوصي بأي منها.</p>
+  <div class="compare-grid">
+    <div class="compare-card cc-mono">
+      <div class="compare-card-title">أحادي البلورة</div>
+      <div class="compare-card-sub">Monocrystalline</div>
+      <div class="compare-val">كفاءة: 20–23%<br>لون: أسود داكن<br>عمر: 25–30 سنة<br>السعر: الأعلى<br>الأداء في الحرارة: جيد<br><strong style="color:#085041;">الأفضل للسودان ✓</strong></div>
+    </div>
+    <div class="compare-card cc-poly">
+      <div class="compare-card-title">متعدد البلورات</div>
+      <div class="compare-card-sub">Polycrystalline</div>
+      <div class="compare-val">كفاءة: 15–18%<br>لون: أزرق<br>عمر: 20–25 سنة<br>السعر: متوسط<br>الأداء في الحرارة: متوسط<br><strong style="color:#185FA5;">خيار اقتصادي</strong></div>
+    </div>
+    <div class="compare-card cc-thin">
+      <div class="compare-card-title">الطبقة الرقيقة</div>
+      <div class="compare-card-sub">Thin Film</div>
+      <div class="compare-val">كفاءة: 10–13%<br>لون: بني/رمادي<br>عمر: 15–20 سنة<br>السعر: الأرخص<br>الأداء في الحرارة: ممتاز<br><strong style="color:#BA7517;">نادر في السوق</strong></div>
+    </div>
+  </div>
+  <div class="note-box">
+    <div class="note-title">📌 توصية شمس النيل للسودان</div>
+    <p>في السودان، الألواح <strong>أحادية البلورة (Monocrystalline)</strong> هي الخيار الأفضل. كفاءتها العالية تعني عدد ألواح أقل لنفس الطاقة، وهذا مهم جداً على الأسطح المحدودة المساحة. رغم سعرها الأعلى، تكلفة كل واط أنتجته طوال عمرها أقل من غيرها.</p>
+  </div>
+  <p><strong>كيف تميز النوع بالنظر؟</strong></p>
+  <ul class="content-list">
+    <li><strong>أحادي البلورة:</strong> لون أسود أو رمادي غامق متجانس — الخلايا مربعة بزوايا مشطوفة</li>
+    <li><strong>متعدد البلورات:</strong> لون أزرق مع تشقق بلوري واضح — الخلايا مربعة تماماً</li>
+    <li><strong>الطبقة الرقيقة:</strong> سطح ناعم متجانس بدون خلايا منفصلة ظاهرة</li>
+  </ul>
+</div>
+
+<!-- LESSON 3 -->
+<div class="section">
+  <div class="section-num">الدرس الثالث</div>
+  <div class="section-title">قراءة مواصفات اللوح الشمسي — Datasheet</div>
+  <p>كل لوح شمسي يأتي مع ورقة مواصفات (Datasheet) تحتوي على معلومات تقنية مهمة. الفني الذي لا يعرف قراءة الـDatasheet لا يستطيع التحقق من جودة اللوح أو حساب أداء النظام بدقة.</p>
+  <p>مواصفات الألواح تُقاس في ظروف اختبار قياسية تسمى <strong>STC (Standard Test Conditions)</strong>:</p>
+  <ul class="content-list">
+    <li>إشعاع شمسي: 1000 واط/م²</li>
+    <li>درجة حرارة الخلية: 25°C</li>
+    <li>كتلة هوائية: AM 1.5</li>
+  </ul>
+  <div class="note-box">
+    <div class="note-title">📌 مهم جداً — STC ليست ظروف السودان</div>
+    <p>مواصفات STC تُقاس عند 25°C — لكن في السودان درجة حرارة سطح اللوح تصل إلى 60-70°C في الصيف. هذا يعني أن الأداء الفعلي أقل من المواصفات المكتوبة. سنشرح كيفية حساب ذلك في الدرس التالي.</p>
+  </div>
+  <div class="datasheet-box">
+    <div class="ds-title">مثال على Datasheet — لوح شمسي 500W أحادي البلورة</div>
+    <div class="ds-row"><span class="ds-key">القدرة القصوى (Pmax)</span><span class="ds-val">500 W</span></div>
+    <div class="ds-row"><span class="ds-key">جهد الدائرة المفتوحة (Voc)</span><span class="ds-val">49.5 V</span></div>
+    <div class="ds-row"><span class="ds-key">تيار الدائرة القصيرة (Isc)</span><span class="ds-val">13.1 A</span></div>
+    <div class="ds-row"><span class="ds-key">جهد النقطة المثلى (Vmp)</span><span class="ds-val">41.8 V</span></div>
+    <div class="ds-row"><span class="ds-key">تيار النقطة المثلى (Imp)</span><span class="ds-val">11.97 A</span></div>
+    <div class="ds-row"><span class="ds-key">كفاءة التحويل</span><span class="ds-val">21.3%</span></div>
+    <div class="ds-row"><span class="ds-key">معامل درجة الحرارة للقدرة (Pmax)</span><span class="ds-val">-0.35% / °C</span></div>
+    <div class="ds-row"><span class="ds-key">أقصى جهد للنظام</span><span class="ds-val">1500 V DC</span></div>
+    <div class="ds-row"><span class="ds-key">الأبعاد</span><span class="ds-val">2094 × 1038 × 35 mm</span></div>
+    <div class="ds-row"><span class="ds-key">الوزن</span><span class="ds-val">28.6 kg</span></div>
+    <div class="ds-row"><span class="ds-key">ضمان الأداء</span><span class="ds-val">25 سنة — 80% من الطاقة</span></div>
+  </div>
+  <p><strong>شرح المصطلحات المهمة:</strong></p>
+  <ul class="content-list">
+    <li><strong>Voc (جهد الدائرة المفتوحة):</strong> أعلى جهد ينتجه اللوح عندما لا يكون متصلاً بأي حمل — هذا الرقم مهم لحساب عدد الألواح في السلسلة وعدم تجاوز أقصى جهد للإنفرتر</li>
+    <li><strong>Isc (تيار الدائرة القصيرة):</strong> أعلى تيار ينتجه اللوح — يُستخدم لاختيار الكابلات والفيوزات المناسبة</li>
+    <li><strong>Vmp و Imp:</strong> الجهد والتيار عند أفضل نقطة تشغيل — هنا يعمل النظام بأعلى كفاءة</li>
+    <li><strong>معامل الحرارة للقدرة (-0.35%/°C):</strong> يعني أن القدرة تنخفض 0.35% لكل درجة حرارة فوق 25°C — رقم حاسم في السودان</li>
+  </ul>
+</div>
+
+<!-- LESSON 4 -->
+<div class="section">
+  <div class="section-num">الدرس الرابع</div>
+  <div class="section-title">تأثير الحرارة على أداء الألواح — مهم جداً في السودان</div>
+  <p>هذا من أهم الدروس لأي فني يعمل في السودان. الحرارة هي العدو الأول لأداء الألواح الشمسية — وكلما ارتفعت درجة الحرارة كلما قلّ الإنتاج.</p>
+  <p><strong>معادلة تأثير الحرارة:</strong></p>
+  <div style="background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:1rem;margin:1rem 0;text-align:center;direction:ltr;">
+    <p style="font-size:13px;color:var(--text);font-weight:500;margin-bottom:.5rem;">Power Loss = Pmax × |Temperature Coefficient| × (T_cell - 25°C)</p>
+    <p style="font-size:11px;color:var(--hint);">حيث T_cell = درجة حرارة الخلية الفعلية (وليس درجة الهواء)</p>
+  </div>
+  <p><strong>مثال عملي في السودان:</strong></p>
+  <ul class="content-list">
+    <li>اللوح مواصفاته 500W عند 25°C</li>
+    <li>في يوم صيفي سوداني — درجة الهواء 45°C، ودرجة الخلية 65°C</li>
+    <li>معامل الحرارة = -0.35%/°C</li>
+    <li>الفرق = 65 - 25 = 40 درجة</li>
+    <li>الخسارة = 500 × 0.35% × 40 = <strong>70 واط</strong></li>
+    <li>الإنتاج الفعلي = 500 - 70 = <strong>430 واط فقط</strong> بدلاً من 500!</li>
+  </ul>
+  <div class="warn-box">
+    <div class="warn-title">⚠ لماذا هذا مهم لحسابات التصميم؟</div>
+    <p>في حاسبة نظام الطاقة الشمسية في شمس النيل نستخدم خسائر نظام 25% تشمل خسارة الحرارة. إذا تجاهلت هذا في تصميمك وحسبت بالقدرة المكتوبة على اللوح (500W) بدون تصحيح الحرارة، ستجد أن النظام الفعلي ينتج أقل مما وعدت به العميل.</p>
+  </div>
+  <p><strong>كيف تقلل تأثير الحرارة عند التركيب؟</strong></p>
+  <ul class="content-list">
+    <li>اترك فجوة تهوية لا تقل عن 10-15 سم بين اللوح والسطح — الهواء الساكن يرفع الحرارة</li>
+    <li>لا تركب الألواح مباشرة على الصفيح المعدني الحار — استخدم هياكل رفع</li>
+    <li>تجنب تركيب الألواح في أماكن تتجمع فيها الحرارة (كالزوايا المحاطة بجدران)</li>
+    <li>الألواح ذات الكفاءة العالية (Monocrystalline) لها معامل حرارة أفضل عموماً</li>
+  </ul>
+  <div class="tip-box">
+    <div class="tip-title">💡 درجة حرارة الخلية مقابل درجة الهواء</div>
+    <p>درجة حرارة الخلية الشمسية دائماً أعلى من درجة الهواء بـ20-30°C في الطقس المشمس. عند حسابك لأداء النظام، أضف 25°C على درجة الهواء المحلية للحصول على تقدير أدق لدرجة حرارة الخلية.</p>
+  </div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="section">
+  <div class="section-num">الدرس الخامس</div>
+  <div class="section-title">كيف تختار اللوح الشمسي المناسب لمشروعك</div>
+  <p>الاختيار الصحيح للوح الشمسي يوفر على العميل المال ويضمن لك نظاماً يعمل بكفاءة لسنوات. إليك المعايير التي يجب مراعاتها:</p>
+  <table class="content-table">
+    <thead>
+      <tr><th>المعيار</th><th>ما تبحث عنه</th><th>ملاحظة للسودان</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>الكفاءة</td><td>20%+ للمساحات المحدودة</td><td>الأسطح الصغيرة تحتاج كفاءة عالية</td></tr>
+      <tr><td>معامل الحرارة</td><td>أقل من -0.40%/°C</td><td>مهم جداً في مناخ السودان الحار</td></tr>
+      <tr><td>ضمان الأداء</td><td>25 سنة بـ80% من الطاقة</td><td>لا تقبل أقل من 25 سنة</td></tr>
+      <tr><td>ضمان المنتج</td><td>12 سنة على الأقل</td><td>تأكد من وجود وكيل خدمة محلي</td></tr>
+      <tr><td>تحمل الرياح والثلج</td><td>≥ 2400 Pa أمامي</td><td>الرياح الرملية في السودان قوية</td></tr>
+      <tr><td>شهادة IEC 61215</td><td>إلزامية</td><td>تأكد من وجودها في الـdatasheet</td></tr>
+    </tbody>
+  </table>
+  <p><strong>علامات تحذيرية عند شراء الألواح:</strong></p>
+  <ul class="content-list">
+    <li>لا يوجد شهادة IEC 61215 أو IEC 61730 — لا تشتر</li>
+    <li>ضمان أداء أقل من 25 سنة — جودة مشكوك فيها</li>
+    <li>كفاءة تتجاوز 25% بسعر رخيص جداً — على الأرجح بيانات مزورة</li>
+    <li>لا يوجد datasheet باللغة العربية أو الإنجليزية — لا توثيق موثوق</li>
+    <li>لا يوجد وكيل معتمد أو خدمة ما بعد البيع — خطر عند العطل</li>
+  </ul>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-section">
+  <div class="quiz-title">🧠 اختبار الوحدة — الألواح الشمسية</div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">١. ما هي الظاهرة التي يعتمد عليها اللوح الشمسي لتحويل الضوء إلى كهرباء؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الحث الكهرومغناطيسي</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>التأثير الكهروضوئي (Photovoltaic Effect)</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الانتشار الحراري</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الطاقة الحرارية الشمسية</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٢. لماذا يُعدّ اللوح أحادي البلورة (Monocrystalline) الأنسب للسودان؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>لأنه الأرخص في السوق</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>لأن كفاءته العالية تعني ألواح أقل لنفس الطاقة وأداء أفضل في الحرارة</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>لأنه يعمل بدون إنفرتر</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>لأنه لا يتأثر بالحرارة نهائياً</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="2">
+    <div class="quiz-q-text">٣. في لوح شمسي بقدرة 500W ومعامل حرارة -0.35%/°C، كم ستكون القدرة الفعلية عند درجة حرارة خلية 65°C؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>500W — لا تغيير</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>465W</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>430W</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>380W</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٤. ما هو Voc في مواصفات اللوح الشمسي؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>الجهد عند أعلى كفاءة تشغيل</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>جهد الدائرة المفتوحة — أعلى جهد ينتجه اللوح</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>الجهد المستمر للنظام</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>جهد تيار الشحن</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" data-correct="1">
+    <div class="quiz-q-text">٥. كيف تقلل تأثير الحرارة على أداء الألواح عند التركيب؟</div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-index="0" onclick="selectOption(this)"><div class="quiz-circle">أ</div>تركيب الألواح مباشرة على السطح لتبريدها بالسطح</div>
+      <div class="quiz-option" data-index="1" onclick="selectOption(this)"><div class="quiz-circle">ب</div>ترك فجوة تهوية 10-15 سم بين اللوح والسطح</div>
+      <div class="quiz-option" data-index="2" onclick="selectOption(this)"><div class="quiz-circle">ج</div>تغطية الألواح بالزجاج الإضافي</div>
+      <div class="quiz-option" data-index="3" onclick="selectOption(this)"><div class="quiz-circle">د</div>الحرارة لا تؤثر على الألواح</div>
+    </div>
+  </div>
+
+  <button class="quiz-submit no-print" id="quizSubmit" onclick="submitQuiz()" disabled>تحقق من إجاباتي</button>
+  <div class="quiz-result" id="quizResult">
+    <div id="quizResultText"></div>
+    <button class="quiz-retry" onclick="retryQuiz()">↺ أعد الاختبار</button>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="section">
+  <div class="section-num">ملحق</div>
+  <div class="section-title">قائمة التحقق عند اختيار اللوح الشمسي — اطبعها واستخدمها مع كل عميل</div>
+  <table class="content-table">
+    <thead>
+      <tr><th>معيار الاختيار</th><th>القيمة المطلوبة</th><th>القيمة الفعلية للوح</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>النوع</td><td>Monocrystalline مفضل</td><td>☐ ____________</td></tr>
+      <tr><td>الكفاءة</td><td>≥ 20%</td><td>☐ ____________</td></tr>
+      <tr><td>معامل الحرارة للقدرة</td><td>أقل من -0.40%/°C</td><td>☐ ____________</td></tr>
+      <tr><td>ضمان الأداء</td><td>25 سنة بـ80%</td><td>☐ ____________</td></tr>
+      <tr><td>ضمان المنتج</td><td>≥ 12 سنة</td><td>☐ ____________</td></tr>
+      <tr><td>شهادة IEC 61215</td><td>موجودة</td><td>☐ موجودة / ☐ غير موجودة</td></tr>
+      <tr><td>شهادة IEC 61730</td><td>موجودة</td><td>☐ موجودة / ☐ غير موجودة</td></tr>
+      <tr><td>وكيل خدمة محلي</td><td>موجود</td><td>☐ ____________</td></tr>
+      <tr><td>Datasheet متوفر</td><td>نعم</td><td>☐ نعم / ☐ لا</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="doc-footer">
+  <p>SunNile · شمس النيل · معهد فنيي الطاقة الشمسية · الوحدة ٢ — الألواح الشمسية</p>
+  <p>مجاني · مفتوح · معايير شمس النيل · sunnile.sd</p>
+</div>
+
+<script>
+window.printDoc = function() {
+  document.querySelectorAll('.quiz-q').forEach(q => {
+    delete q.dataset.answered;
+    q.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('selected','correct','wrong','show-correct','locked');
+    });
+  });
+  window.print();
+};
+
+(function(){
+  const questions = document.querySelectorAll('.quiz-q');
+  const submitBtn = document.getElementById('quizSubmit');
+
+  window.selectOption = function(el) {
+    const q = el.closest('.quiz-q');
+    if (q.dataset.answered) return;
+    q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    checkAllAnswered();
+  };
+
+  function checkAllAnswered() {
+    submitBtn.disabled = ![...questions].every(q => q.querySelector('.selected'));
+  }
+
+  window.submitQuiz = function() {
+    let score = 0;
+    questions.forEach(q => {
+      const correct = parseInt(q.dataset.correct);
+      const selected = q.querySelector('.selected');
+      const selectedIdx = parseInt(selected.dataset.index);
+      q.dataset.answered = '1';
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.classList.add('locked');
+        o.onclick = null;
+        if (parseInt(o.dataset.index) === correct) o.classList.add('show-correct');
+      });
+      if (selectedIdx === correct) {
+        selected.classList.add('correct');
+        selected.querySelector('.quiz-circle').textContent = '✓';
+        score++;
+      } else {
+        selected.classList.add('wrong');
+        selected.querySelector('.quiz-circle').textContent = '✗';
+      }
+    });
+    submitBtn.style.display = 'none';
+    const resultEl = document.getElementById('quizResult');
+    const textEl   = document.getElementById('quizResultText');
+    resultEl.style.display = 'block';
+    if (score === questions.length) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '🎉 ممتاز! حصلت على ' + score + ' من ' + questions.length + ' — أجبت على جميع الأسئلة بشكل صحيح.';
+    } else if (score >= Math.ceil(questions.length * 0.6)) {
+      resultEl.className = 'quiz-result pass';
+      textEl.innerHTML = '✓ نتيجة جيدة — ' + score + ' من ' + questions.length + '. راجع الإجابات المميزة باللون الأخضر لتعزيز معلوماتك.';
+    } else {
+      resultEl.className = 'quiz-result fail';
+      textEl.innerHTML = '📖 حصلت على ' + score + ' من ' + questions.length + '. راجع محتوى الوحدة مرة أخرى ثم أعد الاختبار.';
+    }
+  };
+
+  window.retryQuiz = function() {
+    questions.forEach(q => {
+      delete q.dataset.answered;
+      q.querySelectorAll('.quiz-option').forEach(o => {
+        o.className = 'quiz-option';
+        const labels = ['أ','ب','ج','د'];
+        o.querySelector('.quiz-circle').textContent = labels[parseInt(o.dataset.index)];
+        o.onclick = function(){ selectOption(o); };
+      });
+    });
+    submitBtn.disabled = true;
+    submitBtn.style.display = '';
+    document.getElementById('quizResult').style.display = 'none';
+  };
+})();
+</script>
+</body>
+</html>
