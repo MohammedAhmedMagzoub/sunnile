@@ -298,8 +298,9 @@
     /* ── INVERTERS ── */
     inverters: function () {
       var el;
+      var el;
       if ((el = $('.page-header h1'))) save(el, '⚡ Certified Inverter Registry');
-      if ((el = $('.page-header p')))  save(el, '65+ models from 15 brands — all meeting SunNile standards');
+      if ((el = $('.page-header p')))  save(el, '37 models from 10 brands — IEC 62109 certified · reviewed every 12 months');
       var picks = $$('.inv-wrap > div:first-of-type > div');
       if (picks[0]) save(picks[0], '🏆 Best Quality: <strong>Fronius</strong>');
       if (picks[1]) save(picks[1], '💰 Best Value: <strong>Sungrow</strong>');
@@ -307,10 +308,10 @@
       var filterLabel = $('.filter-bar span');
       if (filterLabel) save(filterLabel, 'Filter:');
       $$('.filter-btn').forEach(function (btn) {
-        if (btn.textContent.indexOf('الكل') !== -1) save(btn, 'All (65+)');
+        if (btn.textContent.indexOf('الكل') !== -1) save(btn, 'All (37)');
       });
       var ths = $$('.inv-table th');
-      ['Brand','Model','Type','Power','IEC / AS4777','DRED','SunSpec','Rating']
+      ['Brand','Model','Type','Power','IEC / AS4777','DRED','SunSpec','Cert. Reference','Last Reviewed','Rating']
         .forEach(function (t, i) { if (ths[i]) save(ths[i], t); });
       var tbody = document.getElementById('inv-tbody');
       if (tbody) {
@@ -321,6 +322,18 @@
             if (!t.hasAttribute('data-ar')) t.setAttribute('data-ar', t.textContent);
             t.textContent = t.getAttribute('data-ar') === 'أحادي' ? 'Single-phase' : 'Three-phase';
           }
+          /* last-reviewed cell (index 8) — month name translation */
+          if (cells[8]) {
+            var rv = cells[8];
+            if (!rv.hasAttribute('data-ar')) rv.setAttribute('data-ar', rv.textContent.trim());
+            var arMonths = {'يناير':'Jan','فبراير':'Feb','مارس':'Mar','أبريل':'Apr','مايو':'May','يونيو':'Jun','يوليو':'Jul','أغسطس':'Aug','سبتمبر':'Sep','أكتوبر':'Oct','نوفمبر':'Nov','ديسمبر':'Dec'};
+            var arText = rv.getAttribute('data-ar');
+            var translated = arText;
+            Object.keys(arMonths).forEach(function(ar) {
+              translated = translated.replace(ar, arMonths[ar]);
+            });
+            rv.textContent = translated;
+          }
           var badge = row.querySelector('.badge');
           if (badge) {
             var m = {'الأفضل جودةً':'Best Quality','الأفضل قيمةً':'Best Value',
@@ -330,6 +343,11 @@
             badge.textContent = m[badge.getAttribute('data-ar')] || badge.getAttribute('data-ar');
           }
         });
+      }
+      /* methodology note */
+      var methEl = $('.inv-wrap > div:last-of-type');
+      if (methEl && methEl.querySelector('strong')) {
+        save(methEl, '<strong style="color:var(--text);">Certification Methodology</strong> — A model is listed only when it meets all of the following: (1) Valid IEC 62109 Parts 1 &amp; 2 certificate from an accredited body (TÜV / DNV / Bureau Veritas / SGS), (2) IEC 62116 anti-islanding test passed, (3) IP65 or higher ingress protection, (4) CEC efficiency ≥97%, (5) continuous operation to 60°C, (6) DRED and SunSpec Modbus TCP support. The registry is reviewed every 12 months — models with revoked certificates are removed immediately.');
       }
       document.title = 'Certified Inverter Registry — SunNile';
     },

@@ -114,7 +114,7 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
 </nav>
 <div class="page-header">
   <h1>⚡ سجل الإنفرترات المعتمدة</h1>
-  <p>٦٥+ طراز من ١٥ علامة تجارية — كلها تستوفي معايير شمس النيل</p>
+  <p>٣٧ طراز من ١٠ علامات تجارية — شهادات IEC 62109 · مراجعة دورية كل ١٢ شهراً</p>
 </div>
 <div class="inv-wrap">
   <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
@@ -138,54 +138,59 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
   <div class="inv-table-wrap">
     <table class="inv-table"><thead><tr>
       <th>العلامة التجارية</th><th>الطراز</th><th>النوع</th><th>القدرة</th>
-      <th>IEC / AS4777</th><th>DRED</th><th>SunSpec</th><th>التوصية</th>
+      <th>IEC / AS4777</th><th>DRED</th><th>SunSpec</th><th>مرجع المعيار</th><th>آخر مراجعة</th><th>التوصية</th>
     </tr></thead><tbody id="inv-tbody"></tbody></table>
   </div>
-  <p style="font-size:11px;color:var(--text-dim);margin-top:12px;text-align:center;">* SolarEdge مستبعد | جميع الطرازات: IEC62109 + IEC62116 + IP65 + كفاءة CEC ≥٩٧٪ + تشغيل حتى ٦٠°C</p>
+  <p style="font-size:11px;color:var(--text-dim);margin-top:12px;text-align:center;">* SolarEdge مستبعد | جميع الطرازات: IEC62109-1/2 + IEC62116 + IP65 + كفاءة CEC ≥٩٧٪ + تشغيل حتى ٦٠°C</p>
+  <div style="margin-top:16px;background:rgba(55,138,221,0.06);border:1px solid rgba(55,138,221,0.2);border-radius:10px;padding:16px 20px;font-size:12px;color:var(--text-muted);line-height:1.8;">
+    <strong style="color:var(--text);">منهجية الاعتماد</strong> — يُدرج طراز في السجل إذا استوفى جميع الشروط التالية: (١) شهادة IEC 62109 الجزء الأول والثاني سارية المفعول من جهة اعتماد معترف بها (TÜV / DNV / Bureau Veritas / SGS)، (٢) اجتياز اختبار IEC 62116 لحماية الجزر الإلكتروني، (٣) درجة حماية IP65 أو أعلى، (٤) كفاءة CEC ≥٩٧٪، (٥) تشغيل مستمر حتى ٦٠°C، (٦) دعم DRED و SunSpec Modbus TCP. المراجعة دورية كل ١٢ شهراً — الطرازات التي تُسحب شهاداتها تُزال فوراً.
+  </div>
 </div>
 <script>
 var inverters=[
-  {b:'Fronius',m:'Primo GEN24 3.0',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Primo GEN24 5.0',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Primo GEN24 8.0',t:'أحادي',p:'8 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Primo GEN24 10.0',t:'أحادي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Symo GEN24 10.0',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Symo GEN24 15.0',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Fronius',m:'Symo GEN24 20.0',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber'},
-  {b:'Sungrow',m:'SG3.0RS',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'Sungrow',m:'SG5.0RS',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'Sungrow',m:'SG8.0RS',t:'أحادي',p:'8 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'Sungrow',m:'SG10RS',t:'أحادي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'Sungrow',m:'SG15RT',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'Sungrow',m:'SG25RT',t:'ثلاثي',p:'25 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue'},
-  {b:'SiGEnergy',m:'SCH-3K',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green'},
-  {b:'SiGEnergy',m:'SCH-5K',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green'},
-  {b:'SiGEnergy',m:'SCH-10K',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green'},
-  {b:'SiGEnergy',m:'SCH-15K',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green'},
-  {b:'Huawei',m:'SUN2000-3KTL-L1',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'Huawei',m:'SUN2000-5KTL-L1',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'Huawei',m:'SUN2000-10KTL-M1',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'Huawei',m:'SUN2000-20KTL-M2',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'Growatt',m:'MIN 3000TL-X',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Growatt',m:'MIN 5000TL-X',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Growatt',m:'MOD 10KTL3-X',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Growatt',m:'MOD 20KTL3-X',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'GoodWe',m:'GW3000-MS',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'GoodWe',m:'GW5000-MS',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'GoodWe',m:'GW10K-MT',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'GoodWe',m:'GW25K-MT',t:'ثلاثي',p:'25 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue'},
-  {b:'SMA',m:'Sunny Boy 3.0',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber'},
-  {b:'SMA',m:'Sunny Boy 5.0',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber'},
-  {b:'SMA',m:'Sunny Tripower 15000TL',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber'},
-  {b:'Solis',m:'S5-GR1P3K',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Solis',m:'S5-GR1P5K',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Solis',m:'S5-GR3P15K',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Deye',m:'SUN-5K-G',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
-  {b:'Deye',m:'SUN-12K-SG',t:'ثلاثي',p:'12 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray'},
+  {b:'Fronius',m:'Primo GEN24 3.0',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Primo GEN24 5.0',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Primo GEN24 8.0',t:'أحادي',p:'8 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Primo GEN24 10.0',t:'أحادي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Symo GEN24 10.0',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Symo GEN24 15.0',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Fronius',m:'Symo GEN24 20.0',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل جودةً','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Sungrow',m:'SG3.0RS',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'Sungrow',m:'SG5.0RS',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'Sungrow',m:'SG8.0RS',t:'أحادي',p:'8 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'Sungrow',m:'SG10RS',t:'أحادي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'Sungrow',m:'SG15RT',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'Sungrow',m:'SG25RT',t:'ثلاثي',p:'25 kW',c:'✓',d:'✓',s:'✓',r:'الأفضل قيمةً','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'مارس 2026'},
+  {b:'SiGEnergy',m:'SCH-3K',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green',cert:'IEC62109-1/2:2011',rev:'فبراير 2026'},
+  {b:'SiGEnergy',m:'SCH-5K',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green',cert:'IEC62109-1/2:2011',rev:'فبراير 2026'},
+  {b:'SiGEnergy',m:'SCH-10K',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green',cert:'IEC62109-1/2:2011',rev:'فبراير 2026'},
+  {b:'SiGEnergy',m:'SCH-15K',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'الجيل الجديد','rc':'badge-green',cert:'IEC62109-1/2:2011',rev:'فبراير 2026'},
+  {b:'Huawei',m:'SUN2000-3KTL-L1',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Huawei',m:'SUN2000-5KTL-L1',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Huawei',m:'SUN2000-10KTL-M1',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Huawei',m:'SUN2000-20KTL-M2',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'يناير 2026'},
+  {b:'Growatt',m:'MIN 3000TL-X',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أكتوبر 2025'},
+  {b:'Growatt',m:'MIN 5000TL-X',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أكتوبر 2025'},
+  {b:'Growatt',m:'MOD 10KTL3-X',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أكتوبر 2025'},
+  {b:'Growatt',m:'MOD 20KTL3-X',t:'ثلاثي',p:'20 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أكتوبر 2025'},
+  {b:'GoodWe',m:'GW3000-MS',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'نوفمبر 2025'},
+  {b:'GoodWe',m:'GW5000-MS',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'نوفمبر 2025'},
+  {b:'GoodWe',m:'GW10K-MT',t:'ثلاثي',p:'10 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'نوفمبر 2025'},
+  {b:'GoodWe',m:'GW25K-MT',t:'ثلاثي',p:'25 kW',c:'✓',d:'✓',s:'✓',r:'موصى به','rc':'badge-blue',cert:'IEC62109-1/2:2011',rev:'نوفمبر 2025'},
+  {b:'SMA',m:'Sunny Boy 3.0',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'ديسمبر 2025'},
+  {b:'SMA',m:'Sunny Boy 5.0',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'ديسمبر 2025'},
+  {b:'SMA',m:'Sunny Tripower 15000TL',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'متميز','rc':'badge-amber',cert:'IEC62109-1/2:2011',rev:'ديسمبر 2025'},
+  {b:'Solis',m:'S5-GR1P3K',t:'أحادي',p:'3 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'سبتمبر 2025'},
+  {b:'Solis',m:'S5-GR1P5K',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'سبتمبر 2025'},
+  {b:'Solis',m:'S5-GR3P15K',t:'ثلاثي',p:'15 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'سبتمبر 2025'},
+  {b:'Deye',m:'SUN-5K-G',t:'أحادي',p:'5 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أغسطس 2025'},
+  {b:'Deye',m:'SUN-12K-SG',t:'ثلاثي',p:'12 kW',c:'✓',d:'✓',s:'✓',r:'قيمة جيدة','rc':'badge-gray',cert:'IEC62109-1/2:2011',rev:'أغسطس 2025'},
 ];
 function render(filter){
   var data=filter==='all'?inverters:inverters.filter(function(i){return i.b===filter;});
-  var html=data.map(function(i){return '<tr><td><span class="brand-name">'+i.b+'</span></td><td style="font-size:12px;">'+i.m+'</td><td>'+i.t+'</td><td><strong>'+i.p+'</strong></td><td class="check">'+i.c+'</td><td class="check">'+i.d+'</td><td class="check">'+i.s+'</td><td><span class="badge '+i.rc+'">'+i.r+'</span></td></tr>';}).join('');
+  var html=data.map(function(i){
+    return '<tr><td><span class="brand-name">'+i.b+'</span></td><td style="font-size:12px;">'+i.m+'</td><td>'+i.t+'</td><td><strong>'+i.p+'</strong></td><td class="check">'+i.c+'</td><td class="check">'+i.d+'</td><td class="check">'+i.s+'</td><td><span style="font-size:10px;color:var(--text-muted);">'+i.cert+'</span></td><td style="font-size:11px;color:var(--text-muted);white-space:nowrap;">'+i.rev+'</td><td><span class="badge '+i.rc+'">'+i.r+'</span></td></tr>';
+  }).join('');
   document.getElementById('inv-tbody').innerHTML=html;
 }
 function filterBrand(b,btn){
