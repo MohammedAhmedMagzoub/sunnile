@@ -98,6 +98,26 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
 .spec-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--amber);flex-shrink:0;}
 .spec-label{font-size:13px;}
 
+/* ── QUIZ PROGRESS ── */
+.progress-section{background:var(--dark2);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px;}
+.prog-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:560px){.prog-cols{grid-template-columns:1fr;}}
+.prog-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.prog-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+.prog-sub{font-size:11px;color:var(--text-dim);margin-bottom:14px;}
+.prog-bar-wrap{background:var(--dark4);border-radius:20px;height:6px;margin-bottom:12px;overflow:hidden;}
+.prog-bar{height:6px;border-radius:20px;background:var(--amber);transition:width .4s;}
+.prog-bar.full{background:var(--green);}
+.units-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;}
+.unit-dot{width:100%;aspect-ratio:1;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .15s;}
+.unit-dot:hover{transform:scale(1.15);}
+.unit-dot.passed{background:rgba(39,201,63,0.18);border:1px solid rgba(39,201,63,0.35);color:var(--green);}
+.unit-dot.failed{background:rgba(224,108,117,0.12);border:1px solid rgba(224,108,117,0.3);color:#E06C75;}
+.unit-dot.pending{background:var(--dark4);border:1px solid var(--border);color:var(--text-dim);}
+.prog-status{margin-top:12px;font-size:12px;font-weight:600;text-align:center;}
+.prog-status.ready{color:var(--green);}
+.prog-status.progress{color:var(--amber);}
+
 /* ── SAVE BUTTON ── */
 .btn-save{width:100%;background:var(--amber);color:#1C1A14;border:none;padding:16px;border-radius:12px;font-family:'Cairo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:24px;}
 .btn-save:hover{background:#F5A832;}
@@ -157,6 +177,12 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
       </div>
     </div>
     <button class="btn-signout" id="btn-signout">تسجيل الخروج</button>
+  </div>
+
+  <!-- QUIZ PROGRESS -->
+  <div class="progress-section" id="quiz-progress-section">
+    <div class="section-title">🎓 تقدم اجتياز الوحدات — الشرط للاعتماد</div>
+    <div id="quiz-progress-body" style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px 0;">⏳ جاري تحميل تقدمك...</div>
   </div>
 
   <!-- BASIC INFO -->
@@ -316,7 +342,7 @@ sb.auth.getSession().then(async function(r) {
   }
   currentUser = r.data.session.user;
   document.getElementById('dash-content').style.display = '';
-  await loadProfile();
+  await Promise.all([loadProfile(), loadQuizProgress()]);
 });
 
 /* ── Sign out ── */
@@ -393,6 +419,101 @@ function setField(id, val) {
   if (val === null || val === undefined || val === '') return;
   var el = document.getElementById(id);
   if (el) el.value = val;
+}
+
+/* ── Quiz progress ── */
+var UNIT_SLUGS = [
+  'unit-01-electrical-safety','unit-02-solar-panels','unit-03-inverter',
+  'unit-04-system-sizing','unit-05-batteries','unit-06-cables',
+  'unit-07-installation','unit-08-testing','unit-09-advanced-design',
+  'unit-10-hybrid-grid','unit-11-maintenance','unit-12-advanced-inverters',
+  'unit-13-grid-integration','unit-14-electrical-diagrams','unit-15-commercial-systems',
+  'unit-16-documentation','unit-17-derms','unit-18-vpp',
+  'unit-19-sunspec-modbus','unit-20-performance-monitoring','unit-21-community-systems',
+  'unit-22-certification','unit-23-project-management','unit-24-leadership'
+];
+/* Level 2 = units 1-12, Level 3 = units 13-24 (on top of Level 2) */
+var L2_SLUGS = UNIT_SLUGS.slice(0, 12);
+var L3_SLUGS = UNIT_SLUGS.slice(12, 24);
+
+async function loadQuizProgress() {
+  var result = await sb.from('quiz_attempts')
+    .select('lesson_slug,score,total,passed')
+    .eq('user_id', currentUser.id);
+
+  var attempts = result.data || [];
+  var attemptMap = {};
+  attempts.forEach(function(a) { attemptMap[a.lesson_slug] = a; });
+
+  function passedCount(slugs) {
+    return slugs.filter(function(s) { return attemptMap[s] && attemptMap[s].passed; }).length;
+  }
+
+  var l2Passed  = passedCount(L2_SLUGS);
+  var l3Passed  = passedCount(L3_SLUGS);
+  var l2Ready   = l2Passed === 12;
+  var l3Ready   = l3Ready = l2Ready && l3Passed === 12;
+
+  function buildGrid(slugs, offset) {
+    return slugs.map(function(slug, i) {
+      var num    = offset + i + 1;
+      var label  = num < 10 ? '0' + num : '' + num;
+      var att    = attemptMap[slug];
+      var cls    = !att ? 'pending' : att.passed ? 'passed' : 'failed';
+      var title  = !att ? 'لم تُحاول بعد' : (att.passed ? '✓ اجتزت' : '✗ ' + att.score + '/' + att.total);
+      return '<a class="unit-dot ' + cls + '" href="/lessons/' + slug + '.html" title="' + title + '">' + label + '</a>';
+    }).join('');
+  }
+
+  function bar(pct, full) {
+    return '<div class="prog-bar-wrap"><div class="prog-bar' + (full?' full':'') + '" style="width:' + Math.round(pct * 100) + '%"></div></div>';
+  }
+
+  var detectedLevel = l3Ready ? 3 : l2Ready ? 2 : null;
+
+  var html = '<div class="prog-cols">' +
+    /* Level 2 card */
+    '<div class="prog-card">' +
+      '<div class="prog-title">المستوى الثاني — الوحدات ١–١٢</div>' +
+      '<div class="prog-sub">الحد الأدنى للانضمام للدليل</div>' +
+      bar(l2Passed / 12, l2Ready) +
+      '<div class="units-grid">' + buildGrid(L2_SLUGS, 0) + '</div>' +
+      '<div class="prog-status ' + (l2Ready ? 'ready' : 'progress') + '">' +
+        (l2Ready ? '✅ مؤهل للمستوى الثاني' : l2Passed + ' / 12 وحدة مجتازة') +
+      '</div>' +
+    '</div>' +
+    /* Level 3 card */
+    '<div class="prog-card">' +
+      '<div class="prog-title">المستوى الثالث — الوحدات ١٣–٢٤</div>' +
+      '<div class="prog-sub">يتطلب إتمام المستوى الثاني أولاً</div>' +
+      bar(l3Passed / 12, l3Ready) +
+      '<div class="units-grid">' + buildGrid(L3_SLUGS, 12) + '</div>' +
+      '<div class="prog-status ' + (l3Ready ? 'ready' : 'progress') + '">' +
+        (l3Ready ? '✅ مؤهل للمستوى الثالث' : l3Passed + ' / 12 وحدة مجتازة') +
+      '</div>' +
+    '</div>' +
+  '</div>';
+
+  if (detectedLevel) {
+    html += '<div style="margin-top:14px;padding:12px 16px;background:rgba(39,201,63,0.08);border:1px solid rgba(39,201,63,0.2);border-radius:8px;text-align:center;font-size:13px;color:var(--green);font-weight:700;">' +
+      '🎓 مستوى الاعتماد المكتسب: المستوى ' + (detectedLevel === 3 ? 'الثالث' : 'الثاني') +
+      ' — سيتحقق منه فريق شمس النيل قبل الموافقة' +
+    '</div>';
+    /* Auto-set level field to match earned level */
+    var radio = document.querySelector('input[name="level"][value="' + detectedLevel + '"]');
+    if (radio) {
+      radio.checked = true;
+      document.getElementById('lc-2').classList.toggle('selected', detectedLevel === 2);
+      document.getElementById('lc-3').classList.toggle('selected', detectedLevel === 3);
+    }
+  } else {
+    html += '<div style="margin-top:14px;padding:12px 16px;background:rgba(239,159,39,0.07);border:1px solid rgba(239,159,39,0.2);border-radius:8px;text-align:center;font-size:13px;color:var(--amber);">' +
+      '⚠️ يجب اجتياز الوحدات ١–١٢ على الأقل قبل قبول طلبك في الدليل — ' +
+      '<a href="/institute.html" style="color:var(--amber);font-weight:700;">ابدأ التدريب ←</a>' +
+    '</div>';
+  }
+
+  document.getElementById('quiz-progress-body').innerHTML = html;
 }
 
 /* ── Save profile ── */

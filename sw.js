@@ -19,6 +19,7 @@ var SHELL = [
   '/installer-auth.html',
   '/installer-dashboard.html',
   '/i18n.js',
+  '/quiz.js',
   '/manifest.json',
   '/lessons/unit-01-electrical-safety.html',
   '/lessons/unit-02-solar-panels.html',
