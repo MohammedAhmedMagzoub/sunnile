@@ -16,6 +16,8 @@ var SHELL = [
   '/institute.html',
   '/about.html',
   '/installers.html',
+  '/installer-auth.html',
+  '/installer-dashboard.html',
   '/i18n.js',
   '/manifest.json',
   '/lessons/unit-01-electrical-safety.html',

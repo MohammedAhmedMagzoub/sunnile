@@ -284,8 +284,8 @@ html[dir="ltr"] .card-stat+.card-stat{border-right:none;border-left:1px solid va
       <li>رقم واتساب فعّال للتواصل مع العملاء</li>
       <li>الموافقة على معايير شمس النيل التقنية</li>
     </ul>
-    <a href="mailto:info@sunnile.org?subject=طلب انضمام — دليل المركّبين&body=الاسم:%0Aالولاية:%0Aرقم الواتساب:%0Aمستوى الاعتماد (المستوى الثاني / الثالث):%0Aسنوات الخبرة:%0Aعدد المشاريع المنجزة:%0Aالتخصص:" class="btn-register" id="reg-btn">سجّل اهتمامك — أرسل طلبك</a>
-    <p style="font-size:11px;color:var(--text-dim);margin-top:12px;" id="reg-note">سيتواصل معك فريق شمس النيل خلال ٧٢ ساعة للتحقق من الاعتماد وإضافة ملفك للدليل</p>
+    <a href="installer-auth.html" class="btn-register" id="reg-btn">سجّل حسابك وأضف ملفك ←</a>
+    <p style="font-size:11px;color:var(--text-dim);margin-top:12px;" id="reg-note">أنشئ حسابك، أكمل ملفك، وسيراجعه فريق شمس النيل ويُضيفه للدليل خلال ٧٢ ساعة</p>
   </div>
 </div>
 
@@ -294,59 +294,23 @@ html[dir="ltr"] .card-stat+.card-stat{border-right:none;border-left:1px solid va
   <p class="footer-text">مبادرة مجانية غير ربحية لدعم الطاقة الشمسية في السودان<br>Sudan's Rooftop Solar Initiative | sunnile.org</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ═══════════════════════════════════════════════════
-   INSTALLER DATA — ADD NEW INSTALLERS HERE
-   ═══════════════════════════════════════════════════
-   To add an installer, copy the block below and fill in the details.
-   Fields:
-     nameAR      — Full name in Arabic
-     nameEN      — Full name in English
-     state       — State key (must match filter-state option values)
-     stateAR     — State name in Arabic
-     stateEN     — State name in English
-     level       — SunNile Institute level completed (2 or 3)
-     yearsExp    — Years of solar installation experience
-     projects    — Number of completed installations
-     phone       — Phone number with country code (e.g. +249912345678)
-     whatsapp    — WhatsApp number with country code
-     specialties — Array of specialty keys: 'residential','commercial','offgrid','hybrid'
-     specialtiesAR — Arabic specialty labels
-     specialtiesEN — English specialty labels
-     bioAR       — Short bio in Arabic (1-2 sentences)
-     bioEN       — Short bio in English (1-2 sentences)
-     avatarColor — Hex color for avatar background (use amber/blue palette)
-     verifiedDate — Month + year of verification
-*/
+var SUPABASE_URL = 'https://awacxkhlcoeucdavyoqx.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_ZoaUJr4H4s57-XNJgwJUBA_VhBVlzCp';
+var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-var INSTALLERS = [
-  {
-    id: 1,
-    nameAR: '— يُضاف قريباً —',        /* FILL IN: installer's Arabic name */
-    nameEN: '— Coming Soon —',          /* FILL IN: installer's English name */
-    state: 'khartoum',
-    stateAR: 'الخرطوم',
-    stateEN: 'Khartoum',
-    level: 2,
-    yearsExp: 0,                         /* FILL IN: years of experience */
-    projects: 0,                         /* FILL IN: number of completed installations */
-    phone: '',                           /* FILL IN: +249XXXXXXXXX */
-    whatsapp: '',                        /* FILL IN: +249XXXXXXXXX */
-    specialties: ['residential'],
-    specialtiesAR: ['أنظمة سكنية'],
-    specialtiesEN: ['Residential Systems'],
-    bioAR: 'فني شمسي معتمد من معهد شمس النيل — سيُضاف ملفه الكامل قريباً.',
-    bioEN: 'SunNile-certified solar technician — full profile coming soon.',
-    avatarColor: '#EF9F27',
-    verifiedDate: 'إبريل 2026',
-    verifiedDateEN: 'April 2026',
-    placeholder: true   /* set to false once you fill in real details */
-  }
-  /* ADD MORE INSTALLERS BELOW — copy the block above */
-];
+/* Cached data from Supabase — populated once on load, filtered client-side */
+var ALL_INSTALLERS = [];
 
-/* ═══════════════════════════════════════════════════ */
-
+var STATES_AR = {
+  khartoum:'الخرطوم', gezira:'الجزيرة', rivernile:'نهر النيل',
+  northern:'الشمالية', redsea:'البحر الأحمر', kassala:'كسلا',
+  gedaref:'القضارف', sennar:'سنار', bluenile:'النيل الأزرق',
+  nkordofan:'شمال كردفان', skordofan:'جنوب كردفان', wkordofan:'غرب كردفان',
+  ndarfur:'شمال دارفور', sdarfur:'جنوب دارفور', edarfur:'شرق دارفور',
+  cdarfur:'وسط دارفور', wdarfur:'غرب دارفور', whitenile:'النيل الأبيض'
+};
 var STATES_EN = {
   khartoum:'Khartoum', gezira:'Gezira', rivernile:'River Nile',
   northern:'Northern', redsea:'Red Sea', kassala:'Kassala',
@@ -355,64 +319,73 @@ var STATES_EN = {
   ndarfur:'N. Darfur', sdarfur:'S. Darfur', edarfur:'E. Darfur',
   cdarfur:'C. Darfur', wdarfur:'W. Darfur', whitenile:'White Nile'
 };
-
 var SPEC_LABELS = {
-  residential:  {ar:'سكني',   en:'Residential'},
-  commercial:   {ar:'تجاري',  en:'Commercial'},
-  offgrid:      {ar:'Off-Grid',en:'Off-Grid'},
-  hybrid:       {ar:'هجين',   en:'Hybrid'}
+  residential: {ar:'سكني',    en:'Residential'},
+  commercial:  {ar:'تجاري',   en:'Commercial'},
+  offgrid:     {ar:'Off-Grid', en:'Off-Grid'},
+  hybrid:      {ar:'هجين',    en:'Hybrid'}
 };
+var AVATAR_COLORS = ['#EF9F27','#378ADD','#27C93F','#C678DD','#56B6C2','#E06C75'];
 
 function isEN() { return document.documentElement.classList.contains('lang-en'); }
+
+function avatarColor(name) {
+  var n = 0;
+  for (var i = 0; i < (name || '').length; i++) n += name.charCodeAt(i);
+  return AVATAR_COLORS[n % AVATAR_COLORS.length];
+}
+
+function formatDate(iso, en) {
+  if (!iso) return en ? 'Verified' : 'موثّق';
+  var d = new Date(iso);
+  var arM = ['يناير','فبراير','مارس','إبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var enM = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return en ? enM[d.getMonth()] + ' ' + d.getFullYear() : arM[d.getMonth()] + ' ' + d.getFullYear();
+}
 
 function getLevelLabel(lvl, en) {
   if (en) return lvl === 3 ? 'Level 3 · Advanced' : 'Level 2 · Intermediate';
   return lvl === 3 ? 'المستوى الثالث · متقدم' : 'المستوى الثاني · متوسط';
 }
-function getLevelBadgeClass(lvl) {
-  return lvl === 3 ? 'badge-green' : 'badge-amber';
-}
+function getLevelBadgeClass(lvl) { return lvl === 3 ? 'badge-green' : 'badge-amber'; }
 
 function buildCard(inst) {
-  var en = isEN();
-  var name     = en ? inst.nameEN  : inst.nameAR;
-  var stateStr = en ? inst.stateEN : inst.stateAR;
-  var bio      = en ? inst.bioEN   : inst.bioAR;
-  var vdate    = en ? inst.verifiedDateEN : inst.verifiedDate;
+  var en       = isEN();
+  var name     = en ? (inst.name_en || inst.name_ar) : inst.name_ar;
+  var stateStr = en ? (STATES_EN[inst.state] || inst.state) : (STATES_AR[inst.state] || inst.state);
+  var bio      = en ? (inst.bio_en || inst.bio_ar) : inst.bio_ar;
+  var vdate    = formatDate(inst.created_at, en);
   var levelLbl = getLevelLabel(inst.level, en);
   var levelCls = getLevelBadgeClass(inst.level);
-  var locLabel = en ? 'Location' : 'الموقع';
-  var expLabel = en ? 'yrs exp' : 'سنة خبرة';
+  var expLabel = en ? 'yrs exp'  : 'سنة خبرة';
   var projLabel= en ? 'projects' : 'مشروع';
   var verLabel = en ? 'Verified' : 'موثّق';
   var waLabel  = en ? 'WhatsApp' : 'واتساب';
-  var callLabel= en ? 'Call' : 'اتصال';
+  var callLabel= en ? 'Call'     : 'اتصال';
+  var aColor   = avatarColor(inst.name_ar || '');
 
-  var specs = inst.specialties.map(function(s, i) {
-    var lbl = en ? inst.specialtiesEN[i] : inst.specialtiesAR[i];
+  var specs = (inst.specialties || []).map(function(s) {
+    var lbl = SPEC_LABELS[s] ? (en ? SPEC_LABELS[s].en : SPEC_LABELS[s].ar) : s;
     return '<span class="badge badge-gray">' + lbl + '</span>';
   }).join('');
 
-  var waHref   = inst.whatsapp ? 'https://wa.me/' + inst.whatsapp.replace(/\D/g,'') + '?text=' + encodeURIComponent(en ? 'Hello, I found you on SunNile installer directory and would like a solar system quote.' : 'مرحباً، وجدتك في دليل مركّبي شمس النيل وأودّ الاستفسار عن تركيب نظام شمسي.') : '#';
+  var waMsg    = encodeURIComponent(en
+    ? 'Hello, I found you on the SunNile installer directory and would like a solar system quote.'
+    : 'مرحباً، وجدتك في دليل مركّبي شمس النيل وأودّ الاستفسار عن تركيب نظام شمسي.');
+  var waHref   = inst.whatsapp ? 'https://wa.me/' + inst.whatsapp.replace(/\D/g,'') + '?text=' + waMsg : '#';
   var callHref = inst.phone ? 'tel:' + inst.phone : '#';
 
-  var btns = '';
-  if (inst.placeholder) {
-    btns = '<div style="padding:14px 20px;font-size:12px;color:var(--text-dim);text-align:center;">' +
-      (en ? '⏳ Profile coming soon' : '⏳ الملف سيُضاف قريباً') + '</div>';
-  } else {
-    btns = '<div class="card-actions">' +
-      '<a class="btn-whatsapp" href="' + waHref + '" target="_blank" rel="noopener">💬 ' + waLabel + '</a>' +
-      '<a class="btn-call" href="' + callHref + '">📞 ' + callLabel + '</a>' +
-      '</div>';
-  }
+  var btns = '<div class="card-actions">' +
+    (inst.whatsapp ? '<a class="btn-whatsapp" href="' + waHref + '" target="_blank" rel="noopener">💬 ' + waLabel + '</a>' : '') +
+    (inst.phone    ? '<a class="btn-call" href="' + callHref + '">📞 ' + callLabel + '</a>' : '') +
+    '</div>';
 
   return '<div class="installer-card">' +
     '<div class="card-header">' +
-      '<div class="card-avatar" style="background:' + inst.avatarColor + '">' + name.charAt(0) + '</div>' +
+      '<div class="card-avatar" style="background:' + aColor + '">' + (name.charAt(0) || '?') + '</div>' +
       '<div class="card-identity">' +
         '<div class="card-name">' + name + ' <span class="verified-tick" title="' + verLabel + '">✓</span></div>' +
-        '<div class="card-location">📍 ' + stateStr + '</div>' +
+        '<div class="card-location">📍 ' + stateStr + (inst.city ? '، ' + inst.city : '') + '</div>' +
         '<div class="card-badges">' +
           '<span class="badge ' + levelCls + '">' + levelLbl + '</span>' +
           '<span class="badge badge-blue">' + (en ? 'SunNile Certified' : 'معتمد شمس النيل') + '</span>' +
@@ -420,47 +393,72 @@ function buildCard(inst) {
       '</div>' +
     '</div>' +
     '<div class="card-stats">' +
-      '<div class="card-stat"><div class="stat-num">' + inst.yearsExp + '</div><div class="stat-lbl">' + expLabel + '</div></div>' +
-      '<div class="card-stat"><div class="stat-num">' + inst.projects + '</div><div class="stat-lbl">' + projLabel + '</div></div>' +
+      '<div class="card-stat"><div class="stat-num">' + (inst.years_exp || 0) + '</div><div class="stat-lbl">' + expLabel + '</div></div>' +
+      '<div class="card-stat"><div class="stat-num">' + (inst.projects || 0) + '</div><div class="stat-lbl">' + projLabel + '</div></div>' +
       '<div class="card-stat"><div class="stat-num" style="font-size:12px;color:var(--green);">✓</div><div class="stat-lbl">' + vdate + '</div></div>' +
     '</div>' +
-    '<div class="card-bio">' + bio + '</div>' +
-    '<div class="card-specialties">' + specs + '</div>' +
+    (bio ? '<div class="card-bio">' + bio + '</div>' : '') +
+    (specs ? '<div class="card-specialties">' + specs + '</div>' : '') +
     btns +
     '</div>';
+}
+
+async function loadInstallers() {
+  var grid    = document.getElementById('installers-grid');
+  var countEl = document.getElementById('result-count');
+  var en      = isEN();
+  grid.innerHTML = '<div class="no-results" style="opacity:.6;">⏳ ' + (en ? 'Loading...' : 'جاري التحميل...') + '</div>';
+
+  var result = await sb
+    .from('installers')
+    .select('*')
+    .eq('is_verified', true)
+    .order('created_at', { ascending: true });
+
+  if (result.error) {
+    grid.innerHTML = '<div class="no-results">⚠️ ' +
+      (en ? 'Error loading data — please refresh.' : 'خطأ في تحميل البيانات — حاول تحديث الصفحة.') + '</div>';
+    return;
+  }
+
+  ALL_INSTALLERS = result.data || [];
+  applyFilters();
 }
 
 function applyFilters() {
   var stateVal = document.getElementById('filter-state').value;
   var levelVal = document.getElementById('filter-level').value;
   var specVal  = document.getElementById('filter-spec').value;
-  var en = isEN();
+  var en       = isEN();
+  var grid     = document.getElementById('installers-grid');
+  var countEl  = document.getElementById('result-count');
 
-  var filtered = INSTALLERS.filter(function(inst) {
+  var filtered = ALL_INSTALLERS.filter(function(inst) {
     if (stateVal !== 'all' && inst.state !== stateVal) return false;
     if (levelVal !== 'all' && String(inst.level) !== levelVal) return false;
-    if (specVal  !== 'all' && inst.specialties.indexOf(specVal) === -1) return false;
+    if (specVal  !== 'all' && (!inst.specialties || inst.specialties.indexOf(specVal) === -1)) return false;
     return true;
   });
 
-  var grid = document.getElementById('installers-grid');
-  var countEl = document.getElementById('result-count');
-
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="no-results">' +
-      (en ? '😔 No installers found for these filters — try broadening your search.' :
-            '😔 لا يوجد مركّبون لهذه المعايير — جرّب توسيع البحث.') + '</div>';
+    var msg = ALL_INSTALLERS.length === 0
+      ? '🌟 ' + (en
+          ? 'No verified installers yet — <a href="installer-auth.html" style="color:var(--amber)">be the first to register</a>.'
+          : 'لا يوجد مركّبون معتمدون بعد — <a href="installer-auth.html" style="color:var(--amber)">كن أول من يسجّل</a>.')
+      : '😔 ' + (en ? 'No results for these filters.' : 'لا يوجد مركّبون لهذه المعايير — جرّب توسيع البحث.');
+    grid.innerHTML = '<div class="no-results">' + msg + '</div>';
     countEl.textContent = en ? '0 results' : '٠ نتائج';
     return;
   }
 
   grid.innerHTML = filtered.map(buildCard).join('');
   var n = filtered.length.toLocaleString(en ? 'en' : 'ar');
-  countEl.textContent = en ? n + ' installer' + (filtered.length !== 1 ? 's' : '') : n + ' مركّب';
+  countEl.textContent = en
+    ? n + ' installer' + (filtered.length !== 1 ? 's' : '')
+    : n + ' مركّب';
 }
 
-/* init */
-applyFilters();
+document.addEventListener('DOMContentLoaded', function() { loadInstallers(); });
 </script>
 
 <script>

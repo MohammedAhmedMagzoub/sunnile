@@ -1160,8 +1160,8 @@
       if ((el = document.getElementById('how4-p')))    save(el, 'Every installer in the directory holds Level 2+ accreditation from SunNile Institute');
       if ((el = document.getElementById('reg-title'))) save(el, '🔧 Are You a Certified Solar Technician?');
       if ((el = document.getElementById('reg-sub')))   save(el, 'Join the SunNile directory and connect with clients in your state — completely free during launch');
-      if ((el = document.getElementById('reg-btn')))   save(el, 'Register Your Interest — Send Application');
-      if ((el = document.getElementById('reg-note')))  save(el, 'The SunNile team will contact you within 72 hours to verify your accreditation and add your profile');
+      if ((el = document.getElementById('reg-btn')))   save(el, 'Create Account & Submit Profile →');
+      if ((el = document.getElementById('reg-note')))  save(el, 'Create your account, complete your profile — the SunNile team will review and publish it within 72 hours');
       document.title = 'Certified Solar Installer Directory — SunNile';
     },
 
