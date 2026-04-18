@@ -162,48 +162,136 @@
     /* ── CALCULATOR ── */
     calculator: function () {
       var el;
+      /* page header */
       if ((el = $('.page-header h1'))) save(el, '🧮 Solar System Calculator');
       if ((el = $('.page-header p')))  save(el, 'Calculate the ideal system size for your home or business in Sudan');
-      var labels = $$('.form-label');
+
+      /* form labels (basic + advanced) */
       var labelEN = [
         'Geographic Region <span>(PSH = Peak Sun Hours)</span>',
         'Daily Consumption <span>(kWh/day)</span>',
         'Panel Power <span>(Watts)</span>',
-        'Daily Power Outage Hours <span>(for battery sizing)</span>'
+        'Daily Power Outage Hours <span>(for battery sizing)</span>',
+        'Battery Type',
+        'Autonomy Days <span>(days without sun)</span>',
+        'Tilt Angle <span>(° — 0 flat, 90 vertical)</span>',
+        'Estimated Installation Cost <span>(USD / Watt)</span>',
+        'Current Electricity Tariff <span>(USD / kWh)</span>',
+        'Battery Cost <span>(USD / kWh)</span>'
       ];
-      labels.forEach(function (lbl, i) { if (labelEN[i]) save(lbl, labelEN[i]); });
+      $$('.form-label').forEach(function (lbl, i) { if (labelEN[i]) save(lbl, labelEN[i]); });
+
+      /* region options */
       var region = document.getElementById('region');
       if (region) {
-        var optEN = [
-          'North — 6.8 hr/day (Nile, Northern)',
-          'Centre — 6.2 hr/day (Khartoum, Gezira)',
-          'East — 5.8 hr/day (Kassala, Red Sea)',
-          'West — 6.0 hr/day (Kordofan, Darfur)',
-          'South — 5.2 hr/day (Blue Nile)'
-        ];
-        region.querySelectorAll('option').forEach(function (o, i) {
+        ['North — 6.8 hr/day (Nile, Northern)',
+         'Centre — 6.2 hr/day (Khartoum, Gezira)',
+         'East — 5.8 hr/day (Kassala, Red Sea)',
+         'West — 6.0 hr/day (Kordofan, Darfur)',
+         'South — 5.2 hr/day (Blue Nile)'].forEach(function (t, i) {
+          var o = region.options[i];
+          if (!o) return;
           if (!o.hasAttribute('data-ar')) o.setAttribute('data-ar', o.textContent);
-          if (optEN[i]) o.textContent = optEN[i];
+          o.textContent = t;
         });
       }
-      if ((el = $('.calc-btn'))) save(el, 'Calculate Optimal System →');
-      var res = document.getElementById('calc-results');
-      if (res) {
-        var h3 = $('h3', res);
-        if (h3) save(h3, 'Design Results');
-        var rp = $('p', res);
-        if (rp) save(rp, 'Based on 25% system losses and NASA POWER data for the selected region');
+
+      /* battery type options */
+      var battType = document.getElementById('batt-type');
+      if (battType) {
+        ['Lithium Iron Phosphate (LiFePO4) — 80% DoD, 95% efficiency',
+         'Lead-Acid — 50% DoD, 80% efficiency'].forEach(function (t, i) {
+          var o = battType.options[i];
+          if (!o) return;
+          if (!o.hasAttribute('data-ar')) o.setAttribute('data-ar', o.textContent);
+          o.textContent = t;
+        });
       }
-      $$('.result-label').forEach(function (r, i) {
-        var en = ['System Size (kWp)','Solar Panels','Battery Capacity'][i];
-        if (en) save(r, en);
+
+      /* autonomy options */
+      var aut = document.getElementById('autonomy');
+      if (aut) {
+        ['1 day', '2 days', '3 days'].forEach(function (t, i) {
+          var o = aut.options[i];
+          if (!o) return;
+          if (!o.hasAttribute('data-ar')) o.setAttribute('data-ar', o.textContent);
+          o.textContent = t;
+        });
+      }
+
+      /* battery cost options */
+      var bc = document.getElementById('batt-cost');
+      if (bc) {
+        ['LiFePO4 — ~$150/kWh', 'Premium LiFePO4 — ~$200/kWh', 'Lead-Acid — ~$80/kWh'].forEach(function (t, i) {
+          var o = bc.options[i];
+          if (!o) return;
+          if (!o.hasAttribute('data-ar')) o.setAttribute('data-ar', o.textContent);
+          o.textContent = t;
+        });
+      }
+
+      /* panel options */
+      var pw = document.getElementById('panel-w');
+      if (pw) {
+        pw.querySelectorAll('option').forEach(function (o) {
+          if (!o.hasAttribute('data-ar')) o.setAttribute('data-ar', o.textContent);
+          o.textContent = o.value + ' W';
+        });
+      }
+
+      /* form hints (skip tilt-hint — managed dynamically by updateTiltHint) */
+      if ((el = document.getElementById('hint-cost')))   save(el, 'Includes panels, inverter, installation and wiring — excludes battery');
+      if ((el = document.getElementById('hint-tariff'))) save(el, 'Leave 0 if unknown — used to calculate payback period');
+
+      /* advanced toggle label */
+      if ((el = document.getElementById('adv-label'))) save(el, '⚙ Advanced Settings — Battery type · Tilt angle · Cost estimate');
+
+      /* tilt hint update (if tilt element exists, push English version) */
+      var tiltHint = document.getElementById('tilt-hint');
+      var tiltVal = document.getElementById('tilt');
+      if (tiltHint && tiltVal) {
+        var curTilt = tiltVal.value || '16';
+        tiltHint.textContent = 'Optimal tilt for this region: ' + curTilt + '° — panels face south in Sudan';
+      }
+
+      /* calculate button */
+      if ((el = $('.calc-btn'))) save(el, 'Calculate Optimal System →');
+
+      /* result card labels + units */
+      var rlEN = ['System Size (kWp)', 'Solar Panels', 'Min. Inverter Size', 'Battery Capacity'];
+      var ruEN = ['kWp peak', 'panels', 'kW', 'kWh'];
+      ['rl-kwp','rl-panels','rl-inv','rl-batt'].forEach(function (id, i) {
+        if ((el = document.getElementById(id))) save(el, rlEN[i]);
       });
-      $$('.result-unit').forEach(function (r, i) {
-        var en = ['kWp peak','panels','kWh'][i];
-        if (en) save(r, en);
+      ['ru-kwp','ru-panels','ru-inv','ru-batt'].forEach(function (id, i) {
+        if ((el = document.getElementById(id))) save(el, ruEN[i]);
       });
-      var notesEl = $('.calc-wrap > div:last-of-type h3');
-      if (notesEl) save(notesEl, 'Important Notes');
+
+      /* results section title */
+      if ((el = document.getElementById('results-title'))) save(el, 'Design Results');
+
+      /* chart + performance section titles */
+      if ((el = document.getElementById('chart-title'))) save(el, 'Expected Monthly Generation');
+      if ((el = document.getElementById('perf-title')))  save(el, 'Performance Ratio (PR) Breakdown');
+
+      /* cost section title */
+      if ((el = document.getElementById('cost-title'))) save(el, '💰 Cost Estimate & Payback Period');
+
+      /* CO2 line label */
+      if ((el = document.getElementById('co2-label'))) save(el, 'Estimated Annual Carbon Offset 🌱');
+
+      /* notes */
+      if ((el = document.getElementById('notes-title'))) save(el, 'Important Notes');
+      var noteLi = $$('#notes-list li');
+      var noteEN = [
+        '⚠️ This calculator provides an initial estimate — a certified technician must review the final design',
+        '📊 PSH data is based on NASA POWER measurements per Sudanese state — including monthly temperature effects',
+        '🌡 Performance ratio is calculated automatically with monthly thermal derating at −0.35%/°C above 25°C',
+        '🔋 Battery capacity includes depth-of-discharge (DoD) and round-trip efficiency margin per battery type',
+        '⚡ Cost estimates are indicative only — actual prices vary by supplier, location and market conditions'
+      ];
+      noteLi.forEach(function (li, i) { if (noteEN[i]) save(li, noteEN[i]); });
+
       document.title = 'Solar System Calculator — SunNile';
     },
 

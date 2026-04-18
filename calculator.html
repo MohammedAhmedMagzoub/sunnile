@@ -42,48 +42,77 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
 .page-header{text-align:center;padding:48px 24px 32px;}
 .page-header h1{font-size:32px;font-weight:700;margin-bottom:8px;}
 .page-header p{font-size:14px;color:var(--text-muted);}
-.section{padding:64px 24px;max-width:1100px;margin:0 auto;}
-.section-title{font-size:28px;font-weight:700;margin-bottom:8px;text-align:center;}
-.section-sub{font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:48px;}
 .site-footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
 .footer-logo{font-size:22px;font-weight:900;color:var(--amber);margin-bottom:8px;}
 .footer-text{font-size:12px;color:var(--text-dim);line-height:1.7;}
-.btn-primary{background:var(--amber);color:#1C1A14;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
-.btn-primary:hover{background:#F5A832;}
-.btn-outline{background:transparent;color:var(--blue);border:1px solid var(--blue);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
-.btn-outline:hover{background:rgba(55,138,221,0.1);}
-.card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:28px;transition:border-color .2s;}
-.card:hover{border-color:var(--amber);}
-.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;}
-.badge-amber{background:rgba(239,159,39,0.15);color:var(--amber);border:1px solid rgba(239,159,39,0.3);}
-.badge-blue{background:rgba(55,138,221,0.12);color:var(--blue);border:1px solid rgba(55,138,221,0.3);}
-.badge-green{background:rgba(39,201,63,0.1);color:#27C93F;border:1px solid rgba(39,201,63,0.25);}
-.badge-gray{background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
-@media(max-width:768px){.nav-links li a{padding:14px 7px;font-size:11px;}.logo-ar{font-size:14px;}}
 
-
+/* ── CALCULATOR LAYOUT ── */
 .calc-wrap{max-width:820px;margin:0 auto;padding:0 24px 48px;}
 .calc-form{background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:36px;}
-.form-group{margin-bottom:28px;}
+.form-group{margin-bottom:24px;}
 .form-label{display:block;font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text);}
 .form-label span{color:var(--text-muted);font-weight:400;font-size:12px;}
 .form-select,.form-input{width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Cairo',sans-serif;font-size:14px;direction:rtl;appearance:none;-webkit-appearance:none;}
 .form-select:focus,.form-input:focus{outline:none;border-color:var(--amber);}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+.form-hint{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.5;}
 .calc-btn{width:100%;background:var(--amber);color:#1C1A14;border:none;padding:16px;border-radius:10px;font-size:16px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .2s;margin-top:8px;}
 .calc-btn:hover{background:#F5A832;}
+
+/* ── ADVANCED TOGGLE ── */
+.adv-toggle{width:100%;background:var(--dark3);border:1px dashed rgba(168,159,140,0.3);border-radius:8px;padding:11px 16px;color:var(--text-muted);font-family:'Cairo',sans-serif;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;margin:0 0 4px;text-align:right;}
+.adv-toggle:hover{border-color:var(--amber);color:var(--text);}
+.adv-toggle .arr{font-size:10px;transition:transform .25s;flex-shrink:0;margin-right:8px;}
+html[dir="ltr"] .adv-toggle .arr{margin-right:0;margin-left:8px;}
+.adv-toggle.open .arr{transform:rotate(180deg);}
+.adv-section{display:none;border-top:1px solid var(--border);padding-top:20px;margin-top:12px;}
+
+/* ── RESULTS ── */
 .calc-results{display:none;margin-top:28px;padding-top:28px;border-top:1px solid var(--border);}
 .calc-results.visible{display:block;}
-.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:20px;}
-.result-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;}
-.result-num{font-size:36px;font-weight:900;color:var(--amber);line-height:1;}
-.result-unit{font-size:14px;color:var(--amber-dark);}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:16px;}
+.result-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;}
+.result-num{font-size:32px;font-weight:900;color:var(--amber);line-height:1;}
+.result-unit{font-size:13px;color:var(--amber-dark);}
 .result-label{font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.4;}
-.result-note{margin-top:16px;padding:12px 16px;background:rgba(55,138,221,0.08);border-right:3px solid var(--blue);border-radius:0 6px 6px 0;font-size:12px;color:var(--text-muted);line-height:1.7;}
 
+/* ── MONTHLY CHART ── */
+.chart-section{background:var(--dark3);border-radius:10px;padding:20px;margin-top:16px;}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+.chart-head-title{font-size:13px;font-weight:700;}
+.chart-annual{font-size:12px;color:var(--amber);font-weight:700;}
+.chart-bars{display:flex;align-items:flex-end;gap:3px;height:80px;direction:ltr;}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;}
+.chart-bar{width:100%;border-radius:3px 3px 0 0;transition:height .5s ease;background:linear-gradient(to top,var(--amber),rgba(239,159,39,0.4));}
+.chart-bar.low{background:linear-gradient(to top,var(--blue),rgba(55,138,221,0.4));}
+.chart-num{font-size:8px;color:var(--text-muted);white-space:nowrap;}
+.chart-lbls{display:flex;gap:3px;margin-top:3px;direction:ltr;}
+.chart-lbl{flex:1;text-align:center;font-size:9px;color:var(--text-dim);}
 
-/* ── HAMBURGER MENU ── */
+/* ── PERFORMANCE BREAKDOWN ── */
+.perf-section{background:var(--dark3);border-radius:10px;padding:16px 20px;margin-top:10px;}
+.perf-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text);}
+.perf-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;gap:8px;}
+.perf-row:last-child{border-bottom:none;font-weight:700;padding-top:8px;}
+.perf-loss{color:#e07070;flex-shrink:0;}
+.perf-ok{color:#27C93F;flex-shrink:0;}
+.perf-amber{color:var(--amber);flex-shrink:0;}
+
+/* ── COST / PAYBACK ── */
+.cost-section{background:rgba(55,138,221,0.06);border:1px solid rgba(55,138,221,0.2);border-radius:10px;padding:18px 20px;margin-top:10px;display:none;}
+.cost-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+.cost-note{font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.6;}
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
+.cost-item{text-align:center;background:var(--dark3);border-radius:8px;padding:12px;}
+.cost-num{font-size:20px;font-weight:900;color:var(--blue);}
+.cost-lbl{font-size:11px;color:var(--text-muted);margin-top:3px;}
+
+/* ── CO2 LINE ── */
+.co2-line{background:rgba(39,201,63,0.06);border:1px solid rgba(39,201,63,0.2);border-radius:8px;padding:10px 16px;margin-top:10px;display:none;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);gap:8px;}
+.co2-val{color:#27C93F;font-weight:700;font-size:14px;white-space:nowrap;}
+
+/* ── HAMBURGER ── */
 .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--text-muted);border-radius:2px;transition:all .3s;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -96,11 +125,13 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
   .nav-links li a{padding:12px 24px;font-size:14px;border-bottom:none;border-right:3px solid transparent;}
   .nav-links li a:hover,.nav-links li a.active{border-right-color:var(--amber);border-bottom:none;}
   .site-nav{position:relative;}
+  .nav-links li a{padding:14px 7px;font-size:11px;}
+  .logo-ar{font-size:14px;}
 }
 
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"حاسبة النظام الشمسي — شمس النيل","alternateName":"SunNile Solar Calculator","url":"https://sunnile.org/calculator.html","description":"حاسبة مجانية لتصميم الأنظمة الشمسية في السودان بناءً على بيانات إشعاع شمسي من NASA POWER","applicationCategory":"UtilityApplication","operatingSystem":"Any","inLanguage":["ar","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["حساب حجم الألواح الشمسية","حساب سعة الإنفرتر","حساب سعة البطاريات","بيانات إشعاع شمسي من NASA POWER لكل ولاية سودانية","دعم كامل للغتين العربية والإنجليزية"],"provider":{"@type":"Organization","name":"شمس النيل","url":"https://sunnile.org"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"حاسبة النظام الشمسي — شمس النيل","alternateName":"SunNile Solar Calculator","url":"https://sunnile.org/calculator.html","description":"حاسبة مجانية لتصميم الأنظمة الشمسية في السودان — تشمل التدهور الحراري الشهري وبيانات NASA POWER وتقدير التكلفة","applicationCategory":"UtilityApplication","operatingSystem":"Any","inLanguage":["ar","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["حساب kWp مع معامل الأداء الحقيقي","تدهور حراري شهري بيانات NASA POWER","تصحيح زاوية الميل","حجم الإنفرتر","سعة البطارية مع DoD وكفاءة الشحن","مخطط الإنتاج الشهري","تقدير التكلفة وفترة الاسترداد"],"provider":{"@type":"Organization","name":"شمس النيل","url":"https://sunnile.org"}}
 </script>
 </head>
 <body><nav class="site-nav">
@@ -123,11 +154,14 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
   <h1>🧮 حاسبة نظام الطاقة الشمسية</h1>
   <p>احسب حجم النظام المثالي لمنزلك أو مشروعك في السودان</p>
 </div>
+
 <div class="calc-wrap">
   <div class="calc-form">
+
+    <!-- ── BASIC INPUTS ── -->
     <div class="form-grid">
       <div class="form-group">
-        <label class="form-label">المنطقة الجغرافية <span>(PSH = ساعات الذروة الشمسية)</span></label>
+        <label class="form-label" for="region">المنطقة الجغرافية <span>(PSH = ساعات الذروة الشمسية)</span></label>
         <select class="form-select" id="region" aria-label="المنطقة الجغرافية">
           <option value="6.8">الشمال — ٦.٨ ساعة/يوم (نهر النيل، الشمالية)</option>
           <option value="6.2" selected>الوسط — ٦.٢ ساعة/يوم (الخرطوم، الجزيرة)</option>
@@ -137,12 +171,12 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">الاستهلاك اليومي <span>(كيلوواط ساعة/يوم)</span></label>
-        <input type="number" class="form-input" id="daily-kwh" aria-label="الاستهلاك اليومي بالكيلوواط ساعة" value="15" min="1" max="500" placeholder="مثال: 15">
+        <label class="form-label" for="daily-kwh">الاستهلاك اليومي <span>(كيلوواط ساعة/يوم)</span></label>
+        <input type="number" class="form-input" id="daily-kwh" aria-label="الاستهلاك اليومي" value="15" min="1" max="500" placeholder="مثال: 15">
       </div>
       <div class="form-group">
-        <label class="form-label">قدرة اللوح الواحد <span>(واط)</span></label>
-        <select class="form-select" id="panel-w" aria-label="قدرة اللوح الواحد بالواط">
+        <label class="form-label" for="panel-w">قدرة اللوح الواحد <span>(واط)</span></label>
+        <select class="form-select" id="panel-w" aria-label="قدرة اللوح الواحد">
           <option value="400">٤٠٠ واط</option>
           <option value="500" selected>٥٠٠ واط</option>
           <option value="550">٥٥٠ واط</option>
@@ -150,49 +184,356 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">ساعات انقطاع الكهرباء يومياً <span>(لحساب البطارية)</span></label>
-        <input type="number" class="form-input" id="outage-hrs" aria-label="ساعات انقطاع الكهرباء يومياً" value="8" min="0" max="24" placeholder="مثال: 8">
+        <label class="form-label" for="outage-hrs">ساعات انقطاع الكهرباء يومياً <span>(لحساب البطارية)</span></label>
+        <input type="number" class="form-input" id="outage-hrs" aria-label="ساعات انقطاع الكهرباء" value="8" min="0" max="24" placeholder="مثال: 8">
       </div>
     </div>
+
+    <!-- ── ADVANCED TOGGLE ── -->
+    <button class="adv-toggle" id="advToggle" onclick="toggleAdv()" aria-expanded="false">
+      <span id="adv-label">⚙ إعدادات متقدمة — نوع البطارية · زاوية الميل · تقدير التكلفة</span>
+      <span class="arr">▼</span>
+    </button>
+    <div class="adv-section" id="advSection">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="batt-type">نوع البطارية</label>
+          <select class="form-select" id="batt-type" aria-label="نوع البطارية">
+            <option value="lifepo4" selected>ليثيوم فوسفات (LiFePO4) — DoD 80٪، كفاءة 95٪</option>
+            <option value="lead">رصاص حمضي (Lead-Acid) — DoD 50٪، كفاءة 80٪</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="autonomy">أيام الاستقلالية <span>(أيام بدون شمس)</span></label>
+          <select class="form-select" id="autonomy" aria-label="أيام الاستقلالية">
+            <option value="1" selected>يوم واحد</option>
+            <option value="2">يومان</option>
+            <option value="3">ثلاثة أيام</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="tilt">زاوية الميل <span>(° — 0 أفقي، 90 عمودي)</span></label>
+          <input type="number" class="form-input" id="tilt" aria-label="زاوية الميل" value="16" min="0" max="60" placeholder="مثال: 16">
+          <p class="form-hint" id="tilt-hint">الميل المثالي للوسط: ١٦° — الألواح تواجه الجنوب في السودان</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cost-wp">سعر التركيب التقديري <span>(USD / واط)</span></label>
+          <input type="number" class="form-input" id="cost-wp" aria-label="سعر التركيب" value="0.85" min="0.3" max="3" step="0.05" placeholder="مثال: 0.85">
+          <p class="form-hint" id="hint-cost">يشمل الألواح والإنفرتر والتركيب والتوصيل — لا يشمل البطارية</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="tariff">سعر الكهرباء الحالي <span>(USD / kWh)</span></label>
+          <input type="number" class="form-input" id="tariff" aria-label="سعر الكهرباء" value="0" min="0" max="1" step="0.01" placeholder="مثال: 0.05">
+          <p class="form-hint" id="hint-tariff">اتركه صفراً إذا لم تعرف — يُستخدم لحساب فترة الاسترداد</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="batt-cost">سعر البطارية <span>(USD / kWh)</span></label>
+          <select class="form-select" id="batt-cost" aria-label="سعر البطارية">
+            <option value="150" selected>LiFePO4 — ~150 USD/kWh</option>
+            <option value="200">LiFePO4 جودة عالية — ~200 USD/kWh</option>
+            <option value="80">رصاص حمضي — ~80 USD/kWh</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <button class="calc-btn" onclick="calculate()">احسب النظام المثالي ←</button>
+
+    <!-- ── RESULTS ── -->
     <div class="calc-results" id="calc-results">
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">نتائج التصميم</h3>
-      <p style="font-size:12px;color:var(--text-muted)">بناءً على خسائر النظام ٢٥٪ وبيانات NASA POWER للمنطقة المختارة</p>
-      <div class="results-grid">
-        <div class="result-card"><div class="result-num" id="r-kwp">—</div><div class="result-unit">كيلوواط ذروة</div><div class="result-label">حجم المنظومة (kWp)</div></div>
-        <div class="result-card"><div class="result-num" id="r-panels">—</div><div class="result-unit">لوح</div><div class="result-label">عدد الألواح الشمسية</div></div>
-        <div class="result-card"><div class="result-num" id="r-batt">—</div><div class="result-unit">كيلوواط ساعة</div><div class="result-label">سعة البطارية</div></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
+        <h3 style="font-size:16px;font-weight:700;" id="results-title">نتائج التصميم</h3>
+        <span id="r-pr-badge" style="font-size:11px;background:rgba(239,159,39,0.15);color:var(--amber);border:1px solid rgba(239,159,39,0.3);padding:3px 10px;border-radius:12px;font-weight:700;"></span>
       </div>
-      <div class="result-note" id="r-note"></div>
-    </div>
-  </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;" id="r-meta"></p>
+
+      <!-- 4 main result cards -->
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-num" id="r-kwp">—</div>
+          <div class="result-unit" id="ru-kwp">كيلوواط ذروة</div>
+          <div class="result-label" id="rl-kwp">حجم المنظومة (kWp)</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num" id="r-panels">—</div>
+          <div class="result-unit" id="ru-panels">لوح</div>
+          <div class="result-label" id="rl-panels">عدد الألواح الشمسية</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num" id="r-inv">—</div>
+          <div class="result-unit" id="ru-inv">كيلوواط</div>
+          <div class="result-label" id="rl-inv">الحد الأدنى لحجم الإنفرتر</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num" id="r-batt">—</div>
+          <div class="result-unit" id="ru-batt">كيلوواط ساعة</div>
+          <div class="result-label" id="rl-batt">سعة البطارية المقدرة</div>
+        </div>
+      </div>
+
+      <!-- Monthly generation chart -->
+      <div class="chart-section">
+        <div class="chart-head">
+          <span class="chart-head-title" id="chart-title">الإنتاج الشهري المتوقع</span>
+          <span class="chart-annual" id="chart-annual"></span>
+        </div>
+        <div class="chart-bars" id="chart-bars"></div>
+        <div class="chart-lbls" id="chart-lbls"></div>
+      </div>
+
+      <!-- Performance breakdown -->
+      <div class="perf-section">
+        <div class="perf-title" id="perf-title">تفصيل معامل الأداء (PR)</div>
+        <div id="perf-rows"></div>
+      </div>
+
+      <!-- Cost / payback -->
+      <div class="cost-section" id="cost-section">
+        <div class="cost-title" id="cost-title">💰 تقدير التكلفة وفترة الاسترداد</div>
+        <p class="cost-note" id="cost-note"></p>
+        <div class="cost-grid" id="cost-grid"></div>
+      </div>
+
+      <!-- CO2 -->
+      <div class="co2-line" id="co2-line">
+        <span id="co2-label">تقدير خفض الانبعاثات السنوي 🌱</span>
+        <span class="co2-val" id="co2-val"></span>
+      </div>
+
+    </div><!-- /calc-results -->
+  </div><!-- /calc-form -->
+
+  <!-- Notes -->
   <div style="margin-top:24px;background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:24px;">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;">ملاحظات مهمة</h3>
-    <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-muted);line-height:1.8;">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;" id="notes-title">ملاحظات مهمة</h3>
+    <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-muted);line-height:1.8;" id="notes-list">
       <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚠️ هذه الحاسبة للتقدير الأولي — يجب أن يراجع فني معتمد التصميم النهائي</li>
-      <li style="padding:6px 0;border-bottom:1px solid var(--border);">📊 بيانات PSH مأخوذة من قاعدة بيانات NASA POWER للسودان</li>
-      <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔋 البطارية محسوبة على ٥٠٪ من الاستهلاك اليومي خلال فترة الانقطاع</li>
-      <li style="padding:6px 0;">⚡ خسائر النظام ٢٥٪ تشمل الكابلات والحرارة والإنفرتر</li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);">📊 بيانات PSH مبنية على قياسات NASA POWER لكل ولاية سودانية — تشمل تأثير درجات الحرارة الشهرية</li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌡 معامل الأداء يُحسب تلقائياً بالتدهور الحراري للألواح كل شهر بمعامل −٠.٣٥٪/°C فوق ٢٥°C</li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔋 سعة البطارية المطلوبة تشمل هامش DoD وكفاءة الشحن والتفريغ حسب نوع البطارية</li>
+      <li style="padding:6px 0;">⚡ بيانات التكلفة للإرشاد فقط — الأسعار الفعلية تتفاوت حسب المورد والموقع والوقت</li>
     </ul>
   </div>
 </div>
+
 <script>
-function calculate(){
-  var psh=parseFloat(document.getElementById('region').value);
-  var daily=parseFloat(document.getElementById('daily-kwh').value)||15;
-  var panelW=parseFloat(document.getElementById('panel-w').value)/1000;
-  var outage=parseFloat(document.getElementById('outage-hrs').value)||8;
-  var kwp=daily/(psh*0.75);
-  var panels=Math.ceil(kwp/panelW);
-  var battKwh=(daily/24)*outage*0.5*2;
-  document.getElementById('r-kwp').textContent=kwp.toFixed(2);
-  document.getElementById('r-panels').textContent=panels;
-  document.getElementById('r-batt').textContent=battKwh.toFixed(1);
-  var regionName=document.getElementById('region').selectedOptions[0].text.split('—')[0].trim();
-  document.getElementById('r-note').innerHTML='📍 المنطقة: '+regionName+' ('+psh+' ساعة ذروة/يوم) | الاستهلاك: '+daily+' kWh/يوم | انقطاع: '+outage+' ساعة/يوم<br>💡 يُنصح بزيادة القدرة ١٠–١٥٪ لمراعاة التوسع المستقبلي.';
-  document.getElementById('calc-results').classList.add('visible');
+/* ── DATA ── */
+var REGIONS = {
+  '6.8': { name: 'الشمال', nameEN: 'North',   lat: 20,   monthly_psh:  [6.1,6.8,7.4,7.5,7.4,7.2,6.7,6.6,6.7,6.7,6.3,5.9], monthly_tmax: [33,37,41,43,44,43,40,39,40,40,37,34] },
+  '6.2': { name: 'الوسط', nameEN: 'Central', lat: 15.5, monthly_psh:  [5.8,6.3,6.8,7.0,6.8,6.5,5.8,5.6,5.9,6.1,6.0,5.7], monthly_tmax: [33,36,40,42,42,41,37,36,37,38,36,33] },
+  '5.8': { name: 'الشرق', nameEN: 'East',    lat: 15,   monthly_psh:  [5.3,5.8,6.2,6.4,6.1,5.8,5.2,5.0,5.3,5.6,5.5,5.2], monthly_tmax: [31,34,38,40,41,40,36,35,36,37,34,31] },
+  '6.0': { name: 'الغرب', nameEN: 'West',    lat: 13,   monthly_psh:  [5.5,6.1,6.5,6.7,6.4,6.1,5.4,5.3,5.6,6.0,5.8,5.4], monthly_tmax: [33,37,41,43,43,40,35,34,36,38,37,34] },
+  '5.2': { name: 'الجنوب', nameEN: 'South',  lat: 11,   monthly_psh:  [4.8,5.3,5.7,5.8,5.4,4.9,4.3,4.2,4.7,5.0,5.1,4.7], monthly_tmax: [32,35,38,39,37,33,30,30,31,33,33,32] }
+};
+var MONTHS_ABR_AR = ['ي','ف','م','أ','م','ي','ي','أ','س','أ','ن','د'];
+var MONTHS_ABR_EN = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+var DAYS = [31,28,31,30,31,30,31,31,30,31,30,31];
+var TEMP_COEFF = 0.0035;
+
+/* ── HELPERS ── */
+function isEN() { return document.documentElement.classList.contains('lang-en'); }
+
+function toggleAdv() {
+  var sec = document.getElementById('advSection');
+  var btn = document.getElementById('advToggle');
+  var open = sec.style.display !== 'none';
+  sec.style.display = open ? 'none' : 'block';
+  btn.classList.toggle('open', !open);
+  btn.setAttribute('aria-expanded', String(!open));
+}
+
+function updateTiltHint(rKey) {
+  var reg = REGIONS[rKey];
+  var opt = Math.round(reg.lat);
+  document.getElementById('tilt').value = opt;
+  document.getElementById('tilt-hint').textContent = isEN()
+    ? 'Optimal tilt for this region: ' + opt + '° — panels face south in Sudan'
+    : 'الميل المثالي للمنطقة: ' + opt + '° — الألواح تواجه الجنوب في السودان';
+}
+
+document.getElementById('region').addEventListener('change', function () {
+  updateTiltHint(this.value);
+});
+document.getElementById('batt-type').addEventListener('change', function () {
+  var bcEl = document.getElementById('batt-cost');
+  Array.from(bcEl.options).forEach(function (o) {
+    o.selected = (o.value === (this.value === 'lead' ? '80' : '150'));
+  }.bind(this));
+});
+
+/* ── ENGINE ── */
+function calculate() {
+  var en = isEN();
+  var rKey   = document.getElementById('region').value;
+  var reg    = REGIONS[rKey];
+  var daily  = parseFloat(document.getElementById('daily-kwh').value) || 15;
+  var panelW = parseFloat(document.getElementById('panel-w').value);
+  var outage = parseFloat(document.getElementById('outage-hrs').value) || 8;
+
+  /* advanced */
+  var battType      = document.getElementById('batt-type').value;
+  var autonomy      = parseFloat(document.getElementById('autonomy').value) || 1;
+  var tilt          = parseFloat(document.getElementById('tilt').value);
+  var costPerWp     = parseFloat(document.getElementById('cost-wp').value) || 0;
+  var tariff        = parseFloat(document.getElementById('tariff').value) || 0;
+  var battCostPerKwh = parseFloat(document.getElementById('batt-cost').value) || 150;
+
+  /* battery physics */
+  var dod    = battType === 'lifepo4' ? 0.80 : 0.50;
+  var eta_rt = battType === 'lifepo4' ? 0.95 : 0.80;
+
+  /* tilt correction: cos(Δ) vs flat; clamp 0.75–1.0 */
+  var tiltFactor = Math.min(1.0, Math.max(0.75,
+    Math.cos((tilt - reg.lat) * Math.PI / 180)));
+
+  /* annual averages */
+  var totalPSH = 0, totalTmax = 0;
+  for (var i = 0; i < 12; i++) {
+    totalPSH  += reg.monthly_psh[i]  * DAYS[i];
+    totalTmax += reg.monthly_tmax[i] * DAYS[i];
+  }
+  var annPSH  = totalPSH  / 365;
+  var annTmax = totalTmax / 365;
+
+  /* annual PR */
+  var T_cell_ann   = annTmax + 25;
+  var tempDerate_ann = Math.max(0, (T_cell_ann - 25) * TEMP_COEFF);
+  var eta_inv      = 0.97;
+  var eta_cable    = 0.98;
+  var eta_mismatch = 0.98;
+  var PR_ann = (1 - tempDerate_ann) * eta_inv * eta_cable * eta_mismatch;
+  var PR_eff = PR_ann * tiltFactor;
+
+  /* system sizing */
+  var kwp       = daily / (annPSH * PR_eff);
+  var panels    = Math.ceil(kwp * 1000 / panelW);
+  var actual_kwp = panels * panelW / 1000;
+
+  /* inverter: round up to nearest 0.5 kW, 105% of array */
+  var inv_kw = Math.ceil(actual_kwp * 1.05 * 2) / 2;
+
+  /* battery */
+  var battKwh = (daily / 24) * outage * autonomy / dod / eta_rt;
+
+  /* monthly generation with per-month thermal derating */
+  var monthlyKwh = [], annualKwh = 0;
+  for (var m = 0; m < 12; m++) {
+    var Tc  = reg.monthly_tmax[m] + 25;
+    var dT  = Math.max(0, (Tc - 25) * TEMP_COEFF);
+    var PR_m = (1 - dT) * eta_inv * eta_cable * eta_mismatch * tiltFactor;
+    var kwh_m = actual_kwp * reg.monthly_psh[m] * PR_m * DAYS[m];
+    monthlyKwh.push(kwh_m);
+    annualKwh += kwh_m;
+  }
+
+  /* ── POPULATE CARDS ── */
+  var loc  = en ? 'en' : 'ar';
+  document.getElementById('r-kwp').textContent   = actual_kwp.toFixed(2);
+  document.getElementById('r-panels').textContent = panels.toLocaleString(loc);
+  document.getElementById('r-inv').textContent    = inv_kw.toFixed(1);
+  document.getElementById('r-batt').textContent   = battKwh.toFixed(1);
+  document.getElementById('r-pr-badge').textContent = 'PR = ' + Math.round(PR_eff * 100) + '%';
+
+  /* meta line */
+  var regionName = en ? reg.nameEN : reg.name;
+  document.getElementById('r-meta').textContent = en
+    ? 'Region: ' + regionName + ' · Annual PSH: ' + annPSH.toFixed(1) + ' hr/day · Consumption: ' + daily + ' kWh/day · Outage: ' + outage + ' hr/day'
+    : 'المنطقة: ' + regionName + ' · PSH سنوي: ' + annPSH.toFixed(1) + ' ساعة/يوم · استهلاك: ' + daily + ' kWh/يوم · انقطاع: ' + outage + ' ساعة/يوم';
+
+  renderChart(monthlyKwh, annualKwh, en);
+  renderPerf(tempDerate_ann, eta_inv, eta_cable, eta_mismatch, tiltFactor, PR_eff, en);
+
+  /* cost section */
+  if (costPerWp > 0) {
+    renderCost(actual_kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en);
+  } else {
+    document.getElementById('cost-section').style.display = 'none';
+  }
+
+  /* CO2 */
+  var co2 = (annualKwh * 0.5 / 1000).toFixed(1);
+  document.getElementById('co2-val').textContent = co2 + (en ? ' t CO₂/yr' : ' طن CO₂/سنة');
+  document.getElementById('co2-line').style.display = 'flex';
+
+  var res = document.getElementById('calc-results');
+  res.classList.add('visible');
+  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderChart(monthlyKwh, annualKwh, en) {
+  var max     = Math.max.apply(null, monthlyKwh);
+  var avg     = annualKwh / 12;
+  var months  = en ? MONTHS_ABR_EN : MONTHS_ABR_AR;
+  var locale  = en ? 'en' : 'ar';
+  var bars    = '';
+  var lbls    = '';
+  monthlyKwh.forEach(function (v, i) {
+    var pct = Math.round(v / max * 100);
+    var cls = v < avg * 0.88 ? ' low' : '';
+    bars += '<div class="chart-col">' +
+      '<div class="chart-bar' + cls + '" style="height:' + pct + '%"></div>' +
+      '<div class="chart-num">' + Math.round(v).toLocaleString(locale) + '</div>' +
+      '</div>';
+    lbls += '<div class="chart-lbl">' + months[i] + '</div>';
+  });
+  document.getElementById('chart-bars').innerHTML = bars;
+  document.getElementById('chart-lbls').innerHTML = lbls;
+  document.getElementById('chart-annual').textContent =
+    Math.round(annualKwh).toLocaleString(locale) + (en ? ' kWh/yr' : ' kWh/سنة');
+}
+
+function renderPerf(tempDerate, eta_inv, eta_cable, eta_mm, tiltFactor, PR_eff, en) {
+  var labels = en
+    ? ['Thermal derating (Sudan heat)', 'Inverter efficiency loss', 'Cable losses', 'Module mismatch loss', 'Tilt angle correction', 'Overall Performance Ratio (PR)']
+    : ['التدهور الحراري (حرارة السودان)', 'خسائر كفاءة الإنفرتر', 'خسائر الكابلات', 'خسائر عدم تطابق الألواح', 'تصحيح زاوية الميل', 'معامل الأداء الإجمالي (PR)'];
+  var vals = [
+    ['-' + (tempDerate * 100).toFixed(1) + '%', 'perf-loss'],
+    ['-' + ((1 - eta_inv) * 100).toFixed(0) + '%', 'perf-loss'],
+    ['-' + ((1 - eta_cable) * 100).toFixed(0) + '%', 'perf-loss'],
+    ['-' + ((1 - eta_mm) * 100).toFixed(0) + '%', 'perf-loss'],
+    [(tiltFactor >= 0.99 ? '≈' : '') + (tiltFactor * 100 - 100).toFixed(1) + '%', tiltFactor >= 0.97 ? 'perf-ok' : 'perf-loss'],
+    [(PR_eff * 100).toFixed(1) + '%', 'perf-amber']
+  ];
+  var html = '';
+  labels.forEach(function (lbl, i) {
+    html += '<div class="perf-row"><span>' + lbl + '</span><span class="' + vals[i][1] + '">' + vals[i][0] + '</span></div>';
+  });
+  document.getElementById('perf-rows').innerHTML = html;
+}
+
+function renderCost(kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en) {
+  var locale   = en ? 'en' : 'ar';
+  var pvCost   = Math.round(kwp * 1000 * costPerWp);
+  var bCost    = Math.round(battKwh * battCostPerKwh);
+  var total    = pvCost + bCost;
+  var labels   = en
+    ? ['PV System Cost', 'Battery Cost', 'Total Cost (USD)', 'Payback Period']
+    : ['تكلفة نظام PV', 'تكلفة البطارية', 'إجمالي التكلفة (USD)', 'فترة الاسترداد'];
+  var note = en
+    ? 'Estimate includes panels, inverter, installation + battery. Actual prices vary by supplier and market.'
+    : 'تقدير يشمل الألواح والإنفرتر والتركيب + البطارية. الأسعار الفعلية تتفاوت حسب المورد والسوق.';
+
+  var grid = '<div class="cost-item"><div class="cost-num">$' + pvCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[0] + '</div></div>' +
+    '<div class="cost-item"><div class="cost-num">$' + bCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[1] + '</div></div>' +
+    '<div class="cost-item"><div class="cost-num">$' + total.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[2] + '</div></div>';
+
+  if (tariff > 0) {
+    var annSav   = annualKwh * tariff;
+    var payback  = total / annSav;
+    var pbLabel  = en ? payback.toFixed(1) + ' yrs' : payback.toFixed(1) + ' سنة';
+    grid += '<div class="cost-item"><div class="cost-num">' + pbLabel + '</div><div class="cost-lbl">' + labels[3] + '</div></div>';
+    note += ' ' + (en
+      ? 'At $' + tariff + '/kWh, estimated annual saving: $' + Math.round(annSav).toLocaleString('en') + '.'
+      : ' بسعر ' + tariff + ' USD/kWh، الوفر السنوي المقدر: $' + Math.round(annSav).toLocaleString('en') + '.');
+  }
+
+  document.getElementById('cost-note').textContent = note;
+  document.getElementById('cost-grid').innerHTML   = grid;
+  document.getElementById('cost-section').style.display = 'block';
 }
 </script>
+
 <footer class="site-footer">
   <div class="footer-logo">شمس النيل ☀</div>
   <p class="footer-text">مبادرة مجانية غير ربحية لدعم الطاقة الشمسية في السودان<br>Sudan's Rooftop Solar Initiative | sunnile.org</p>
