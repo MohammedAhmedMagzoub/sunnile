@@ -54,8 +54,8 @@
   }
 
   /* ── nav ── */
-  var NAV_AR = ['الرئيسية','الحاسبة','الإنفرترات','المعايير','مستقبل الطاقة','السياسات','المعهد','عن المبادرة'];
-  var NAV_EN = ['Home','Calculator','Inverters','Standards','Solar Future','Policy Hub','Institute','About'];
+  var NAV_AR = ['الرئيسية','الحاسبة','الإنفرترات','المعايير','مستقبل الطاقة','السياسات','المعهد','المركّبون','عن المبادرة'];
+  var NAV_EN = ['Home','Calculator','Inverters','Standards','Solar Future','Policy Hub','Institute','Installers','About'];
 
   function applyNavEN() {
     $$('.nav-links li a').forEach(function (a, i) {
@@ -291,6 +291,10 @@
         '⚡ Cost estimates are indicative only — actual prices vary by supplier, location and market conditions'
       ];
       noteLi.forEach(function (li, i) { if (noteEN[i]) save(li, noteEN[i]); });
+
+      var ctaEl;
+      if ((ctaEl = document.getElementById('installer-cta-text'))) save(ctaEl, 'Ready to install? Find an accredited installer in your state');
+      if ((ctaEl = document.getElementById('installer-cta-btn')))  save(ctaEl, 'Find an Installer →');
 
       document.title = 'Solar System Calculator — SunNile';
     },
@@ -1122,6 +1126,46 @@
       });
       document.title = 'About SunNile — Sudan\'s Rooftop Solar Initiative';
     },
+
+    /* ── INSTALLERS ── */
+    installers: function () {
+      var el;
+      if ((el = $('.page-header h1'))) save(el, '🔧 Certified Solar Installer Directory');
+      if ((el = $('.page-header p')))  save(el, 'Find a verified, Level 2+ accredited solar installer in your state');
+      if ((el = $('.pilot-badge')))    save(el, '🚀 Pilot — Khartoum | Expanding to all states soon');
+      if ((el = document.getElementById('trust-1'))) save(el, 'Level 2+ accreditation from SunNile Institute');
+      if ((el = document.getElementById('trust-2'))) save(el, 'Personally verified by the SunNile team');
+      if ((el = document.getElementById('trust-3'))) save(el, 'Direct contact — no middleman');
+      if ((el = document.getElementById('fl-state'))) save(el, 'State');
+      if ((el = document.getElementById('fo-all')))   save(el, 'All States');
+      if ((el = document.getElementById('fl-level'))) save(el, 'Accreditation Level');
+      if ((el = document.getElementById('fo-level-all'))) save(el, 'All Levels');
+      if ((el = document.getElementById('fo-l2')))    save(el, 'Level 2');
+      if ((el = document.getElementById('fo-l3')))    save(el, 'Level 3');
+      if ((el = document.getElementById('fl-spec')))  save(el, 'Specialty');
+      if ((el = document.getElementById('fo-spec-all'))) save(el, 'All Specialties');
+      if ((el = document.getElementById('fo-res')))   save(el, 'Residential');
+      if ((el = document.getElementById('fo-com')))   save(el, 'Commercial');
+      if ((el = document.getElementById('fo-off')))   save(el, 'Off-Grid Systems');
+      if ((el = document.getElementById('fo-hyb')))   save(el, 'Hybrid Systems');
+      if ((el = document.getElementById('how-title'))) save(el, 'How the Directory Works');
+      if ((el = document.getElementById('how-sub')))   save(el, 'From system sizing to installation — four simple steps');
+      if ((el = document.getElementById('how1-t')))    save(el, 'Size Your System');
+      if ((el = document.getElementById('how1-p')))    save(el, 'Use the <a href="calculator.html" style="color:var(--amber)">SunNile Calculator</a> to find the ideal system size for your home or project');
+      if ((el = document.getElementById('how2-t')))    save(el, 'Find an Installer');
+      if ((el = document.getElementById('how2-p')))    save(el, 'Browse the directory and filter by state, level, or specialty to find the right technician');
+      if ((el = document.getElementById('how3-t')))    save(el, 'Contact Directly');
+      if ((el = document.getElementById('how3-p')))    save(el, 'Reach the technician via WhatsApp or phone — no middleman, no commission');
+      if ((el = document.getElementById('how4-t')))    save(el, 'Install With Confidence');
+      if ((el = document.getElementById('how4-p')))    save(el, 'Every installer in the directory holds Level 2+ accreditation from SunNile Institute');
+      if ((el = document.getElementById('reg-title'))) save(el, '🔧 Are You a Certified Solar Technician?');
+      if ((el = document.getElementById('reg-sub')))   save(el, 'Join the SunNile directory and connect with clients in your state — completely free during launch');
+      if ((el = document.getElementById('reg-btn')))   save(el, 'Register Your Interest — Send Application');
+      if ((el = document.getElementById('reg-note')))  save(el, 'The SunNile team will contact you within 72 hours to verify your accreditation and add your profile');
+      document.title = 'Certified Solar Installer Directory — SunNile';
+    },
+
+    /* ── CALCULATOR installer CTA ── */
 
     '404': function () {
       var el;
