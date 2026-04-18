@@ -16,6 +16,7 @@
 <meta name="twitter:description" content="شمس النيل: مبادرة مجانية غير ربحية لدعم الطاقة الشمسية في السودان، أسسها مهندس سوداني في أستراليا">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sunnile.org/about.html">
+<link rel="manifest" href="/manifest.json">
 <link rel="alternate" hreflang="ar" href="https://sunnile.org/about.html">
 <link rel="alternate" hreflang="en" href="https://sunnile.org/about.html">
 <link rel="alternate" hreflang="x-default" href="https://sunnile.org/about.html">
@@ -341,5 +342,6 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
 })();
 </script>
 <script src="i18n.js"></script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){});}</script>
 </body>
 </html>

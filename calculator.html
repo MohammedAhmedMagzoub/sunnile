@@ -16,6 +16,7 @@
 <meta name="twitter:description" content="احسب حجم نظامك الشمسي المثالي بناءً على منطقتك واستهلاكك اليومي وساعات انقطاع الكهرباء">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sunnile.org/calculator.html">
+<link rel="manifest" href="/manifest.json">
 <link rel="alternate" hreflang="ar" href="https://sunnile.org/calculator.html">
 <link rel="alternate" hreflang="en" href="https://sunnile.org/calculator.html">
 <link rel="alternate" hreflang="x-default" href="https://sunnile.org/calculator.html">
@@ -555,4 +556,5 @@ function renderCost(kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, 
 })();
 </script>
 <script src="i18n.js"></script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){});}</script>
 </body></html>

@@ -1,0 +1,48 @@
+{
+  "name": "شمس النيل — مبادرة الطاقة الشمسية السودانية",
+  "short_name": "شمس النيل",
+  "description": "حاسبة الطاقة الشمسية · سجل الإنفرترات · المعايير التقنية · معهد الفنيين — مجاناً للسودان",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1C1A14",
+  "theme_color": "#EF9F27",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["education", "utilities"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%231C1A14'/%3E%3Ccircle cx='96' cy='88' r='38' fill='%23EF9F27'/%3E%3Cg stroke='%23EF9F27' stroke-width='7' stroke-linecap='round'%3E%3Cline x1='96' y1='20' x2='96' y2='36'/%3E%3Cline x1='96' y1='140' x2='96' y2='156'/%3E%3Cline x1='28' y1='88' x2='44' y2='88'/%3E%3Cline x1='148' y1='88' x2='164' y2='88'/%3E%3Cline x1='47' y1='39' x2='58' y2='50'/%3E%3Cline x1='134' y1='126' x2='145' y2='137'/%3E%3Cline x1='145' y1='39' x2='134' y2='50'/%3E%3Cline x1='58' y1='126' x2='47' y2='137'/%3E%3C/g%3E%3Ctext x='96' y='176' text-anchor='middle' fill='%23EF9F27' font-family='Arial' font-size='18' font-weight='bold'%3ESunNile%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%231C1A14'/%3E%3Ccircle cx='256' cy='230' r='100' fill='%23EF9F27'/%3E%3Cg stroke='%23EF9F27' stroke-width='18' stroke-linecap='round'%3E%3Cline x1='256' y1='50' x2='256' y2='94'/%3E%3Cline x1='256' y1='366' x2='256' y2='410'/%3E%3Cline x1='76' y1='230' x2='120' y2='230'/%3E%3Cline x1='392' y1='230' x2='436' y2='230'/%3E%3Cline x1='122' y1='96' x2='154' y2='128'/%3E%3Cline x1='358' y1='332' x2='390' y2='364'/%3E%3Cline x1='390' y1='96' x2='358' y2='128'/%3E%3Cline x1='154' y1='332' x2='122' y2='364'/%3E%3C/g%3E%3Ctext x='256' y='470' text-anchor='middle' fill='%23EF9F27' font-family='Arial' font-size='52' font-weight='bold'%3ESunNile%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الحاسبة",
+      "short_name": "الحاسبة",
+      "url": "/calculator.html",
+      "description": "حاسبة نظام الطاقة الشمسية"
+    },
+    {
+      "name": "سجل الإنفرترات",
+      "short_name": "الإنفرترات",
+      "url": "/inverters.html",
+      "description": "سجل الإنفرترات المعتمدة"
+    },
+    {
+      "name": "المعهد",
+      "short_name": "المعهد",
+      "url": "/institute.html",
+      "description": "معهد فنيي الطاقة الشمسية"
+    }
+  ]
+}
