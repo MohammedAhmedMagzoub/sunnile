@@ -154,7 +154,7 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
     <li><a href="future.html">مستقبل الطاقة</a></li>
     <li><a href="policy.html">السياسات</a></li>
     <li><a href="institute.html">المعهد</a></li>
-    <li><a href="installers.html" class="active">المركّبون</a></li>
+    <li><a href="installers.html" class="active">فني تركيب طاقة شمسية</a></li>
     <li><a href="about.html">عن المبادرة</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
@@ -173,7 +173,7 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
       <div class="status-icon" id="status-icon">⏳</div>
       <div>
         <div class="status-title" id="status-title">ملفك قيد المراجعة</div>
-        <div class="status-desc" id="status-desc">أكمل ملفك أدناه — سيراجعه فريق شمس النيل ويُضيفه لدليل المركّبين خلال ٧٢ ساعة</div>
+        <div class="status-desc" id="status-desc">أكمل ملفك أدناه — سيراجعه فريق شمس النيل ويُضيفه لدليل فني تركيب انظمة طاقة شمسية خلال ٧٢ ساعة</div>
       </div>
     </div>
     <button class="btn-signout" id="btn-signout">تسجيل الخروج</button>
@@ -314,7 +314,7 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
   <!-- SAVE -->
   <button class="btn-save" id="btn-save">💾 حفظ الملف</button>
   <div id="save-msg" class="save-msg"></div>
-  <a href="installers.html" class="preview-link">← العودة لدليل المركّبين</a>
+  <a href="installers.html" class="preview-link">← العودة لدليل فني تركيب انظمة طاقة شمسية</a>
 
 </div><!-- /dash-wrap -->
 </div><!-- /dash-content -->
@@ -411,7 +411,7 @@ async function loadProfile() {
     banner.classList.add('verified');
     document.getElementById('status-icon').textContent = '✅';
     document.getElementById('status-title').textContent = 'ملفك نشط ومعتمد';
-    document.getElementById('status-desc').textContent = 'ملفك ظاهر للزوار في دليل المركّبين. يمكنك تحديث بياناتك في أي وقت.';
+    document.getElementById('status-desc').textContent = 'ملفك ظاهر للزوار في دليل فني تركيب انظمة طاقة شمسية. يمكنك تحديث بياناتك في أي وقت.';
   }
 }
 
@@ -475,7 +475,7 @@ async function loadQuizProgress() {
     /* Level 2 card */
     '<div class="prog-card">' +
       '<div class="prog-title">المستوى الثاني — الوحدات ١–١٢</div>' +
-      '<div class="prog-sub">الحد الأدنى للانضمام للدليل</div>' +
+      '<div class="prog-sub">الحد الأدنى للانضمام لدليل فني تركيب انظمة طاقة شمسية</div>' +
       bar(l2Passed / 12, l2Ready) +
       '<div class="units-grid">' + buildGrid(L2_SLUGS, 0) + '</div>' +
       '<div class="prog-status ' + (l2Ready ? 'ready' : 'progress') + '">' +
@@ -508,7 +508,7 @@ async function loadQuizProgress() {
     }
   } else {
     html += '<div style="margin-top:14px;padding:12px 16px;background:rgba(239,159,39,0.07);border:1px solid rgba(239,159,39,0.2);border-radius:8px;text-align:center;font-size:13px;color:var(--amber);">' +
-      '⚠️ يجب اجتياز الوحدات ١–١٢ على الأقل قبل قبول طلبك في الدليل — ' +
+      '⚠️ يجب اجتياز الوحدات ١–١٢ على الأقل قبل قبول طلبك في دليل فني تركيب انظمة طاقة شمسية — ' +
       '<a href="/institute.html" style="color:var(--amber);font-weight:700;">ابدأ التدريب ←</a>' +
     '</div>';
   }
