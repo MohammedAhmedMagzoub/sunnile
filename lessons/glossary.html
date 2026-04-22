@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قاموس الطاقة الشمسية — شمس النيل</title>
+<meta name="description" content="قاموس شامل لمصطلحات الطاقة الشمسية بالعربية — الأساس الذي يبني عليه كل فني في السودان">
+<style>
+@media print {
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { font-size: 10.5pt; line-height: 1.7; max-width: 100%; padding: 0; background: #fff; }
+  .doc-header { background: #1C1A14 !important; color: #F5EDD4 !important; border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .nile-bar { margin-bottom: 1rem; }
+  .term-card { border: 0.5px solid #ddd !important; border-radius: 6px; padding: .75rem 1rem; page-break-inside: avoid; }
+  .doc-footer { position: fixed; bottom: 0; left: 0; right: 0; border-top: 0.5px solid #ddd; padding: 6px 0; font-size: 8pt; background: #fff; display: flex; justify-content: space-between; }
+}
+
+:root {
+  --sun:#EF9F27;--sun-d:#BA7517;--sun-l:#FAEEDA;
+  --dark:#1C1A14;--green:#1D9E75;--green-l:#E1F5EE;--green-d:#085041;
+  --nile:#378ADD;--nile-l:#E6F1FB;--nile-d:#185FA5;
+  --text:#2C2C2A;--muted:#5F5E5A;--hint:#888780;
+  --border:rgba(0,0,0,0.1);--bg:#F7F4EE;--card:#fff;
+  --red:#E24B4A;--red-l:#FCEBEB;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI','Arial',system-ui,sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.8; max-width:800px; margin:0 auto; padding:2rem; }
+
+.doc-header { background:var(--dark); color:#F5EDD4; border-radius:10px; padding:2rem; margin-bottom:2rem; }
+.doc-logo-row { display:flex; align-items:center; gap:10px; margin-bottom:1rem; }
+.doc-logo-name { font-size:18px; font-weight:500; }
+.doc-logo-ar { font-size:12px; color:var(--sun); }
+.doc-module-tag { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--sun); margin-bottom:.5rem; }
+.doc-title { font-size:1.6rem; font-weight:500; margin-bottom:.25rem; }
+.doc-title-en { font-size:.85rem; color:rgba(245,237,212,.45); margin-bottom:1rem; }
+.doc-meta { display:flex; gap:1rem; flex-wrap:wrap; }
+.doc-meta-item { font-size:11px; background:rgba(255,255,255,.08); border-radius:4px; padding:4px 10px; color:rgba(245,237,212,.7); }
+
+.back-link { display:inline-flex; align-items:center; gap:6px; color:var(--nile); font-size:13px; text-decoration:none; margin-bottom:1.5rem; }
+.back-link:hover { color:var(--nile-d); }
+.print-btn { background:var(--sun); color:var(--dark); border:none; padding:10px 24px; border-radius:6px; font-size:13px; font-weight:500; cursor:pointer; }
+.print-btn:hover { background:var(--sun-d); color:#fff; }
+
+.nile-bar { height:4px; background:linear-gradient(to left,#042C53,#185FA5,#378ADD,#85B7EB,#EF9F27,#BA7517); border-radius:2px; margin-bottom:2rem; }
+
+.objectives { background:var(--green-l); border:0.5px solid #5DCAA5; border-radius:8px; padding:1.25rem; margin-bottom:1.5rem; }
+.obj-title { font-size:13px; font-weight:500; color:var(--green-d); margin-bottom:.75rem; }
+.obj-list { list-style:none; display:flex; flex-direction:column; gap:.4rem; }
+.obj-list li { font-size:13px; color:var(--green-d); display:flex; align-items:flex-start; gap:8px; }
+.obj-list li::before { content:'✓'; font-weight:500; flex-shrink:0; margin-top:1px; }
+
+/* SEARCH & FILTER */
+.search-wrap { background:var(--card); border:0.5px solid var(--border); border-radius:8px; padding:1.25rem; margin-bottom:1.25rem; }
+.search-input { width:100%; padding:.75rem 1rem; border:1.5px solid var(--border); border-radius:7px; font-size:14px; font-family:inherit; color:var(--text); background:var(--bg); direction:rtl; outline:none; transition:border-color .15s; }
+.search-input:focus { border-color:var(--nile); }
+.filter-row { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.85rem; }
+.filter-btn { font-size:11px; font-family:inherit; padding:5px 12px; border-radius:20px; border:1.5px solid var(--border); background:var(--bg); color:var(--muted); cursor:pointer; transition:all .15s; }
+.filter-btn:hover { border-color:var(--nile); color:var(--nile); }
+.filter-btn.active { background:var(--dark); color:#F5EDD4; border-color:var(--dark); }
+.results-count { font-size:11px; color:var(--hint); margin-top:.6rem; }
+
+/* TERM CARDS */
+.terms-grid { display:flex; flex-direction:column; gap:.75rem; }
+.term-card { background:var(--card); border:0.5px solid var(--border); border-radius:8px; padding:1rem 1.25rem; transition:border-color .15s; }
+.term-card:hover { border-color:var(--sun); }
+.term-top { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.4rem; flex-wrap:wrap; }
+.term-ar { font-size:15px; font-weight:600; color:var(--text); }
+.term-en { font-size:11px; color:var(--hint); direction:ltr; text-align:left; }
+.term-badge { font-size:10px; padding:3px 9px; border-radius:12px; font-weight:600; white-space:nowrap; flex-shrink:0; }
+.badge-panels  { background:rgba(239,159,39,0.12);  color:var(--sun-d);  border:1px solid rgba(239,159,39,0.3); }
+.badge-electric{ background:rgba(55,138,221,0.1);   color:var(--nile-d); border:1px solid rgba(55,138,221,0.3); }
+.badge-system  { background:rgba(29,158,117,0.1);   color:var(--green-d);border:1px solid rgba(29,158,117,0.3); }
+.badge-battery { background:rgba(226,75,74,0.08);   color:#791F1F;       border:1px solid rgba(226,75,74,0.25); }
+.badge-grid    { background:rgba(104,88,200,0.1);   color:#3B2E8A;       border:1px solid rgba(104,88,200,0.3); }
+.badge-advanced{ background:rgba(0,0,0,0.06);       color:var(--muted);  border:1px solid var(--border); }
+.badge-install { background:rgba(239,159,39,0.07);  color:var(--sun-d);  border:1px solid rgba(239,159,39,0.2); }
+.term-def { font-size:13px; color:var(--muted); line-height:1.75; }
+.term-hidden { display:none; }
+
+.no-results { text-align:center; padding:3rem 1rem; color:var(--hint); font-size:14px; }
+
+.doc-footer { border-top:0.5px solid var(--border); padding-top:1rem; margin-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+.doc-footer p { font-size:10px; color:var(--hint); }
+
+.lesson-nav-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:32px 40px;background:#1C1A14;border-top:1px solid #3A3528;margin-top:40px;flex-wrap:wrap;}
+.lesson-nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;text-decoration:none;transition:all .2s;border:1px solid #3A3528;color:#A89F8C;background:#252218;}
+.lesson-nav-btn:hover{border-color:#EF9F27;color:#EF9F27;}
+.lesson-nav-btn.home{color:#378ADD;border-color:#378ADD;background:rgba(55,138,221,0.07);}
+.lesson-nav-btn.home:hover{background:rgba(55,138,221,0.15);}
+.lesson-nav-label{font-size:10px;font-weight:400;color:#6B6456;display:block;margin-bottom:2px;}
+@media print{.lesson-nav-bar{display:none;}}
+</style>
+</head>
+<body>
+
+<a href="../institute.html" class="back-link no-print">← العودة إلى المعهد</a>
+
+<div class="no-print" style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;">
+  <button class="print-btn" onclick="window.print()">🖨 طباعة / حفظ PDF</button>
+  <div style="font-size:11px;color:var(--hint);align-self:center;line-height:1.5;">في نافذة الطباعة اختر <strong>حفظ كـ PDF</strong> · حجم الورق A4</div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-logo-row">
+    <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="12" r="6.5" fill="#EF9F27"/><circle cx="16" cy="12" r="4" fill="#1C1A14"/><circle cx="16" cy="12" r="2.2" fill="#EF9F27"/><line x1="16" y1="2.5" x2="16" y2="0.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="24.2" y1="4.8" x2="25.6" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="26.5" y1="12" x2="28.5" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="24.2" y1="19.2" x2="25.6" y2="20.6" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="21.5" x2="16" y2="23.5" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="7.8" y1="19.2" x2="6.4" y2="20.6" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="5.5" y1="12" x2="3.5" y2="12" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><line x1="7.8" y1="4.8" x2="6.4" y2="3.4" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round"/><rect x="11" y="24" width="10" height="7" rx="1.5" fill="#378ADD" opacity=".7"/></svg>
+    <div><div class="doc-logo-name">شمس النيل</div><div class="doc-logo-ar">SunNile</div></div>
+  </div>
+  <div class="doc-module-tag">الوحدة التأسيسية · Foundation</div>
+  <div class="doc-title">قاموس الطاقة الشمسية</div>
+  <div class="doc-title-en">Solar Energy Glossary — Arabic Reference</div>
+  <div class="doc-meta">
+    <span class="doc-meta-item">٥٠+ مصطلح</span>
+    <span class="doc-meta-item">٧ تصنيفات</span>
+    <span class="doc-meta-item">مرجع دائم</span>
+    <span class="doc-meta-item">مجاني</span>
+  </div>
+</div>
+
+<div class="nile-bar"></div>
+
+<div class="objectives">
+  <div class="obj-title">📚 ماذا ستجد في هذا القاموس؟</div>
+  <ul class="obj-list">
+    <li>المصطلحات الأساسية التي تحتاجها قبل بدء أي وحدة تدريبية</li>
+    <li>كل مصطلح بالعربية والإنجليزية مع تعريف واضح وبسيط</li>
+    <li>تصنيف المصطلحات حسب الموضوع — ألواح، بطاريات، شبكة، وأكثر</li>
+    <li>بحث فوري — اكتب أي كلمة لتجد ما تريد</li>
+  </ul>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap no-print">
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍  ابحث عن أي مصطلح بالعربية أو الإنجليزية..." oninput="filterTerms()">
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all',this)">الكل</button>
+    <button class="filter-btn" onclick="setFilter('ألواح',this)">☀️ ألواح شمسية</button>
+    <button class="filter-btn" onclick="setFilter('كهرباء',this)">⚡ كهرباء أساسية</button>
+    <button class="filter-btn" onclick="setFilter('نظام',this)">🔧 مكونات النظام</button>
+    <button class="filter-btn" onclick="setFilter('بطارية',this)">🔋 بطاريات</button>
+    <button class="filter-btn" onclick="setFilter('شبكة',this)">🔌 شبكة كهربائية</button>
+    <button class="filter-btn" onclick="setFilter('تركيب',this)">🏗 تركيب</button>
+    <button class="filter-btn" onclick="setFilter('متقدم',this)">🚀 متقدم</button>
+  </div>
+  <div class="results-count" id="resultsCount"></div>
+</div>
+
+<!-- TERMS -->
+<div class="terms-grid" id="termsGrid">
+
+  <!-- ألواح شمسية -->
+  <div class="term-card" data-cat="ألواح" data-ar="طاقة شمسية" data-en="solar energy">
+    <div class="term-top"><span class="term-ar">طاقة شمسية</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Solar Energy</div>
+    <div class="term-def">الطاقة المستخرجة من أشعة الشمس وتحويلها إلى كهرباء أو حرارة. السودان من أغنى دول العالم بهذا المورد.</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="لوح شمسي" data-en="solar panel">
+    <div class="term-top"><span class="term-ar">لوح شمسي</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Solar Panel / PV Module</div>
+    <div class="term-def">جهاز يحوّل ضوء الشمس مباشرةً إلى كهرباء عبر الخلايا الكهروضوئية. تُقاس قدرته بالواط (W).</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="خلية كهروضوئية" data-en="photovoltaic cell pv cell">
+    <div class="term-top"><span class="term-ar">خلية كهروضوئية</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Photovoltaic Cell (PV Cell)</div>
+    <div class="term-def">الوحدة الأساسية في اللوح الشمسي. تحوّل الضوء إلى تيار كهربائي مستمر. اللوح الواحد يحتوي على 60 إلى 144 خلية.</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="إشعاع شمسي" data-en="solar irradiance">
+    <div class="term-top"><span class="term-ar">إشعاع شمسي</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Solar Irradiance</div>
+    <div class="term-def">كمية طاقة الشمس الواصلة لكل متر مربع من السطح، تُقاس بالواط لكل متر مربع (W/m²). القيمة المرجعية القياسية هي 1000 W/m².</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="ساعات ذروة الشمس" data-en="peak sun hours psh">
+    <div class="term-top"><span class="term-ar">ساعات ذروة الشمس</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Peak Sun Hours (PSH)</div>
+    <div class="term-def">عدد الساعات اليومية التي يعادل فيها الإشعاع الشمسي 1000 W/m². الخرطوم تتمتع بـ 6–7 ساعات ذروة يومياً — من الأعلى عالمياً.</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="كفاءة اللوح" data-en="panel efficiency">
+    <div class="term-top"><span class="term-ar">كفاءة اللوح</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Panel Efficiency</div>
+    <div class="term-def">نسبة طاقة الشمس التي يحوّلها اللوح إلى كهرباء. الألواح الحديثة تتراوح بين 18–23%. كلما زادت الكفاءة، قلّت المساحة المطلوبة.</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="لوح أحادي البلورة" data-en="monocrystalline">
+    <div class="term-top"><span class="term-ar">لوح أحادي البلورة</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Monocrystalline</div>
+    <div class="term-def">نوع الألواح الأعلى كفاءةً والأطول عمراً. يتميز بلونه الأسود الداكن. الأنسب للمناخ الحار والمساحات المحدودة.</div>
+  </div>
+
+  <div class="term-card" data-cat="ألواح" data-ar="لوح متعدد البلورات" data-en="polycrystalline">
+    <div class="term-top"><span class="term-ar">لوح متعدد البلورات</span><span class="term-badge badge-panels">ألواح شمسية</span></div>
+    <div class="term-en">Polycrystalline</div>
+    <div class="term-def">نوع شائع أرخص ثمناً، يتميز باللون الأزرق المائل. كفاءته أقل قليلاً من الأحادي لكنه مناسب للميزانيات المحدودة.</div>
+  </div>
+
+  <!-- كهرباء أساسية -->
+  <div class="term-card" data-cat="كهرباء" data-ar="تيار مستمر" data-en="dc direct current">
+    <div class="term-top"><span class="term-ar">تيار مستمر</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">DC — Direct Current</div>
+    <div class="term-def">تيار كهربائي يتدفق في اتجاه واحد فقط. خرج الألواح الشمسية والبطاريات دائماً تيار مستمر.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="تيار متردد" data-en="ac alternating current">
+    <div class="term-top"><span class="term-ar">تيار متردد</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">AC — Alternating Current</div>
+    <div class="term-def">تيار يغيّر اتجاهه بشكل دوري (50 مرة في الثانية في السودان). جميع الأجهزة المنزلية تعمل على تيار متردد.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="جهد" data-en="voltage volts">
+    <div class="term-top"><span class="term-ar">جهد كهربائي</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">Voltage (V)</div>
+    <div class="term-def">الفرق في الجهد بين نقطتين، يُقاس بالفولت (V). شبكة المنازل في السودان 220–240 فولت. الأنظمة الشمسية الصغيرة 12 أو 24 أو 48 فولت.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="تيار أمبير" data-en="current ampere amps">
+    <div class="term-top"><span class="term-ar">تيار كهربائي</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">Current (A — Ampere)</div>
+    <div class="term-def">كمية الشحنات الكهربائية المتدفقة في الثانية، تُقاس بالأمبير (A). تيار عالٍ = كابل سميك.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="قدرة واط" data-en="power watt">
+    <div class="term-top"><span class="term-ar">قدرة كهربائية</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">Power (W — Watt)</div>
+    <div class="term-def">معدل استهلاك أو توليد الطاقة. القدرة = الجهد × التيار (P = V × I). المروحة تستهلك ~75W، المكيف ~1500W.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="طاقة كيلوواط ساعة" data-en="energy kilowatt hour kwh">
+    <div class="term-top"><span class="term-ar">طاقة كهربائية</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">Energy (kWh — Kilowatt Hour)</div>
+    <div class="term-def">كمية الطاقة المستهلكة أو المنتجة عبر الزمن. 1 كيلوواط ساعة = تشغيل جهاز بقدرة 1000 واط لمدة ساعة. هذا ما يقيسه عداد الكهرباء.</div>
+  </div>
+
+  <div class="term-card" data-cat="كهرباء" data-ar="كيلوواط" data-en="kilowatt kw">
+    <div class="term-top"><span class="term-ar">كيلوواط</span><span class="term-badge badge-electric">كهرباء أساسية</span></div>
+    <div class="term-en">Kilowatt (kW)</div>
+    <div class="term-def">وحدة القدرة = 1000 واط. حجم النظام الشمسي يُقاس بالكيلوواط. نظام 3 كيلوواط = 3000 واط من الألواح.</div>
+  </div>
+
+  <!-- مكونات النظام -->
+  <div class="term-card" data-cat="نظام" data-ar="إنفرتر" data-en="inverter">
+    <div class="term-top"><span class="term-ar">إنفرتر</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">Inverter</div>
+    <div class="term-def">قلب النظام الشمسي — يحوّل التيار المستمر (DC) من الألواح والبطاريات إلى تيار متردد (AC) صالح للاستخدام المنزلي.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="إنفرتر هجين" data-en="hybrid inverter">
+    <div class="term-top"><span class="term-ar">إنفرتر هجين</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">Hybrid Inverter</div>
+    <div class="term-def">إنفرتر متكامل يدير الألواح والبطاريات والشبكة في آنٍ واحد. الأكثر انتشاراً في السودان لأنه يعمل عند الانقطاع.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="إنفرتر على الشبكة" data-en="grid tied inverter on grid">
+    <div class="term-top"><span class="term-ar">إنفرتر على الشبكة</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">Grid-Tied Inverter</div>
+    <div class="term-def">يعمل فقط عند توفر الشبكة الكهربائية. يوقف العمل تلقائياً عند انقطاعها. يُستخدم عند الرغبة في تصدير الطاقة الزائدة.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="إنفرتر مستقل" data-en="off grid inverter">
+    <div class="term-top"><span class="term-ar">إنفرتر مستقل</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">Off-Grid Inverter</div>
+    <div class="term-def">مصمم للعمل بدون الشبكة الكهربائية كلياً. يعتمد على البطاريات. مثالي للمناطق النائية في السودان.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="MPPT وحدة حماية الشحن" data-en="mppt charge controller">
+    <div class="term-top"><span class="term-ar">وحدة حماية الشحن MPPT</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">MPPT Charge Controller</div>
+    <div class="term-def">جهاز ينظّم شحن البطاريات من الألواح. MPPT تستخرج أقصى طاقة ممكنة من الألواح وأكثر كفاءةً من PWM بنسبة 30% أو أكثر.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="نظام شمسي مستقل" data-en="off grid solar system">
+    <div class="term-top"><span class="term-ar">نظام مستقل</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">Off-Grid Solar System</div>
+    <div class="term-def">نظام شمسي كامل لا يتصل بالشبكة. يعتمد على الألواح + البطاريات. الأنسب للقرى والمناطق البعيدة في السودان.</div>
+  </div>
+
+  <div class="term-card" data-cat="نظام" data-ar="حجم النظام تصميم" data-en="system sizing design load calculation">
+    <div class="term-top"><span class="term-ar">حساب حجم النظام</span><span class="term-badge badge-system">مكونات النظام</span></div>
+    <div class="term-en">System Sizing / Load Calculation</div>
+    <div class="term-def">عملية حساب الألواح والبطاريات والإنفرتر المطلوبة بناءً على استهلاك المنزل أو المنشأة. مهارة أساسية لكل فني.</div>
+  </div>
+
+  <!-- بطاريات -->
+  <div class="term-card" data-cat="بطارية" data-ar="بطارية" data-en="battery storage">
+    <div class="term-top"><span class="term-ar">بطارية</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">Battery / Storage</div>
+    <div class="term-def">وحدة تخزين الطاقة للاستخدام عند غياب الشمس أو انقطاع الكهرباء. تُقاس سعتها بالأمبير ساعة (Ah) أو كيلوواط ساعة (kWh).</div>
+  </div>
+
+  <div class="term-card" data-cat="بطارية" data-ar="بطارية ليثيوم" data-en="lithium battery lifepo4">
+    <div class="term-top"><span class="term-ar">بطارية ليثيوم</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">Lithium Battery (LiFePO4)</div>
+    <div class="term-def">نوع متطور من البطاريات — عمر أطول (3000–6000 دورة)، وزن أخف، شحن أسرع. أغلى ثمناً لكن الأفضل على المدى البعيد.</div>
+  </div>
+
+  <div class="term-card" data-cat="بطارية" data-ar="بطارية رصاص حمضي" data-en="lead acid battery agm gel">
+    <div class="term-top"><span class="term-ar">بطارية رصاص حمضي</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">Lead-Acid Battery (AGM/Gel)</div>
+    <div class="term-def">النوع التقليدي الأرخص. عمر أقصر (300–500 دورة). تحتاج صيانة. لا تُفرّغ أكثر من 50% لحماية عمرها.</div>
+  </div>
+
+  <div class="term-card" data-cat="بطارية" data-ar="عمق التفريغ" data-en="depth of discharge dod">
+    <div class="term-top"><span class="term-ar">عمق التفريغ</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">Depth of Discharge (DoD)</div>
+    <div class="term-def">نسبة الطاقة المسحوبة من البطارية. مثال: DoD 80% يعني استخدام 80% من سعتها. زيادة عمق التفريغ تقلّل عمر البطارية.</div>
+  </div>
+
+  <div class="term-card" data-cat="بطارية" data-ar="حالة الشحن" data-en="state of charge soc">
+    <div class="term-top"><span class="term-ar">حالة الشحن</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">State of Charge (SoC)</div>
+    <div class="term-def">النسبة المئوية للطاقة المتبقية في البطارية. SoC 100% = شحن كامل. تمثل مؤشر الوقود للبطارية.</div>
+  </div>
+
+  <div class="term-card" data-cat="بطارية" data-ar="سعة البطارية أمبير ساعة" data-en="battery capacity ah ampere hour">
+    <div class="term-top"><span class="term-ar">سعة البطارية</span><span class="term-badge badge-battery">بطاريات</span></div>
+    <div class="term-en">Battery Capacity (Ah)</div>
+    <div class="term-def">كمية الطاقة التي يمكن تخزينها. بطارية 200Ah بجهد 12V تخزّن 2.4 كيلوواط ساعة. كلما زادت الـ Ah، زادت ساعات التشغيل.</div>
+  </div>
+
+  <!-- شبكة كهربائية -->
+  <div class="term-card" data-cat="شبكة" data-ar="شبكة كهربائية" data-en="power grid electricity grid">
+    <div class="term-top"><span class="term-ar">شبكة كهربائية</span><span class="term-badge badge-grid">شبكة كهربائية</span></div>
+    <div class="term-en">Power Grid</div>
+    <div class="term-def">منظومة توليد ونقل وتوزيع الكهرباء التي تربط المنازل والمنشآت. إمدادات النيل للكهرباء هي المشغّل في السودان.</div>
+  </div>
+
+  <div class="term-card" data-cat="شبكة" data-ar="تصدير الطاقة" data-en="grid export feed in">
+    <div class="term-top"><span class="term-ar">تصدير الطاقة للشبكة</span><span class="term-badge badge-grid">شبكة كهربائية</span></div>
+    <div class="term-en">Grid Export / Feed-In</div>
+    <div class="term-def">إرسال الكهرباء الزائدة من نظامك الشمسي إلى الشبكة العامة. غير مفعّل حالياً في السودان بسبب غياب التشريع المنظّم.</div>
+  </div>
+
+  <div class="term-card" data-cat="شبكة" data-ar="قياس صافي الاستهلاك" data-en="net metering">
+    <div class="term-top"><span class="term-ar">قياس صافي الاستهلاك</span><span class="term-badge badge-grid">شبكة كهربائية</span></div>
+    <div class="term-en">Net Metering</div>
+    <div class="term-def">نظام يحتسب الفرق بين الكهرباء المستهلكة من الشبكة والمصدّرة إليها في فاتورة واحدة. تطبّقه أستراليا وكثير من الدول.</div>
+  </div>
+
+  <div class="term-card" data-cat="شبكة" data-ar="عداد ثنائي الاتجاه" data-en="bidirectional meter smart meter">
+    <div class="term-top"><span class="term-ar">عداد ثنائي الاتجاه</span><span class="term-badge badge-grid">شبكة كهربائية</span></div>
+    <div class="term-en">Bidirectional / Smart Meter</div>
+    <div class="term-def">عداد كهربائي يقيس الاستهلاك والتصدير معاً. ضروري لتطبيق نظام Net Metering.</div>
+  </div>
+
+  <div class="term-card" data-cat="شبكة" data-ar="موارد الطاقة الموزعة" data-en="der distributed energy resources">
+    <div class="term-top"><span class="term-ar">موارد الطاقة الموزعة</span><span class="term-badge badge-grid">شبكة كهربائية</span></div>
+    <div class="term-en">DER — Distributed Energy Resources</div>
+    <div class="term-def">مصادر الطاقة الصغيرة الموزعة كالألواح الشمسية والبطاريات في المنازل والمنشآت. عكس محطات التوليد المركزية الكبيرة.</div>
+  </div>
+
+  <!-- تركيب -->
+  <div class="term-card" data-cat="تركيب" data-ar="زاوية الميل" data-en="tilt angle">
+    <div class="term-top"><span class="term-ar">زاوية الميل</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">Tilt Angle</div>
+    <div class="term-def">الزاوية التي تُثبَّت عليها الألواح بالنسبة للأفق. في الخرطوم (خط عرض 15°) يُنصح بزاوية 10–20 درجة للحصول على أفضل إنتاج سنوي.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="توجيه الألواح شمال جنوب" data-en="orientation azimuth">
+    <div class="term-top"><span class="term-ar">توجيه الألواح</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">Orientation / Azimuth</div>
+    <div class="term-def">اتجاه وجه الألواح. السودان في نصف الكرة الشمالي — الألواح يجب أن تواجه الجنوب للحصول على أقصى إشعاع.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="ظل تظليل" data-en="shading shadow">
+    <div class="term-top"><span class="term-ar">تظليل</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">Shading</div>
+    <div class="term-def">أي حاجب يمنع الضوء عن الألواح — أشجار، مبانٍ، أعمدة. حتى الظل الجزئي على خلية واحدة يخفّض إنتاج السلسلة كاملاً.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="سلسلة توصيل على التسلسل" data-en="string series connection">
+    <div class="term-top"><span class="term-ar">سلسلة ألواح</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">String (Series Connection)</div>
+    <div class="term-def">ألواح موصولة على التسلسل — الجهد يتجمع والتيار يبقى ثابتاً. يُستخدم لرفع الجهد للإنفرتر.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="توصيل متوازٍ" data-en="parallel connection">
+    <div class="term-top"><span class="term-ar">توصيل متوازٍ</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">Parallel Connection</div>
+    <div class="term-def">ألواح موصولة على التوازي — التيار يتجمع والجهد يبقى ثابتاً. يُستخدم لزيادة التيار.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="قاطع عازل disconnector" data-en="isolator dc disconnect">
+    <div class="term-top"><span class="term-ar">قاطع عازل</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">DC Isolator / Disconnect Switch</div>
+    <div class="term-def">مفتاح يقطع التيار بين الألواح والإنفرتر. ضروري للسلامة أثناء الصيانة والطوارئ. إلزامي في كل تركيب احترافي.</div>
+  </div>
+
+  <div class="term-card" data-cat="تركيب" data-ar="تأريض earthing grounding" data-en="grounding earthing">
+    <div class="term-top"><span class="term-ar">تأريض</span><span class="term-badge badge-install">تركيب</span></div>
+    <div class="term-en">Grounding / Earthing</div>
+    <div class="term-def">ربط الأجزاء المعدنية للنظام بالأرض لحماية المستخدمين من الصعقة الكهربائية. أحد أهم متطلبات السلامة في كل تركيب.</div>
+  </div>
+
+  <!-- متقدم -->
+  <div class="term-card" data-cat="متقدم" data-ar="VPP محطة طاقة افتراضية" data-en="vpp virtual power plant">
+    <div class="term-top"><span class="term-ar">محطة الطاقة الافتراضية</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">VPP — Virtual Power Plant</div>
+    <div class="term-def">شبكة من المنازل والمنشآت المزوّدة بالطاقة الشمسية تُدار مركزياً كمحطة طاقة واحدة. 1000 منزل في الخرطوم يمكن أن تكوّن محطة 3 ميغاواط افتراضية.</div>
+  </div>
+
+  <div class="term-card" data-cat="متقدم" data-ar="DERMS نظام إدارة طاقة موزعة" data-en="derms distributed energy resource management">
+    <div class="term-top"><span class="term-ar">نظام DERMS</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">DERMS — Distributed Energy Resource Management System</div>
+    <div class="term-def">نظام برمجي يتحكم في آلاف أنظمة الطاقة الموزعة عبر الشبكة ويوازن بينها. المستقبل الذي يسعى إليه قطاع الكهرباء السوداني.</div>
+  </div>
+
+  <div class="term-card" data-cat="متقدم" data-ar="Modbus بروتوكول اتصال" data-en="modbus communication protocol">
+    <div class="term-top"><span class="term-ar">بروتوكول Modbus</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">Modbus Protocol</div>
+    <div class="term-def">بروتوكول اتصال صناعي قياسي يُستخدم للتواصل بين الإنفرترات وأنظمة المراقبة. يتيح قراءة بيانات الأداء عن بُعد.</div>
+  </div>
+
+  <div class="term-card" data-cat="متقدم" data-ar="SunSpec معيار اتصال" data-en="sunspec standard">
+    <div class="term-top"><span class="term-ar">معيار SunSpec</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">SunSpec Standard</div>
+    <div class="term-def">معيار دولي موحّد لبروتوكولات الاتصال بين أجهزة الطاقة الشمسية. يجعل الأجهزة من شركات مختلفة تتحدث نفس اللغة.</div>
+  </div>
+
+  <div class="term-card" data-cat="متقدم" data-ar="مراقبة الأداء monitoring" data-en="performance monitoring remote monitoring">
+    <div class="term-top"><span class="term-ar">مراقبة الأداء</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">Performance Monitoring</div>
+    <div class="term-def">متابعة إنتاج النظام الشمسي وكفاءته عن بُعد عبر تطبيق أو منصة إلكترونية. تكتشف مشاكل الأداء قبل أن يلاحظها المالك.</div>
+  </div>
+
+  <div class="term-card" data-cat="متقدم" data-ar="عامل السعة capacity factor" data-en="capacity factor performance ratio">
+    <div class="term-top"><span class="term-ar">نسبة الأداء</span><span class="term-badge badge-advanced">متقدم</span></div>
+    <div class="term-en">Performance Ratio (PR)</div>
+    <div class="term-def">نسبة الطاقة الفعلية المنتجة إلى الطاقة النظرية المتوقعة. نظام بـ PR=80% يعني أنه يعمل بكفاءة 80% من طاقته القصوى النظرية.</div>
+  </div>
+
+</div><!-- end terms-grid -->
+
+<div class="no-results" id="noResults" style="display:none">
+  لا توجد نتائج مطابقة — جرّب كلمة مختلفة
+</div>
+
+<div class="doc-footer">
+  <p>شمس النيل — مبادرة مجانية لدعم الطاقة الشمسية في السودان · sunnile.org</p>
+  <p>الوحدة التأسيسية · قاموس الطاقة الشمسية</p>
+</div>
+
+<div class="lesson-nav-bar no-print">
+  <a href="../institute.html" class="lesson-nav-btn home">🏛 العودة إلى المعهد</a>
+  <a href="unit-01-electrical-safety.html" class="lesson-nav-btn">
+    <span><span class="lesson-nav-label">الوحدة التالية</span>الوحدة ١ — السلامة الكهربائية ←</span>
+  </a>
+</div>
+
+<script>
+var activeFilter = 'all';
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  filterTerms();
+}
+
+function filterTerms() {
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  var cards = document.querySelectorAll('.term-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var cat = card.getAttribute('data-cat');
+    var ar  = card.getAttribute('data-ar').toLowerCase();
+    var en  = card.getAttribute('data-en').toLowerCase();
+    var def = card.querySelector('.term-def').textContent.toLowerCase();
+    var catMatch = (activeFilter === 'all') || (cat === activeFilter);
+    var textMatch = !q || ar.includes(q) || en.includes(q) || def.includes(q);
+    if (catMatch && textMatch) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  var countEl = document.getElementById('resultsCount');
+  var noRes   = document.getElementById('noResults');
+  countEl.textContent = visible > 0 ? ('عدد المصطلحات: ' + visible) : '';
+  noRes.style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Init count
+filterTerms();
+</script>
+</body>
+</html>

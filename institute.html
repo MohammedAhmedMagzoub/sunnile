@@ -129,13 +129,13 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
 </nav>
 <div class="page-header">
   <h1>🎓 معهد فنيي الطاقة الشمسية</h1>
-  <p>٢٤ وحدة تدريبية — ٣ مستويات — مجانية تماماً</p>
+  <p>٢٥ وحدة تدريبية — ٤ مستويات — مجانية تماماً</p>
 </div>
 <div class="inst-wrap">
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:36px;">
-    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٢٤</div><div style="font-size:12px;color:var(--text-muted)">وحدة تدريبية</div></div>
-    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٣</div><div style="font-size:12px;color:var(--text-muted)">مستويات تدريبية</div></div>
-    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:#27C93F">٢٤</div><div style="font-size:12px;color:var(--text-muted)">وحدة متاحة الآن</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٢٥</div><div style="font-size:12px;color:var(--text-muted)">وحدة تدريبية</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٤</div><div style="font-size:12px;color:var(--text-muted)">مستويات تدريبية</div></div>
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:#27C93F">٢٥</div><div style="font-size:12px;color:var(--text-muted)">وحدة متاحة الآن</div></div>
     <div style="background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber)">٠</div><div style="font-size:12px;color:var(--text-muted)">تكلفة — مجاني دائماً</div></div>
   </div>
 
@@ -148,12 +148,31 @@ body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);dir
     <div class="progress-label" id="progressPct">٠٪</div>
   </div>
   <div class="level-tabs">
-    <button class="level-tab active" onclick="showLevel('l1',this)">المستوى الأول: مبتدئ</button>
+    <button class="level-tab active" onclick="showLevel('l0',this)">المستوى التأسيسي: أساس</button>
+    <button class="level-tab" onclick="showLevel('l1',this)">المستوى الأول: مبتدئ</button>
     <button class="level-tab" onclick="showLevel('l2',this)">المستوى الثاني: متوسط</button>
     <button class="level-tab" onclick="showLevel('l3',this)">المستوى الثالث: متقدم</button>
   </div>
 
-  <div id="level-l1" class="level-content active">
+  <div id="level-l0" class="level-content active">
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
+      <span style="background:rgba(55,138,221,0.12);color:var(--blue);border:1px solid rgba(55,138,221,0.3);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;">تأسيسي</span>
+      <span style="font-size:13px;color:var(--text-muted)">١ وحدة مرجعية | نقطة البداية لكل طالب | متاحة الآن</span>
+    </div>
+    <div class="modules-grid">
+      <a href="lessons/glossary.html" class="module-card" style="text-decoration:none;color:inherit;">
+        <div class="module-num" style="background:rgba(55,138,221,0.15);color:var(--blue);">٠</div>
+        <div>
+          <div class="module-title">قاموس مصطلحات الطاقة الشمسية</div>
+          <div class="module-sub">٥٠+ مصطلح بالعربي والإنجليزي مع تعريفات واضحة</div>
+          <span class="pdf-badge">✓ متاح</span>
+          <span style="font-size:10px;color:var(--text-dim);margin-top:4px;display:block;">٧ فئات · بحث فوري · طباعة PDF</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div id="level-l1" class="level-content">
     <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
       <span style="background:rgba(55,138,221,0.12);color:var(--blue);border:1px solid rgba(55,138,221,0.3);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;">مبتدئ</span>
       <span style="font-size:13px;color:var(--text-muted)">٨ وحدات | لا يشترط خبرة سابقة | جميع الوحدات متاحة الآن</span>
