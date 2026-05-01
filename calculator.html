@@ -131,6 +131,51 @@ html[dir="ltr"] .adv-toggle .arr{margin-right:0;margin-left:8px;}
   .logo-ar{font-size:14px;}
 }
 
+/* ── APPLIANCE ESTIMATOR ── */
+.app-toggle-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--amber);background:none;border:1px solid rgba(239,159,39,0.3);border-radius:6px;cursor:pointer;padding:5px 10px;font-family:'Cairo',sans-serif;margin-top:8px;transition:all .2s;}
+.app-toggle-btn:hover{background:rgba(239,159,39,0.08);border-color:var(--amber);}
+.app-section{display:none;grid-column:1/-1;background:var(--dark3);border:1px solid rgba(239,159,39,0.2);border-radius:10px;padding:16px 20px;margin:-4px 0 4px;}
+.app-section.open{display:block;}
+.app-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px;}
+.app-hdr-title{font-size:13px;font-weight:700;}
+.app-live-total{font-size:13px;color:var(--amber);font-weight:700;}
+.app-col-header{display:grid;grid-template-columns:1fr 78px 76px 54px;gap:8px;padding:0 12px;margin-bottom:4px;}
+@media(max-width:600px){.app-col-header{grid-template-columns:1fr 68px 66px 46px;gap:5px;}}
+.app-col-header span{font-size:10px;color:var(--text-dim);text-align:center;}
+.app-col-header span:first-child{text-align:right;}
+html[dir=ltr] .app-col-header span:first-child{text-align:left;}
+.app-table{display:flex;flex-direction:column;gap:5px;}
+.app-row{display:grid;grid-template-columns:1fr 78px 76px 54px;align-items:center;gap:8px;background:var(--dark2);border-radius:8px;padding:9px 12px;transition:opacity .2s;}
+@media(max-width:600px){.app-row{grid-template-columns:1fr 68px 66px 46px;gap:5px;padding:8px 9px;}}
+.app-row.zeroed{opacity:0.45;}
+.app-appliance{display:flex;flex-direction:column;gap:1px;}
+.app-appliance-name{font-size:12px;line-height:1.3;}
+.app-appliance-watts{font-size:10px;color:var(--text-dim);}
+.app-col{display:flex;flex-direction:column;align-items:center;}
+.app-stepper{display:flex;align-items:center;gap:3px;}
+.app-stepper button{width:22px;height:22px;background:var(--dark3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .15s;}
+.app-stepper button:hover{border-color:var(--amber);color:var(--amber);}
+.app-qty-val{font-size:13px;font-weight:700;min-width:18px;text-align:center;}
+.app-hrs{width:50px;background:var(--dark3);border:1px solid var(--border);border-radius:6px;padding:4px 5px;color:var(--text);font-family:'Cairo',sans-serif;font-size:12px;text-align:center;-moz-appearance:textfield;}
+.app-hrs::-webkit-outer-spin-button,.app-hrs::-webkit-inner-spin-button{-webkit-appearance:none;}
+.app-hrs:focus{outline:none;border-color:var(--amber);}
+.app-row-kwh{font-size:11px;color:var(--text-muted);text-align:center;font-weight:600;}
+.app-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.app-total-label{font-size:13px;color:var(--text-muted);}
+.app-total-label strong{color:var(--amber);font-size:15px;}
+.app-apply-btn{background:var(--amber);color:#1C1A14;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:background .2s;}
+.app-apply-btn:hover{background:#F5A832;}
+
+/* ── BATTERY CHOICE ── */
+.batt-choice-group{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.batt-opt{display:flex;align-items:center;gap:9px;background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;user-select:none;}
+.batt-opt.selected{border-color:var(--amber);background:rgba(239,159,39,0.08);}
+.batt-opt input[type=radio]{display:none;}
+.batt-opt-icon{font-size:18px;line-height:1;flex-shrink:0;}
+.batt-opt-text{font-size:12px;line-height:1.4;}
+.outage-wrap{margin-top:14px;}
+.outage-wrap .form-label{margin-bottom:6px;}
+
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"حاسبة النظام الشمسي — شمس النيل","alternateName":"SunNile Solar Calculator","url":"https://sunnile.org/calculator.html","description":"حاسبة مجانية لتصميم الأنظمة الشمسية في السودان — تشمل التدهور الحراري الشهري وبيانات NASA POWER وتقدير التكلفة","applicationCategory":"UtilityApplication","operatingSystem":"Any","inLanguage":["ar","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["حساب kWp مع معامل الأداء الحقيقي","تدهور حراري شهري بيانات NASA POWER","تصحيح زاوية الميل","حجم الإنفرتر","سعة البطارية مع DoD وكفاءة الشحن","مخطط الإنتاج الشهري","تقدير التكلفة وفترة الاسترداد"],"provider":{"@type":"Organization","name":"شمس النيل","url":"https://sunnile.org"}}
@@ -176,7 +221,25 @@ html[dir="ltr"] .adv-toggle .arr{margin-right:0;margin-left:8px;}
       <div class="form-group">
         <label class="form-label" for="daily-kwh">الاستهلاك اليومي <span>(كيلوواط ساعة/يوم)</span></label>
         <input type="number" class="form-input" id="daily-kwh" aria-label="الاستهلاك اليومي" value="15" min="1" max="500" placeholder="مثال: 15">
+        <button class="app-toggle-btn" type="button" onclick="toggleAppliances()" id="appToggleBtn">🔌 احسب من أجهزتي المنزلية</button>
       </div>
+
+      <!-- Appliance estimator — spans both columns -->
+      <div class="app-section" id="appSection">
+        <div class="app-hdr">
+          <span class="app-hdr-title" id="appHdrTitle">أجهزتي المنزلية — حدّد الكميات وساعات الاستخدام</span>
+          <span class="app-live-total" id="appLiveTotal">٠ kWh/يوم</span>
+        </div>
+        <div class="app-col-header" id="appColHeader">
+          <span></span><span>الكمية</span><span>ساعات/يوم</span><span>kWh/يوم</span>
+        </div>
+        <div class="app-table" id="appTable"></div>
+        <div class="app-footer">
+          <div class="app-total-label" id="appTotalLabel">الاستهلاك اليومي المقدر: <strong><span id="appKwhVal">0.0</span> kWh/يوم</strong></div>
+          <button class="app-apply-btn" type="button" onclick="applyAppliances()" id="appApplyBtn">✓ استخدم هذه القيمة</button>
+        </div>
+      </div>
+
       <div class="form-group">
         <label class="form-label" for="panel-w">قدرة اللوح الواحد <span>(واط)</span></label>
         <select class="form-select" id="panel-w" aria-label="قدرة اللوح الواحد">
@@ -187,8 +250,23 @@ html[dir="ltr"] .adv-toggle .arr{margin-right:0;margin-left:8px;}
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label" for="outage-hrs">ساعات انقطاع الكهرباء يومياً <span>(لحساب البطارية)</span></label>
-        <input type="number" class="form-input" id="outage-hrs" aria-label="ساعات انقطاع الكهرباء" value="8" min="0" max="24" placeholder="مثال: 8">
+        <label class="form-label">البطارية الاحتياطية</label>
+        <div class="batt-choice-group">
+          <label class="batt-opt selected" id="battYesLbl" onclick="onBattChoice('yes')">
+            <input type="radio" name="want-batt" value="yes" id="batt-yes" checked>
+            <span class="batt-opt-icon">🔋</span>
+            <span class="batt-opt-text">نعم، أريد بطارية</span>
+          </label>
+          <label class="batt-opt" id="battNoLbl" onclick="onBattChoice('no')">
+            <input type="radio" name="want-batt" value="no" id="batt-no">
+            <span class="batt-opt-icon">⚡</span>
+            <span class="batt-opt-text">شبكة كهرباء فقط</span>
+          </label>
+        </div>
+        <div class="outage-wrap" id="outageWrap">
+          <label class="form-label" for="outage-hrs">ساعات انقطاع الكهرباء يومياً <span>(لحساب البطارية)</span></label>
+          <input type="number" class="form-input" id="outage-hrs" aria-label="ساعات انقطاع الكهرباء" value="8" min="0" max="24" placeholder="مثال: 8">
+        </div>
       </div>
     </div>
 
@@ -340,6 +418,136 @@ var MONTHS_ABR_EN = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 var DAYS = [31,28,31,30,31,30,31,31,30,31,30,31];
 var TEMP_COEFF = 0.0035;
 
+/* ── APPLIANCES DATA ── */
+var APPLIANCES = [
+  {id:'ac15',  ar:'مكيف هواء ١.٥ طن',       en:'AC 1.5 ton',         w:1400, qty:1, hrs:8},
+  {id:'ac2',   ar:'مكيف هواء ٢ طن',          en:'AC 2 ton',           w:1800, qty:0, hrs:8},
+  {id:'fridge',ar:'ثلاجة',                   en:'Refrigerator',       w:150,  qty:1, hrs:24},
+  {id:'freeze',ar:'فريزر عميق',               en:'Deep Freezer',       w:200,  qty:0, hrs:24},
+  {id:'cfan',  ar:'مروحة سقفية',             en:'Ceiling Fan',        w:75,   qty:2, hrs:12},
+  {id:'sfan',  ar:'مروحة مكتبية / طاولة',   en:'Stand / Table Fan',  w:45,   qty:0, hrs:8},
+  {id:'light', ar:'إضاءة LED (١٠ نقاط)',    en:'LED Lighting ×10',   w:100,  qty:1, hrs:6},
+  {id:'tv',    ar:'تلفزيون LED',              en:'LED TV',             w:80,   qty:1, hrs:5},
+  {id:'pump',  ar:'مضخة مياه',               en:'Water Pump',         w:750,  qty:1, hrs:2},
+  {id:'laptop',ar:'لابتوب',                  en:'Laptop',             w:50,   qty:0, hrs:6},
+  {id:'pc',    ar:'كمبيوتر مكتبي',           en:'Desktop PC',         w:200,  qty:0, hrs:6},
+  {id:'phone', ar:'شواحن جوال (×٤)',         en:'Phone Chargers ×4',  w:40,   qty:1, hrs:6},
+  {id:'wash',  ar:'غسالة ملابس',             en:'Washing Machine',    w:500,  qty:0, hrs:1},
+  {id:'kettle',ar:'غلاية كهربائية',          en:'Electric Kettle',    w:1500, qty:0, hrs:0.5},
+  {id:'router',ar:'راوتر إنترنت',            en:'WiFi Router',        w:15,   qty:1, hrs:24}
+];
+var appQty = {}, appHrs = {};
+APPLIANCES.forEach(function(a){ appQty[a.id] = a.qty; appHrs[a.id] = a.hrs; });
+
+function renderAppliances() {
+  var en = isEN();
+  var colHdr = document.getElementById('appColHeader');
+  if (colHdr) colHdr.innerHTML = en
+    ? '<span></span><span>Qty</span><span>Hrs/day</span><span>kWh/day</span>'
+    : '<span></span><span>الكمية</span><span>ساعات/يوم</span><span>kWh/يوم</span>';
+  var html = '';
+  APPLIANCES.forEach(function(a) {
+    var q = appQty[a.id];
+    var h = appHrs[a.id];
+    var kwh = (a.w * q * h / 1000).toFixed(1);
+    html += '<div class="app-row' + (q === 0 ? ' zeroed' : '') + '" id="arow-' + a.id + '">' +
+      '<div class="app-appliance">' +
+        '<span class="app-appliance-name">' + (en ? a.en : a.ar) + '</span>' +
+        '<span class="app-appliance-watts">' + a.w + ' W</span>' +
+      '</div>' +
+      '<div class="app-col">' +
+        '<div class="app-stepper">' +
+          '<button type="button" onclick="appStep(\'' + a.id + '\',-1)">−</button>' +
+          '<span class="app-qty-val" id="aqty-' + a.id + '">' + q + '</span>' +
+          '<button type="button" onclick="appStep(\'' + a.id + '\',1)">+</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="app-col">' +
+        '<input class="app-hrs" type="number" id="ahrs-' + a.id + '" value="' + h + '" min="0" max="24" step="0.5" oninput="appUpdate(\'' + a.id + '\')">' +
+      '</div>' +
+      '<div class="app-col">' +
+        '<span class="app-row-kwh" id="akwh-' + a.id + '">' + (q > 0 ? kwh : '—') + '</span>' +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('appTable').innerHTML = html;
+  appRecalcTotal();
+}
+
+function appStep(id, delta) {
+  appQty[id] = Math.max(0, (appQty[id] || 0) + delta);
+  var qEl = document.getElementById('aqty-' + id);
+  if (qEl) qEl.textContent = appQty[id];
+  appUpdate(id);
+}
+
+function appUpdate(id) {
+  var q = appQty[id] || 0;
+  var hEl = document.getElementById('ahrs-' + id);
+  if (hEl) appHrs[id] = parseFloat(hEl.value) || 0;
+  var a = APPLIANCES.filter(function(x){ return x.id === id; })[0];
+  var kwh = (a.w * q * appHrs[id] / 1000).toFixed(1);
+  var kEl = document.getElementById('akwh-' + id);
+  if (kEl) kEl.textContent = q > 0 ? kwh : '—';
+  var row = document.getElementById('arow-' + id);
+  if (row) row.classList.toggle('zeroed', q === 0);
+  appRecalcTotal();
+}
+
+function appRecalcTotal() {
+  var en = isEN();
+  var total = 0;
+  APPLIANCES.forEach(function(a) {
+    total += a.w * (appQty[a.id] || 0) * (appHrs[a.id] || 0) / 1000;
+  });
+  var t = total.toFixed(1);
+  var kwhEl = document.getElementById('appKwhVal');
+  if (kwhEl) kwhEl.textContent = t;
+  var liveEl = document.getElementById('appLiveTotal');
+  if (liveEl) liveEl.textContent = t + (en ? ' kWh/day' : ' kWh/يوم');
+}
+
+function toggleAppliances() {
+  var sec = document.getElementById('appSection');
+  var isOpen = sec.classList.contains('open');
+  if (!isOpen) {
+    renderAppliances();
+    sec.classList.add('open');
+  } else {
+    sec.classList.remove('open');
+  }
+}
+
+function applyAppliances() {
+  var total = 0;
+  APPLIANCES.forEach(function(a) {
+    total += a.w * (appQty[a.id] || 0) * (appHrs[a.id] || 0) / 1000;
+  });
+  if (total > 0) {
+    var inp = document.getElementById('daily-kwh');
+    inp.value = Math.round(total * 10) / 10;
+    inp.style.borderColor = 'var(--amber)';
+    setTimeout(function(){ inp.style.borderColor = ''; }, 1200);
+  }
+  document.getElementById('appSection').classList.remove('open');
+}
+
+/* ── BATTERY CHOICE ── */
+function onBattChoice(val) {
+  var wantBatt = val === 'yes';
+  document.getElementById('batt-yes').checked = wantBatt;
+  document.getElementById('batt-no').checked = !wantBatt;
+  document.getElementById('battYesLbl').classList.toggle('selected', wantBatt);
+  document.getElementById('battNoLbl').classList.toggle('selected', !wantBatt);
+  document.getElementById('outageWrap').style.display = wantBatt ? 'block' : 'none';
+  ['batt-type', 'autonomy', 'batt-cost'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var grp = el.closest('.form-group');
+    if (grp) { grp.style.opacity = wantBatt ? '1' : '0.35'; grp.style.pointerEvents = wantBatt ? '' : 'none'; }
+  });
+}
+
 /* ── HELPERS ── */
 function isEN() { return document.documentElement.classList.contains('lang-en'); }
 
@@ -376,9 +584,10 @@ function calculate() {
   var en = isEN();
   var rKey   = document.getElementById('region').value;
   var reg    = REGIONS[rKey];
-  var daily  = parseFloat(document.getElementById('daily-kwh').value) || 15;
-  var panelW = parseFloat(document.getElementById('panel-w').value);
-  var outage = parseFloat(document.getElementById('outage-hrs').value) || 8;
+  var daily    = parseFloat(document.getElementById('daily-kwh').value) || 15;
+  var panelW   = parseFloat(document.getElementById('panel-w').value);
+  var wantBatt = document.getElementById('batt-yes').checked;
+  var outage   = wantBatt ? (parseFloat(document.getElementById('outage-hrs').value) || 8) : 0;
 
   /* advanced */
   var battType      = document.getElementById('batt-type').value;
@@ -423,7 +632,7 @@ function calculate() {
   var inv_kw = Math.ceil(actual_kwp * 1.05 * 2) / 2;
 
   /* battery */
-  var battKwh = (daily / 24) * outage * autonomy / dod / eta_rt;
+  var battKwh = wantBatt ? ((daily / 24) * outage * autonomy / dod / eta_rt) : 0;
 
   /* monthly generation with per-month thermal derating */
   var monthlyKwh = [], annualKwh = 0;
@@ -438,24 +647,34 @@ function calculate() {
 
   /* ── POPULATE CARDS ── */
   var loc  = en ? 'en' : 'ar';
-  document.getElementById('r-kwp').textContent   = actual_kwp.toFixed(2);
-  document.getElementById('r-panels').textContent = panels.toLocaleString(loc);
-  document.getElementById('r-inv').textContent    = inv_kw.toFixed(1);
-  document.getElementById('r-batt').textContent   = battKwh.toFixed(1);
+  document.getElementById('r-kwp').textContent    = actual_kwp.toFixed(2);
+  document.getElementById('r-panels').textContent  = panels.toLocaleString(loc);
+  document.getElementById('r-inv').textContent     = inv_kw.toFixed(1);
   document.getElementById('r-pr-badge').textContent = 'PR = ' + Math.round(PR_eff * 100) + '%';
+  if (wantBatt) {
+    document.getElementById('r-batt').textContent  = battKwh.toFixed(1);
+    document.getElementById('ru-batt').textContent = en ? 'kWh' : 'كيلوواط ساعة';
+    document.getElementById('rl-batt').textContent = en ? 'Estimated Battery Capacity' : 'سعة البطارية المقدرة';
+    document.getElementById('r-batt').style.color  = '';
+  } else {
+    document.getElementById('r-batt').textContent  = en ? 'None' : 'لا يلزم';
+    document.getElementById('ru-batt').textContent = '';
+    document.getElementById('rl-batt').textContent = en ? 'No battery — grid-tied' : 'بدون بطارية — شبكي';
+    document.getElementById('r-batt').style.color  = 'var(--text-muted)';
+  }
 
   /* meta line */
   var regionName = en ? reg.nameEN : reg.name;
   document.getElementById('r-meta').textContent = en
-    ? 'Region: ' + regionName + ' · Annual PSH: ' + annPSH.toFixed(1) + ' hr/day · Consumption: ' + daily + ' kWh/day · Outage: ' + outage + ' hr/day'
-    : 'المنطقة: ' + regionName + ' · PSH سنوي: ' + annPSH.toFixed(1) + ' ساعة/يوم · استهلاك: ' + daily + ' kWh/يوم · انقطاع: ' + outage + ' ساعة/يوم';
+    ? 'Region: ' + regionName + ' · Annual PSH: ' + annPSH.toFixed(1) + ' hr/day · Consumption: ' + daily + ' kWh/day' + (wantBatt ? ' · Outage: ' + outage + ' hr/day' : ' · Grid-tied (no battery)')
+    : 'المنطقة: ' + regionName + ' · PSH سنوي: ' + annPSH.toFixed(1) + ' ساعة/يوم · استهلاك: ' + daily + ' kWh/يوم' + (wantBatt ? ' · انقطاع: ' + outage + ' ساعة/يوم' : ' · شبكي بدون بطارية');
 
   renderChart(monthlyKwh, annualKwh, en);
   renderPerf(tempDerate_ann, eta_inv, eta_cable, eta_mismatch, tiltFactor, PR_eff, en);
 
   /* cost section */
   if (costPerWp > 0) {
-    renderCost(actual_kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en);
+    renderCost(actual_kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en, wantBatt);
   } else {
     document.getElementById('cost-section').style.display = 'none';
   }
@@ -511,7 +730,7 @@ function renderPerf(tempDerate, eta_inv, eta_cable, eta_mm, tiltFactor, PR_eff, 
   document.getElementById('perf-rows').innerHTML = html;
 }
 
-function renderCost(kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en) {
+function renderCost(kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, en, wantBatt) {
   var locale   = en ? 'en' : 'ar';
   var pvCost   = Math.round(kwp * 1000 * costPerWp);
   var bCost    = Math.round(battKwh * battCostPerKwh);
@@ -523,9 +742,11 @@ function renderCost(kwp, battKwh, costPerWp, battCostPerKwh, annualKwh, tariff, 
     ? 'Estimate includes panels, inverter, installation + battery. Actual prices vary by supplier and market.'
     : 'تقدير يشمل الألواح والإنفرتر والتركيب + البطارية. الأسعار الفعلية تتفاوت حسب المورد والسوق.';
 
-  var grid = '<div class="cost-item"><div class="cost-num">$' + pvCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[0] + '</div></div>' +
-    '<div class="cost-item"><div class="cost-num">$' + bCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[1] + '</div></div>' +
-    '<div class="cost-item"><div class="cost-num">$' + total.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[2] + '</div></div>';
+  var grid = '<div class="cost-item"><div class="cost-num">$' + pvCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[0] + '</div></div>';
+  if (wantBatt) {
+    grid += '<div class="cost-item"><div class="cost-num">$' + bCost.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[1] + '</div></div>';
+  }
+  grid += '<div class="cost-item"><div class="cost-num">$' + total.toLocaleString('en') + '</div><div class="cost-lbl">' + labels[2] + '</div></div>';
 
   if (tariff > 0) {
     var annSav   = annualKwh * tariff;
