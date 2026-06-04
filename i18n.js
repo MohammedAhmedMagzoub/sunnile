@@ -97,10 +97,11 @@
         'Sudan has one of the highest solar irradiance rates in the world — over 300 sunny days per year. ' +
         'SunNile helps you turn this treasure into clean, free electricity for your home and business.');
       if ((el = $('.hero-quote p')))    save(el,
-        '«SunNile was born from longing… <strong>God gave us everything.</strong><br>' +
-        'We just need to give ourselves a chance.»');
+        '«The Nile flows on with its pride, and a sun that deepens our bronze…<br>' +
+        '<strong>A people whose nature is kindness, neighbour loving neighbour —</strong><br>' +
+        'present in days of joy, and in hard times, just as many.»');
       if ((el = $('.hero-quote cite'))) save(el,
-        '— Mohammed Ahmed Magzoub, Founder of SunNile');
+        '— Maad Mohammed Shaikhoun');
       var ctas = $$('.hero-ctas a');
       if (ctas[0]) save(ctas[0], 'Calculate Your System');
       if (ctas[1]) save(ctas[1], 'Start Learning Free');
@@ -452,16 +453,16 @@
           // The quote text is a text node before <cite>
           if (!heroQ.hasAttribute('data-ar')) heroQ.setAttribute('data-ar', heroQ.innerHTML);
           heroQ.innerHTML =
-            'SunNile was born from longing — a longing that saw a homeland drowning in darkness ' +
-            'while the sun shines on it 365 days a year. God gave us everything. ' +
-            'We just need to give ourselves a chance.' +
-            '<cite>— Mohammed Ahmed Magzoub, Founder of SunNile</cite>';
+            'The Nile flows on with its pride, and a sun that deepens our bronze… ' +
+            'A people whose nature is kindness, neighbour loving neighbour — ' +
+            'present in days of joy, and in hard times, just as many.' +
+            '<cite>— Maad Mohammed Shaikhoun</cite>';
         } else {
           save(heroQ,
-            'SunNile was born from longing — a longing that saw a homeland drowning in darkness ' +
-            'while the sun shines on it 365 days a year. God gave us everything. ' +
-            'We just need to give ourselves a chance.' +
-            '<cite>— Mohammed Ahmed Magzoub, Founder of SunNile</cite>');
+            'The Nile flows on with its pride, and a sun that deepens our bronze… ' +
+            'A people whose nature is kindness, neighbour loving neighbour — ' +
+            'present in days of joy, and in hard times, just as many.' +
+            '<cite>— Maad Mohammed Shaikhoun</cite>');
         }
       }
 
@@ -1074,8 +1075,8 @@
         if (en[i]) save(t, en[i]);
       });
       if ((el = $('.big-quote blockquote'))) save(el,
-        '«SunNile was born from longing…<br><strong>God gave us everything.</strong><br>We just need to give ourselves a chance.»');
-      if ((el = $('.big-quote cite'))) save(el, '— Mohammed Ahmed Magzoub Albashier');
+        '«The Nile flows on with its pride, and a sun that deepens our bronze…<br><strong>A people whose nature is kindness, neighbour loving neighbour —</strong><br>present in days of joy, and in hard times, just as many.»');
+      if ((el = $('.big-quote cite'))) save(el, '— Maad Mohammed Shaikhoun');
       var initTitles = $$('.initiative-section .section-title');
       if (initTitles[0]) save(initTitles[0], 'Why SunNile?');
       var initSubs = $$('.initiative-section .section-sub');
