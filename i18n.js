@@ -134,16 +134,16 @@
          'Calculate your ideal system size based on your region, daily consumption, and outage hours.',
          'Use the Calculator →'],
         ['Certified Inverter Registry',
-         'Over 65 models from 15 brands, all tested and meeting SunNile standards.',
+         '37 models from 9 brands, all tested and meeting SunNile standards.',
          'Browse Registry →'],
         ['Technical Standards',
          'SunNile\'s comprehensive installation and safety standards — the foundation for quality in every system.',
          'View Standards →'],
         ['Solar Technician Institute',
-         '24 training units across 3 levels — from electrical safety to advanced system design.',
+         '25 training units across 4 levels — from foundation glossary to advanced system design.',
          'Start Learning →'],
         ['Policy Centre',
-         'Lessons from Australia, Germany, Morocco, Bangladesh, Jordan and the UAE — what works and what doesn\'t.',
+         'Lessons from Rwanda, Bangladesh, Kenya, Morocco, Germany, Australia and India — what works and what doesn\'t.',
          'Explore Experiences →'],
         ['Sudan\'s Solar Future',
          'Virtual Power Plants (VPP) and renewable energy integration — Sudan\'s solar vision for 2030.',
@@ -507,7 +507,7 @@
           {title:'Germany — Feed-in Tariff', stat:'35% renewable', body:'The Renewable Energy Act (EEG) guaranteed a fixed tariff for every kWh fed to the grid. The result: rapid and widespread adoption within 15 years.'},
           {title:'Jordan — Net Metering', stat:'100,000 systems', body:'Jordan implemented net metering — surplus is credited on the electricity bill. The result: a sudden surge in rooftop solar installations.'},
           {title:'India — Rapid Scale-up', stat:'70 GW target', body:'India cut licensing bureaucracy and opened green financing. Rooftop solar installation multiplied several times over within a few years.'},
-          {title:'Bangladesh — Home Systems', stat:'6 million systems', body:'Hellqvist & Heubaum 2023 documented how Bangladesh deployed 6 million home solar systems through accessible finance and local supply chains.'}
+          {title:'Bangladesh — Home Systems', stat:'4 million systems', body:'Bangladesh\'s IDCOL programme — the world\'s largest off-grid solar programme — financed over 4 million home solar energy systems through accessible micro-finance and local supply chains (IDCOL, 2019; Hellqvist & Heubaum 2023).'}
         ];
         cards.forEach(function (card, i) {
           var d = storyEN[i];
@@ -615,7 +615,7 @@
           ['Build a National Solar System Registry',
            'A database where all installed panels, inverters, and batteries are registered. This data is the foundation of any future VPP system and is indispensable for grid management.'],
           ['Train Certified Technicians at National Scale',
-           'SunNile Institute offers 24 training units to build a generation of technicians qualified for proper installation and safe grid connection. This human investment is necessary before everything else.'],
+           'SunNile Institute offers 25 training units to build a generation of technicians qualified for proper installation and safe grid connection. This human investment is necessary before everything else.'],
           ['Launch a Pilot VPP Project in Khartoum',
            'Connect 500–1,000 homes in a single neighbourhood as a pilot project that proves viability and builds trust. Ahmed et al. 2023 shows Khartoum has sufficient population density for this model.']
         ];
@@ -641,7 +641,7 @@
           ['Ahmed et al. 2023 — Oxford Energy Policy', 'Analysis of solar energy policies in Sudan. Most cited work on the topic (15+ citations).'],
           ['Younis et al. 2025 — Elsevier', 'Sudan needs an institutional framework first; weak governance is the main barrier, not technology.'],
           ['Fadlallah & Serradj 2020 — Solar Energy', 'Analysis of solar energy potential in Sub-Saharan Africa. (82+ citations)'],
-          ['Hellqvist & Heubaum 2023 — Climate Policy', 'SHS deployment in Bangladesh: 6 million systems through accessible finance. (40+ citations)'],
+          ['Hellqvist & Heubaum 2023 — Climate Policy', 'SHS deployment in Bangladesh: 4+ million systems via IDCOL through accessible finance. (40+ citations)'],
           ['AEMO — Australia VPP', 'Australian Energy Market Operator reports on national VPP performance.'],
           ['IMF & World Bank — Fuel Subsidy Reform', 'Estimated fiscal impact of redirecting subsidies to renewables in MENA and Africa.'],
           ['Fraunhofer ISE 2023 — Energy Costs', 'Tracking the decline in solar panel costs over the past decade (−90% since 2010).']
@@ -908,10 +908,10 @@
         bd: {
           heroClass:'hero-bd', flag:'🇧🇩', name:'Bangladesh',
           sub:'The secret of remarkable spread: accessible payment, not technology',
-          overview:'Bangladesh achieved a world record that has not been repeated: <strong>distributing more than 6 million home solar units</strong> in less than 15 years. The astonishment grows when you learn this happened in a country considered among Asia\'s poorest, with limited infrastructure.',
+          overview:'Bangladesh achieved a world record that has not been repeated: <strong>distributing more than 4 million home solar units</strong> in less than 15 years through IDCOL — the world\'s largest off-grid solar programme. The astonishment grows when you learn this happened in a country considered among Asia\'s poorest, with limited infrastructure.',
           overview2:'The secret is not in the technology — it is in <strong>IDCOL</strong>, which invented a financing model that makes a solar unit priced between $60 and $200 accessible to a family earning $100 per month, through very small weekly or monthly payments.',
-          stats:[{k:'SHS units installed',v:'>6 million'},{k:'Direct beneficiaries',v:'>35 million people'},{k:'Implementing body',v:'IDCOL'},{k:'Finance model',v:'Accessible instalment payments'},{k:'Common unit size',v:'20–65 Watts'},{k:'Period',v:'2003–2018'}],
-          timeline:[{y:'2003',t:'<strong>IDCOL launches the programme:</strong> soft loans to local organisations distributing units on instalment'},{y:'2008',t:'<strong>One million units:</strong> exceeded one million in just 5 years — faster than any projection'},{y:'2012',t:'<strong>Three million:</strong> international donors and the World Bank double funding'},{y:'2015',t:'<strong>Sustainable Energy Award:</strong> IDCOL programme wins best renewable energy programme in the world'},{y:'2018',t:'<strong>Six million:</strong> the largest off-grid solar programme in human history'},{y:'2023',t:'Focus shifts to the national grid as electrification expands — IDCOL adapts'}],
+          stats:[{k:'SHS units installed',v:'>4 million'},{k:'Direct beneficiaries',v:'>20 million people'},{k:'Implementing body',v:'IDCOL'},{k:'Finance model',v:'Accessible instalment payments'},{k:'Common unit size',v:'20–65 Watts'},{k:'Period',v:'2003–2019'}],
+          timeline:[{y:'2003',t:'<strong>IDCOL launches the programme:</strong> soft loans to local organisations distributing units on instalment'},{y:'2008',t:'<strong>One million units:</strong> exceeded one million in just 5 years — faster than any projection'},{y:'2012',t:'<strong>Three million:</strong> international donors and the World Bank double funding'},{y:'2015',t:'<strong>Sustainable Energy Award:</strong> IDCOL programme wins best renewable energy programme in the world'},{y:'2019',t:'<strong>4.13 million units:</strong> the largest off-grid solar programme in human history (IDCOL)'},{y:'2023',t:'Focus shifts to the national grid as electrification expands — IDCOL adapts'}],
           good:['Creative finance model made solar accessible to the poor','Indirect funding through trusted local organisations rather than direct government','Dense rural distribution network for small units','Local technician training in every village'],
           bad:['Units too small (20–65 W) for air conditioning or pumps','Speed-focused rollout created quality problems','Transition from off-grid to on-grid is technically complex'],
           takeaway:['<strong>A Sudanese IDCOL fund:</strong> in partnership with Islamic banks to create a simplified finance model','<strong>Weekly/monthly payments</strong> are more effective than bank loans for rural Sudanese households','Finance before technology — Sudanese households know solar\'s value but the upfront price is the barrier','<strong>Distribution through trusted community organisations</strong> is faster than government networks in remote areas']
@@ -1027,7 +1027,7 @@
     institute: function () {
       var el;
       if ((el = $('.page-header h1'))) save(el, '🎓 Solar Technician Institute');
-      if ((el = $('.page-header p')))  save(el, 'Free training across 24 units and 3 levels');
+      if ((el = $('.page-header p')))  save(el, 'Free training across 25 units and 4 levels');
       var tabs = $$('.level-tab, .tab-btn');
       ['Beginner','Intermediate','Advanced'].forEach(function (t, i) {
         if (tabs[i]) { if (!tabs[i].hasAttribute('data-ar')) tabs[i].setAttribute('data-ar', tabs[i].textContent.trim()); tabs[i].textContent = t; }
@@ -1087,7 +1087,7 @@
       $$('.pillar').forEach(function (pillar, i) {
         var d = [
           ['Free Tools for Everyone','Solar system calculator, certified inverter registry, and technical standards — everything open and free, no exceptions.'],
-          ['Technician Training Institute','24 training units across 3 levels — from electrical safety to VPP system design. Free and open to all.'],
+          ['Technician Training Institute','25 training units across 4 levels — from foundation glossary to VPP system design. Free and open to all.'],
           ['National Technical Standards','Inspired by AS/NZS 5033 and adapted for the Sudanese environment — ensuring quality in every installation and safety for every household.'],
           ['International Experience, Localised','Lessons distilled from 9 countries combining European, African, and Asian experiences — written through Sudanese eyes.'],
           ['Sudan\'s Vision 2030','A realistic roadmap to make Sudan a leader in distributed solar energy within a single decade.'],
@@ -1104,7 +1104,7 @@
       var tlEN = [
         '<strong>Start:</strong> Joining SwitchDin and working directly on the Horizon Power project — a real-world view of how software and standards turn rooftop solar from a dream into infrastructure.',
         '<strong>The Idea:</strong> Why doesn\'t Sudan — with all that sunshine — have the same information infrastructure? Work begins on the solar system calculator and technical standards.',
-        '<strong>Launch:</strong> SunNile launches with the inverter registry, calculator, and initial standards. The Solar Technician Institute is added with 24 training units.',
+        '<strong>Launch:</strong> SunNile launches with the inverter registry, calculator, and initial standards. The Solar Technician Institute is added with 25 training units.',
         '<strong>Expansion:</strong> International policy centre added with 10 global case studies, the 2030 vision, and activation of partnerships with Sudanese organisations.',
         '<strong>Goal:</strong> First cohort of 100 technicians certified by SunNile — the seed of a trusted technician network across all of Sudan\'s states.'
       ];
