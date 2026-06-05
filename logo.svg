@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="48" fill="#0D3D5C"/>
+
+  <!-- Sun rays -->
+  <g transform="translate(200,155)" stroke="#EF9F27" stroke-width="6" stroke-linecap="round">
+    <line x1="0" y1="-72" x2="0" y2="-88"/>
+    <line x1="51" y1="-51" x2="62" y2="-62"/>
+    <line x1="72" y1="0" x2="88" y2="0"/>
+    <line x1="51" y1="51" x2="62" y2="62"/>
+    <line x1="0" y1="72" x2="0" y2="88"/>
+    <line x1="-51" y1="51" x2="-62" y2="62"/>
+    <line x1="-72" y1="0" x2="-88" y2="0"/>
+    <line x1="-51" y1="-51" x2="-62" y2="-62"/>
+  </g>
+
+  <!-- Sun circle -->
+  <circle cx="200" cy="155" r="52" fill="#EF9F27"/>
+  <circle cx="200" cy="155" r="38" fill="#0D3D5C"/>
+  <circle cx="200" cy="155" r="28" fill="#EF9F27"/>
+
+  <!-- Arabic text: شمس النيل -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="42" font-weight="900" fill="#EF9F27" text-anchor="middle">شمس النيل</text>
+
+  <!-- English text -->
+  <text x="200" y="316" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="#A89F8C" text-anchor="middle" letter-spacing="4">SUNNILE</text>
+
+  <!-- Tagline -->
+  <text x="200" y="354" font-family="Arial, sans-serif" font-size="14" fill="#6B6456" text-anchor="middle" letter-spacing="1">Sudan's Rooftop Solar Initiative</text>
+</svg>

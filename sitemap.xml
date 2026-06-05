@@ -12,22 +12,22 @@
   <url><loc>https://sunnile.org/lessons/unit-01-electrical-safety.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-02-solar-panels.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-03-inverter.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-04-system-sizing.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-05-batteries.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-06-cables.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-07-installation.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-08-testing.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-09-advanced-design.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-10-hybrid-grid.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-11-maintenance.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-12-advanced-inverters.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-04-batteries.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-05-cables.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-06-installation.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-07-testing.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-08-system-sizing.html</loc><lastmod>2026-04-18</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-09-electrical-diagrams.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-10-advanced-inverters.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-11-advanced-design.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-12-hybrid-grid.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-13-grid-integration.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-14-electrical-diagrams.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-15-commercial-systems.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-14-commercial-systems.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-15-maintenance.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-16-documentation.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-17-derms.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-18-vpp.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://sunnile.org/lessons/unit-19-sunspec-modbus.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-17-sunspec-modbus.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-18-derms.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://sunnile.org/lessons/unit-19-vpp.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-20-performance-monitoring.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-21-community-systems.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://sunnile.org/lessons/unit-22-certification.html</loc><lastmod>2026-04-18</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
