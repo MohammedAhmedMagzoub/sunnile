@@ -3,7 +3,7 @@
  * Falls back to offline page when network unavailable
  */
 
-var CACHE_VERSION = 'sunnile-v1';
+var CACHE_VERSION = 'sunnile-v2';
 
 var SHELL = [
   '/',
@@ -76,10 +76,8 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   var url = new URL(e.request.url);
 
-  /* Only handle same-origin requests */
-  if (url.origin !== location.origin) return;
-
-  /* Google Fonts — cache-first, long TTL */
+  /* Google Fonts — cache-first, long TTL (cross-origin, so handle before the
+     same-origin gate below) */
   if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
     e.respondWith(
       caches.match(e.request).then(function (cached) {
@@ -92,6 +90,9 @@ self.addEventListener('fetch', function (e) {
     );
     return;
   }
+
+  /* Only handle same-origin requests */
+  if (url.origin !== location.origin) return;
 
   var isHTML = e.request.headers.get('accept') &&
                e.request.headers.get('accept').indexOf('text/html') !== -1;
